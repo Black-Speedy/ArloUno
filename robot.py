@@ -218,7 +218,7 @@ def straight(r, volt, time):
     sleep(time)
 
 def straight64(r, time):
-    r.go_diff(64, 69, 1, 1)
+    r.go_diff(65, 70, 1, 1)
     sleep(time)
 
 
