@@ -217,8 +217,12 @@ def straight(r, volt, time):
     r.go_diff(volt, voltHøjre, 1, 1)
     sleep(time)
 
+def straight64(r, time):
+    r.go_diff(64, 66, 1, 1)
+    sleep(time)
+
 
 r = Robot()
 
 for i in range(0, 1):
-    straight(r, 120, 3)
+    straight64(r, 6)
