@@ -212,18 +212,11 @@ def turn(r, direction, volt, time):
     sleep(time)
 
 def straight(r, volt, time):
-    r.go_diff(volt, volt, 1, 1)
+    r.go_diff(volt, volt*1.1, 1, 1)
     sleep(time)
 
 
 r = Robot()
 
-for i in range(0, 2):
-    straight(r, 50, 1.5)
-    turn(r, 1, 30, 2.1)
-    straight(r, 50, 1.5)
-    turn(r, 1, 30, 2.1)
-    straight(r, 50, 1.5)
-    turn(r, 1, 30, 2.1)
-    straight(r, 50, 1.5)
-    turn(r, 1, 30, 2.1)
+for i in range(0, 1):
+    straight(r, 50, 3)
