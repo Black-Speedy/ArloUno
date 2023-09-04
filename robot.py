@@ -204,12 +204,12 @@ class Robot(object):
         return self.send_command(cmd)
         
 
-def turn(r, direction, volt):
+def turn(r, direction, volt, time):
     if (direction == 1):
         r.go_diff(volt, volt, 0, 1)
     else:
         r.go_diff(volt, volt, 1, 0)
-    sleep(1)
+    sleep(time)
 
 def straight(r, volt, time):
     r.go_diff(volt, volt, 1, 1)
@@ -219,11 +219,7 @@ def straight(r, volt, time):
 r = Robot()
 
 for i in range(0, 2):
-    straight(r, 52, 1)
-    turn(r, 1, 52)
-    straight(r, 52, 1)
-    turn(r, 1, 52)
-    straight(r, 52, 1)
-    turn(r, 1, 52)
-    straight(r, 52, 1)
-    turn(r, 1, 52)
+    turn(r, 1, 30, 2)
+    turn(r, 1, 30, 2)
+    turn(r, 1, 30, 2)
+    turn(r, 1, 30, 2)
