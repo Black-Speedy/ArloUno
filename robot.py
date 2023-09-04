@@ -212,7 +212,9 @@ def turn(r, direction, volt, time):
     sleep(time)
 
 def straight(r, volt, time):
-    r.go_diff(volt, volt*1.08, 1, 1)
+    volt = max(volt, 30)
+    voltHøjre = min(volt*1.08, 127)
+    r.go_diff(volt, voltHøjre, 1, 1)
     sleep(time)
 
 
