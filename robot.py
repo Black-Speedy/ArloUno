@@ -203,3 +203,8 @@ class Robot(object):
         cmd='y' + str(turntime) + '\n'
         return self.send_command(cmd)
         
+
+r = Robot()
+
+r.go_diff(50, 50, 1, 1)
+sleep(1)
