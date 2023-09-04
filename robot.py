@@ -206,5 +206,5 @@ class Robot(object):
 
 r = Robot()
 
-r.go_diff(50, 50, 1, 1)
+r.go_diff(50, 50, 1, 0)
 sleep(1)
