@@ -219,4 +219,4 @@ def straight(r, volt, time):
 r = Robot()
 
 for i in range(0, 1):
-    straight(r, 50, 9)
+    straight(r, 120, 3)
