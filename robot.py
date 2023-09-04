@@ -218,8 +218,12 @@ def straight(r, volt, time):
 
 r = Robot()
 
-for i in range(0, 1):
+for i in range(0, 2):
+    straight(r, 50, 1.5)
     turn(r, 1, 30, 2.1)
+    straight(r, 50, 1.5)
     turn(r, 1, 30, 2.1)
+    straight(r, 50, 1.5)
     turn(r, 1, 30, 2.1)
+    straight(r, 50, 1.5)
     turn(r, 1, 30, 2.1)
