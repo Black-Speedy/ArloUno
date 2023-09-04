@@ -210,3 +210,18 @@ r.go_diff(53, 53, 1, 0)
 sleep(1)
 r.go_diff(53, 53, 1, 1)
 sleep(1)
+
+r.go_diff(53, 53, 1, 0)
+sleep(1)
+r.go_diff(53, 53, 1, 1)
+sleep(1)
+
+r.go_diff(53, 53, 1, 0)
+sleep(1)
+r.go_diff(53, 53, 1, 1)
+sleep(1)
+
+r.go_diff(53, 53, 1, 0)
+sleep(1)
+r.go_diff(53, 53, 1, 1)
+sleep(1)
