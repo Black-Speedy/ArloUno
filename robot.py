@@ -257,10 +257,10 @@ elif sys.argv[1] == "eight":
 
 elif sys.argv[1] == "avoid":
     isDriving = True
-    print (r.go_diff(64, 64, 1, 1))
+    straight64(r, 99999)
     start = time.perf_counter()
     while (isDriving):  # or some other form of loop
-        if (time.perf_counter() - start > 5):
+        if (time.perf_counter() - start > 60):
             print (r.stop())
             isDriving = False
         # Do other stuff
