@@ -227,7 +227,7 @@ def sv(int):
 
 def smoothTurn(r, direction):
     if (direction == "left"):
-        r.go_diff(int(sys.argv[3]) - 10, int(sys.argv[4]), 1, 1)
+        r.go_diff(int(sys.argv[3]), int(sys.argv[4]), 1, 1)
     else:
         r.go_diff(int(sys.argv[4]), int(sys.argv[3]), 1, 1)
 
@@ -257,10 +257,10 @@ for i in range(0, int(sys.argv[1])):
     r.stop()
     sleep(float(sys.argv[5])) """
     #turn(r, 0, 50, 0.93)  # 90 degrees
-    smoothTurn(r, "right")  
+    """ smoothTurn(r, "right")  
     sleep(float(sys.argv[2]))
     r.stop()
-    sleep(float(sys.argv[5])) 
+    sleep(float(sys.argv[5]))  """
     smoothTurn(r, "left")  
     sleep(float(sys.argv[2]))
     r.stop()
