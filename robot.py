@@ -212,7 +212,7 @@ def turn(r, direction, volt, time):
     sleep(time)
 
 def straight64(r, time):
-    r.go_diff(65, 71, 1, 1)
+    r.go_diff(65, 70, 1, 1)
     sleep(time)
 
 def back64(r, time):
@@ -221,14 +221,10 @@ def back64(r, time):
 
 r = Robot()
 
-for i in range(0, 8):
+for i in range(0, 5):
     straight64(r, 3)
     r.stop()
     sleep(1)
     """ back64(r, 3)
     r.stop()
     sleep(1) """
-    turn(r, 0, 50, 0.94)
-    turn(r, 0, 50, 0.94)
-    r.stop()
-    sleep(1)
