@@ -230,7 +230,7 @@ def smoothTurn(r, direction):
         r.go_diff(38, 84, 1, 1)
         sleep(8.6)
     else:
-        r.go_diff(80, 40, 1, 1)
+        r.go_diff(81, 40, 1, 1)
         sleep(8.2)
 
 r = Robot()
