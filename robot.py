@@ -235,6 +235,16 @@ def smoothTurn(r, direction):
 
 r = Robot()
 
+while(True):
+    dir = input()
+
+    if (dir == "a"):
+        turn(r, "left", 30, 196)
+    elif (dir == "d"):
+        turn(r, "right", 30, 196)
+    elif (dir == "w"):
+        straight64(r, 1.14)
+
 for i in range(0, int(sys.argv[1])):
     #SQUARE CODE
     # 1: for loop count, 2: turn time, 3: straight time, 4: sleep time
