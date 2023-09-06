@@ -265,7 +265,7 @@ elif sys.argv[1] == "avoid":
             isDriving = False
 
         if (turning):
-            if time.perf_counter() - turnTimer >  196:
+            if time.perf_counter() - turnTimer >  1.96:
                 turning = False
                 straight64(r)            
 
