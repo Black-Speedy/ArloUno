@@ -252,8 +252,6 @@ for i in range(0, int(sys.argv[1])):
     #turn(r, 0, 50, 0.93)  # 90 degrees
     if i % 2 == 0:
         turn(r, "right", 50, float(sys.argv[2]))  # 90 degrees
-    else:
-        turn(r, "right", 50, float(sys.argv[2])-0.03)  # 90 degrees
     r.stop()
     sleep(float(sys.argv[4]))
 
