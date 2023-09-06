@@ -223,7 +223,7 @@ def back64(r, time):
 
 r = Robot()
 
-for i in range(0, float(sys.argv[5]) * 4):
+for i in range(0, int(sys.argv[5]) * 4):
     #straight64(r, 2.28)  # 1 meter
     straight64(r, float(sys.argv[3]))  # 1 meter
     r.stop()
