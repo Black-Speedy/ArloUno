@@ -221,10 +221,11 @@ def back64(r, time):
 
 r = Robot()
 
-for i in range(0, 5):
-    straight64(r, 3)
+for i in range(0, 1):
+    straight64(r, 2.5)
     r.stop()
     sleep(1)
+
     """ back64(r, 3)
     r.stop()
     sleep(1) """
