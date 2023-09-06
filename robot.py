@@ -1,5 +1,6 @@
 # Arlo Robot Controller
 import sys
+import time
 from time import sleep
 import serial
 
@@ -255,6 +256,18 @@ elif sys.argv[1] == "eight":
         smoothTurn(r, "left")  
 
 elif sys.argv[1] == "avoid":
-    for i in range(0, int(sys.argv[2])):
+    isDriving = True
+    print (r.go_diff(64, 64, 1, 1))
+    start = time.perf_counter()
+    while (isDriving):  # or some other form of loop
+        if (time.perf_counter() - start > 5):
+            print (r.stop())
+            isDriving = False
+        # Do other stuff
+        if (r.read_front_ping_sensor() < 300):
+            print(r.stop())
+            isDriving = False
+
+
         
         
