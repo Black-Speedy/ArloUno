@@ -253,5 +253,7 @@ for i in range(0, int(sys.argv[1]) * 4):
     r.stop()
     sleep(float(sys.argv[1])) """
 
-
     smoothTurn(r, "left", float(sys.argv[2]))
+    smoothTurn(r, "left", float(sys.argv[2]))
+    smoothTurn(r, "right", float(sys.argv[2]))
+    smoothTurn(r, "right", float(sys.argv[2]))
