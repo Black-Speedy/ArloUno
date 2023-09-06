@@ -224,10 +224,10 @@ motorSpeedStaight = 65
 
 def smoothTurn(r, dir, time, volt):
     if dir == "left":
-        r.go_diff(sv(volt*1.8), sv(volt), 1, 1)
+        r.go_diff(0, sv(volt), 1, 1)
         sleep(time)
     else:
-        r.go_diff(sv(volt), sv(volt*1.8), 1, 1)
+        r.go_diff(sv(volt), 0, 1, 1)
         sleep(time)
 
 
@@ -253,5 +253,13 @@ for i in range(0, int(sys.argv[1])):
     r.stop()
     sleep(float(sys.argv[1])) """
 
-    smoothTurn(r, "left", float(sys.argv[2]), i + 30)
+    # 1: for loop count, 2: turn time, 3: turn volt, 4: straight time, 5: sleep time
+    #straight64(r, 2.28)  # 1 meter
+    straight64(r, float(sys.argv[4]))  # 1 meter
+    r.stop()
+    sleep(float(sys.argv[1]))
+    #turn(r, 0, 50, 0.93)  # 90 degrees
+    smoothTurn(r, "right", float(sys.argv[2]), float(sys.argv[3]))  
+    r.stop()
+    sleep(float(sys.argv[5]))
     
