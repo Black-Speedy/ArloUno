@@ -222,12 +222,12 @@ def back64(r, time):
 motorSpeedTurn = 50
 motorSpeedStaight = 65
 
-def smoothTurn(r, dir, time):
+def smoothTurn(r, dir, time, volt):
     if dir == "left":
-        r.go_diff(70, 40, 1, 1)
+        r.go_diff(sv(volt*1.8), sv(volt), 1, 1)
         sleep(time)
     else:
-        r.go_diff(35, 70, 1, 1)
+        r.go_diff(sv(volt), sv(volt*1.8), 1, 1)
         sleep(time)
 
 
@@ -242,7 +242,7 @@ def sv(int):
 
 r = Robot()
 
-for i in range(0, int(sys.argv[1]) * 4):
+for i in range(0, int(sys.argv[1])):
     #SQUARE CODE
     """ #straight64(r, 2.28)  # 1 meter
     straight64(r, float(sys.argv[3]))  # 1 meter
@@ -253,7 +253,5 @@ for i in range(0, int(sys.argv[1]) * 4):
     r.stop()
     sleep(float(sys.argv[1])) """
 
-    smoothTurn(r, "left", float(sys.argv[2]))
-    smoothTurn(r, "left", float(sys.argv[2]))
-    smoothTurn(r, "right", float(sys.argv[2]))
-    smoothTurn(r, "right", float(sys.argv[2]))
+    smoothTurn(r, "left", float(sys.argv[2]), i)
+    
