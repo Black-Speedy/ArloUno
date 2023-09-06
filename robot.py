@@ -250,12 +250,12 @@ if sys.argv[1] == "test":
         r.stop()
         
 elif sys.argv[1] == "eight":    
-    for i in range(0, int(sys.argv[1])):
+    for i in range(0, int(sys.argv[2])):
         smoothTurn(r, "right")  
         #smoothTurn(r, "left")  
 
 elif sys.argv[1] == "circle":
-    for i in range(0, int(sys.argv[1])):
+    for i in range(0, int(sys.argv[2])):
         #SQUARE CODE
         # 1: for loop count, 2: turn time, 3: straight time, 4: sleep time
         #straight64(r, 2.28)  # 1 meter
