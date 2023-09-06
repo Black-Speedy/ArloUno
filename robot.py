@@ -205,12 +205,11 @@ class Robot(object):
         return self.send_command(cmd)
         
 
-def turn(r, direction, volt, g):
+def turn(r, direction):
     if (direction == "left"):
         r.go_diff(30, 30, 0, 1)
     else:
         r.go_diff(30, 30, 1, 0)
-    sleep((g / 100))  # / (45/47) / 100
 
 def straight64(r):
     r.go_diff(65, 70, 1, 1)
@@ -256,16 +255,24 @@ elif sys.argv[1] == "eight":
 
 elif sys.argv[1] == "avoid":
     isDriving = True
+    turning = False
     straight64(r)
+    turnTimer = time.perf_counter()
     start = time.perf_counter()
     while (isDriving):  # or some other form of loop
         if (time.perf_counter() - start > 60):
             print (r.stop())
             isDriving = False
-        # Do other stuff
-        if (r.read_front_ping_sensor() < 300):
-            print(r.stop())
-            isDriving = False
+
+        if (turning):
+            if turnTimer - time.perf_counter >  196:
+                turning = False
+                straight64(r)            
+
+        if (r.read_front_ping_sensor() < 500):
+            turning = True
+            turnTimer = time.perf_counter()
+            turn(r, "right")
 
 
         
