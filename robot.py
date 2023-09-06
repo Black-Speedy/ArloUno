@@ -215,21 +215,6 @@ def straight64(r, time):
     r.go_diff(65, 70, 1, 1)
     sleep(time)
 
-def back64(r, time):
-    r.go_diff(65, 71, 0, 0)
-    sleep(time)
-
-motorSpeedTurn = 50
-motorSpeedStaight = 65
-
-def smoothTurn(r, dir, time, volt):
-    if dir == "left":
-        r.go_diff(0, sv(volt), 1, 1)
-        sleep(time)
-    else:
-        r.go_diff(sv(volt), 0, 1, 1)
-        sleep(time)
-
 
 def sv(int):
     if int > 127:
@@ -246,13 +231,15 @@ for i in range(0, int(sys.argv[1])):
     #SQUARE CODE
     # 1: for loop count, 2: turn time, 3: straight time, 4: sleep time
     #straight64(r, 2.28)  # 1 meter
-    straight64(r, float(sys.argv[3]))  # 1 meter
+    """ straight64(r, float(sys.argv[3]))  # 1 meter
     r.stop()
     sleep(float(sys.argv[4]))
     #turn(r, 0, 50, 0.93)  # 90 degrees
     turn(r, "right", 50, float(sys.argv[2]))  # 90 degrees
     r.stop()
-    sleep(float(sys.argv[4]))
+    sleep(float(sys.argv[4])) """
+
+    turn(r, "right", 50, float(sys.argv[2]))  # 90 degrees
 
     # 1: for loop count, 2: turn time, 3: turn volt, 4: straight time, 5: sleep time
     #straight64(r, 2.28)  # 1 meter
