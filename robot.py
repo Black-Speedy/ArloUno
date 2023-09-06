@@ -225,7 +225,7 @@ for i in range(0, 8):
     straight64(r, 2.28)  # 1 meter
     r.stop()
     sleep(1)
-    turn(r, 1, 65, 0.94)  # 90 degrees
+    turn(r, 0, 50, 0.93)  # 90 degrees
     r.stop()
     sleep(1)
 
