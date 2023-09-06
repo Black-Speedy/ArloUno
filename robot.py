@@ -226,9 +226,9 @@ r = Robot()
 for i in range(0, 8):
     straight64(r, 2.28)  # 1 meter
     r.stop()
-    sleep(sys.argv[1])
+    sleep(float(sys.argv[1]))
     #turn(r, 0, 50, 0.93)  # 90 degrees
-    turn(r, 0, 50, sys.argv[2])  # 90 degrees
+    turn(r, 0, 50, float(sys.argv[2]))  # 90 degrees
     r.stop()
     sleep(1)
 
