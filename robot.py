@@ -222,7 +222,7 @@ def back64(r, time):
 r = Robot()
 
 for i in range(0, 1):
-    straight64(r, 2.5)
+    straight64(r, 2.45)
     r.stop()
     sleep(1)
 
