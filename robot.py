@@ -221,8 +221,11 @@ def back64(r, time):
 
 r = Robot()
 
-for i in range(0, 1):
-    straight64(r, 2.28)
+for i in range(0, 8):
+    straight64(r, 2.28)  # 1 meter
+    r.stop()
+    sleep(1)
+    turn(r, 1, 65, 0.94)  # 90 degrees
     r.stop()
     sleep(1)
 
