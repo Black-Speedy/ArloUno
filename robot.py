@@ -244,6 +244,9 @@ while(True):
         turn(r, "right", 30, 196)
     elif (dir == "w"):
         straight64(r, 1.14)
+    
+    r.stop()
+    
 
 for i in range(0, int(sys.argv[1])):
     #SQUARE CODE
