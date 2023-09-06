@@ -226,10 +226,10 @@ r = Robot()
 for i in range(0, 8):
     straight64(r, 2.28)  # 1 meter
     #r.stop()
-    sleep(1)
+    #sleep(1)
     turn(r, 0, 50, 0.93)  # 90 degrees
     #r.stop()
-    sleep(1)
+    #sleep(1)
 
     """ back64(r, 3)
     r.stop()
