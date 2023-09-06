@@ -247,11 +247,11 @@ for i in range(0, int(sys.argv[1])):
     #straight64(r, 2.28)  # 1 meter
     straight64(r, float(sys.argv[3]))  # 1 meter
     r.stop()
-    sleep(float(sys.argv[1]))
+    sleep(float(sys.argv[4]))
     #turn(r, 0, 50, 0.93)  # 90 degrees
     turn(r, 0, 50, float(sys.argv[2]))  # 90 degrees
     r.stop()
-    sleep(float(sys.argv[1]))
+    sleep(float(sys.argv[4]))
 
     # 1: for loop count, 2: turn time, 3: turn volt, 4: straight time, 5: sleep time
     #straight64(r, 2.28)  # 1 meter
