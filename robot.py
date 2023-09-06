@@ -225,4 +225,4 @@ def straight64(r, time):
 r = Robot()
 
 for i in range(0, 1):
-    straight64(r, 6)
+    straight64(r, 3)
