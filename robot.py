@@ -256,7 +256,7 @@ elif sys.argv[1] == "eight":
 
 elif sys.argv[1] == "avoid":
     isDriving = True
-    straight64(r, 99999)
+    straight64(r)
     start = time.perf_counter()
     while (isDriving):  # or some other form of loop
         if (time.perf_counter() - start > 60):
