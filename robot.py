@@ -253,5 +253,5 @@ for i in range(0, int(sys.argv[1])):
     r.stop()
     sleep(float(sys.argv[1])) """
 
-    smoothTurn(r, "left", float(sys.argv[2]), i)
+    smoothTurn(r, "left", float(sys.argv[2]), i + 30)
     
