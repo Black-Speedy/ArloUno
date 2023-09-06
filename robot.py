@@ -231,7 +231,7 @@ for i in range(0, 8):
     #turn(r, 0, 50, 0.93)  # 90 degrees
     turn(r, 0, 50, float(sys.argv[2]))  # 90 degrees
     r.stop()
-    sleep(sys.argv[1])
+    sleep(float(sys.argv[1]))
 
     """ back64(r, 3)
     r.stop()
