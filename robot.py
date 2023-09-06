@@ -225,6 +225,12 @@ def sv(int):
         return int
 
 
+def smoothTurn(r, direction):
+    if (direction == "left"):
+        r.go_diff(int(sys.argv[3]), int(sys.argv[4]), 1, 1)
+    else:
+        r.go_diff(int(sys.argv[4]), int(sys.argv[3]), 1, 1)
+
 r = Robot()
 
 for i in range(0, int(sys.argv[1])):
@@ -242,16 +248,17 @@ for i in range(0, int(sys.argv[1])):
     """ straight64(r, 2.28)  # 1 meter
     r.stop()
     sleep(float(sys.argv[4])) """
-    turn(r, "right", 30, float(sys.argv[2]))  # 90 degrees
+    """ turn(r, "right", 30, float(sys.argv[2]))  # 90 degrees
     r.stop()
     sleep(float(sys.argv[4]))
     # 1: for loop count, 2: turn time, 3: turn volt, 4: straight time, 5: sleep time
-    #straight64(r, 2.28)  # 1 meter
+    #straight64(r, 2.28)  # 1 meter """
     """ straight64(r, float(sys.argv[4]))  # 1 meter
     r.stop()
-    sleep(float(sys.argv[5]))
-    #turn(r, 0, 50, 0.93)  # 90 degrees
-    smoothTurn(r, "right", float(sys.argv[2]), float(sys.argv[3]))  
-    r.stop()
     sleep(float(sys.argv[5])) """
+    #turn(r, 0, 50, 0.93)  # 90 degrees
+    smoothTurn(r, "right")  
+    sleep(float(sys.argv[2]))
+    r.stop()
+    sleep(float(sys.argv[2])) 
     
