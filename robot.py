@@ -260,5 +260,9 @@ for i in range(0, int(sys.argv[1])):
     smoothTurn(r, "right")  
     sleep(float(sys.argv[2]))
     r.stop()
-    sleep(float(sys.argv[2])) 
+    sleep(float(sys.argv[5])) 
+    smoothTurn(r, "left")  
+    sleep(float(sys.argv[2]))
+    r.stop()
+    sleep(float(sys.argv[5])) 
     
