@@ -209,7 +209,7 @@ def turn(r, direction, volt, g):
         r.go_diff(volt, volt*1.1, 0, 1)
     else:
         r.go_diff(volt, volt*1.1, 1, 0)
-    sleep((g / 100) - 0.04)  # / (45/47) / 100
+    sleep((g / 100) - float(sys.argv[2]))  # / (45/47) / 100
 
 def straight64(r, time):
     r.go_diff(65, 70, 1, 1)
