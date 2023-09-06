@@ -239,9 +239,9 @@ for i in range(0, int(sys.argv[1])):
     r.stop()
     sleep(float(sys.argv[4])) """
 
-    straight64(r, 2.28)  # 1 meter
+    """ straight64(r, 2.28)  # 1 meter
     r.stop()
-    sleep(float(sys.argv[4]))
+    sleep(float(sys.argv[4])) """
     turn(r, "right", 30, float(sys.argv[2]))  # 90 degrees
     r.stop()
     sleep(float(sys.argv[4]))
