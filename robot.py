@@ -1,5 +1,5 @@
 # Arlo Robot Controller
-
+import sys
 from time import sleep
 import serial
 
@@ -226,8 +226,9 @@ r = Robot()
 for i in range(0, 8):
     straight64(r, 2.28)  # 1 meter
     r.stop()
-    sleep(1)
-    turn(r, 0, 50, 0.93)  # 90 degrees
+    sleep(sys.argv[1])
+    #turn(r, 0, 50, 0.93)  # 90 degrees
+    turn(r, 0, 50, sys.argv[2])  # 90 degrees
     r.stop()
     sleep(1)
 
