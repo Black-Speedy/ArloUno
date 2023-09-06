@@ -209,7 +209,7 @@ def turn(r, direction, volt, g):
         r.go_diff(volt, volt*1.1, 0, 1)
     else:
         r.go_diff(volt, volt*1.1, 1, 0)
-    sleep((g / 100) - float(sys.argv[3]))  # / (45/47) / 100
+    sleep((g / 100))  # / (45/47) / 100
 
 def straight64(r, time):
     r.go_diff(65, 70, 1, 1)
@@ -239,7 +239,7 @@ for i in range(0, int(sys.argv[1])):
     r.stop()
     sleep(float(sys.argv[4])) """
 
-    turn(r, "right", 50, float(sys.argv[2]))  # 90 degrees
+    turn(r, "right", 30, float(sys.argv[2]))  # 90 degrees
 
     # 1: for loop count, 2: turn time, 3: turn volt, 4: straight time, 5: sleep time
     #straight64(r, 2.28)  # 1 meter
