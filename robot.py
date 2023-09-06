@@ -206,9 +206,9 @@ class Robot(object):
 
 def turn(r, direction, volt, g):
     if (direction == "left"):
-        r.go_diff(30, int(sys.argv[3]), 0, 1)
+        r.go_diff(30, 30, 0, 1)
     else:
-        r.go_diff(30, int(sys.argv[3]), 1, 0)
+        r.go_diff(30, 30, 1, 0)
     sleep((g / 100))  # / (45/47) / 100
 
 def straight64(r, time):
