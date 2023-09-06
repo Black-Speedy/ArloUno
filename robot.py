@@ -222,6 +222,6 @@ for i in range(0, 8):
     straight64(r, 3)
     r.stop()
     sleep(1)
-    turn(r, 0, 65, 0.75)
+    turn(r, 0, 62, 0.75)
     r.stop()
     sleep(1)
