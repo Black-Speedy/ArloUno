@@ -208,7 +208,7 @@ def turn(r, direction, volt, time):
     if (direction == 1):
         r.go_diff(volt, volt*1.1, 0, 1)
     else:
-        r.go_diff(volt, volt*1.1, 1, 0)
+        r.go_diff(volt, volt*float(sys.argv[4]), 1, 0)
     sleep(time)
 
 def straight64(r, time):
