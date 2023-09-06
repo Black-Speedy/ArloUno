@@ -252,7 +252,6 @@ if sys.argv[1] == "test":
 elif sys.argv[1] == "eight":    
     for i in range(0, int(sys.argv[2])):
         smoothTurn(r, "right")  
-        straight64(r, 0.8)
         smoothTurn(r, "left")  
 
 elif sys.argv[1] == "circle":
