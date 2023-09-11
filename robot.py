@@ -252,6 +252,7 @@ elif sys.argv[1] == "eight":
     for i in range(0, int(sys.argv[2])):
         smoothTurn(r, "right")  
         smoothTurn(r, "left")  
+ 
 
 elif sys.argv[1] == "avoid":
     isDriving = True
@@ -268,6 +269,10 @@ elif sys.argv[1] == "avoid":
             if time.perf_counter() - turnTimer >  float(sys.argv[2]):
                 turning = False
                 straight64(r)            
+        if (r.read_front_ping_sensor() < 250 and r.read_left_ping_sensor < 250) :
+            turning = True
+            turnTimer = time.perf_counter()
+            turn(r, "right")
 
         if (r.read_front_ping_sensor() < 500):
             turning = True
