@@ -289,7 +289,7 @@ elif sys.argv[1] == "circle":
 elif sys.argv[1] == "avoid":
     isDriving = True
     turning = False
-    straight64(r)
+    straight64(r,sys.argv[2])
     turnTimer = time.perf_counter()
     start = time.perf_counter()
     while (isDriving):  # or some other form of loop
