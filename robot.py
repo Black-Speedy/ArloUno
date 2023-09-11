@@ -3,7 +3,7 @@ import sys
 import time
 from time import sleep
 import serial
-
+import numpy as np
 
 
 class Robot(object):
@@ -252,7 +252,7 @@ elif sys.argv[1] == "eight":
     for i in range(0, int(sys.argv[2])):
         smoothTurn(r, "right")  
         smoothTurn(r, "left")  
- 
+
 
 elif sys.argv[1] == "avoid":
     isDriving = True
@@ -273,11 +273,15 @@ elif sys.argv[1] == "avoid":
             turning = True
             turnTimer = time.perf_counter()
             turn(r, "right")
-
-        # if (r.read_front_ping_sensor() < 500):
-        #     turning = True
-        #     turnTimer = time.perf_counter()
-        #     turn(r, "right")
+        if (r.read_front_ping_sensor() < 250 and r.read_right_ping_sensor < 250) :
+            turning = True
+            turnTimer = time.perf_counter()
+            turn(r, "left")
+        if (r.read_front_ping_sensor() < 250):
+            turning = True
+            turnTimer = time.perf_counter()
+            random_direction = np.random.choice(["right", "left"])
+            turn(r, random_direction)
 
 
         
