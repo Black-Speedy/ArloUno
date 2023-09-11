@@ -274,10 +274,10 @@ elif sys.argv[1] == "avoid":
             turnTimer = time.perf_counter()
             turn(r, "right")
 
-        if (r.read_front_ping_sensor() < 500):
-            turning = True
-            turnTimer = time.perf_counter()
-            turn(r, "right")
+        # if (r.read_front_ping_sensor() < 500):
+        #     turning = True
+        #     turnTimer = time.perf_counter()
+        #     turn(r, "right")
 
 
         
