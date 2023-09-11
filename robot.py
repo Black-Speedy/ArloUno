@@ -1,8 +1,8 @@
 # Arlo Robot Controller
 import sys
-import time
 from time import sleep
 import serial
+import time
 
 
 
@@ -98,7 +98,8 @@ class Robot(object):
             return -1
             
     def read_front_ping_sensor(self):
-        """Read the front sonar ping sensor and return the measured range in milimeters [mm]"""
+        """Read the front sonar ping sensor 
+        return: the measured range in milimeters [mm]"""
         return self.read_sensor(0)
         
     def read_back_ping_sensor(self):
@@ -203,16 +204,21 @@ class Robot(object):
         step_rotate_right commands."""
         cmd='y' + str(turntime) + '\n'
         return self.send_command(cmd)
-        
+    
+# ssh pi@10.69.252.12
+# DIKU4Ever
 
-def turn(r, direction):
+
+def turn(r, direction, volt, g):
     if (direction == "left"):
         r.go_diff(30, 30, 0, 1)
     else:
         r.go_diff(30, 30, 1, 0)
+    sleep((g / 100))  # / (45/47) / 100
 
-def straight64(r):
+def straight64(r, time):
     r.go_diff(65, 70, 1, 1)
+    sleep(time)
 
 
 def sv(int):
@@ -227,10 +233,10 @@ def sv(int):
 def smoothTurn(r, direction):
     if (direction == "left"):
         r.go_diff(38, 84, 1, 1)
-        sleep(8.75)
+        sleep(float(sys.argv[4]))
     else:
         r.go_diff(81, 40, 1, 1)
-        sleep(8.3)
+        sleep(float(sys.argv[3]))
 
 r = Robot()
 
@@ -253,6 +259,33 @@ elif sys.argv[1] == "eight":
         smoothTurn(r, "right")  
         smoothTurn(r, "left")  
 
+elif sys.argv[1] == "circle":
+    for i in range(0, int(sys.argv[2])):
+        #SQUARE CODE
+        # 1: for loop count, 2: turn time, 3: straight time, 4: sleep time
+        #straight64(r, 2.28)  # 1 meter
+        """ straight64(r, float(sys.argv[3]))  # 1 meter
+        r.stop()
+        sleep(float(sys.argv[4]))
+        #turn(r, 0, 50, 0.93)  # 90 degrees
+        turn(r, "right", 50, float(sys.argv[2]))  # 90 degrees
+        r.stop()
+        sleep(float(sys.argv[4])) """
+
+        """ straight64(r, 2.28)  # 1 meter
+        r.stop()
+        sleep(float(sys.argv[4])) """
+        """ turn(r, "right", 30, float(sys.argv[2]))  # 90 degrees
+        r.stop()
+        sleep(float(sys.argv[4]))
+        # 1: for loop count, 2: turn time, 3: turn volt, 4: straight time, 5: sleep time
+        #straight64(r, 2.28)  # 1 meter """
+        """ straight64(r, float(sys.argv[4]))  # 1 meter
+        r.stop()
+        sleep(float(sys.argv[5])) """
+        #turn(r, 0, 50, 0.93)  # 90 degrees
+
+
 elif sys.argv[1] == "avoid":
     isDriving = True
     turning = False
@@ -263,17 +296,19 @@ elif sys.argv[1] == "avoid":
         if (time.perf_counter() - start > 60):
             print (r.stop())
             isDriving = False
-
-        if (turning):
-            if time.perf_counter() - turnTimer >  float(sys.argv[2]):
-                turning = False
-                straight64(r)            
-
-        if (r.read_front_ping_sensor() < 500):
-            turning = True
-            turnTimer = time.perf_counter()
-            turn(r, "right")
-
-
         
+
+        #Sub exercise 3.1)
         
+def infRightTurn(r):
+    r.go_diff(30, 30, 0, 1)
+    
+
+def infLeftTurn(r):
+    r.go_diff(30, 30, 1, 0)
+
+def selfDrive(r):
+    r.go_diff(65, 70, 1, 1)
+    while r.read_front_ping_sensor(25):
+        infRightTurn
+    
