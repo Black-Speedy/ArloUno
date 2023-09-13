@@ -274,22 +274,20 @@ elif ipt == "avoid":
             if time.perf_counter() - turnTimer >  float(turn_time):
                 turning = False
                 straight64(r)            
-        if (r.read_front_ping_sensor() < dist and r.read_left_ping_sensor() < 250) :
+        elif (r.read_front_ping_sensor() < dist and r.read_left_ping_sensor() < 250) :
             turning = True
             turnTimer = time.perf_counter()
             turn(r, "right")
-        if (r.read_front_ping_sensor() < dist and r.read_right_ping_sensor() < 250) :
+        elif (r.read_front_ping_sensor() < dist and r.read_right_ping_sensor() < 250) :
             turning = True
             turnTimer = time.perf_counter()
             turn(r, "left")
-        if (r.read_front_ping_sensor() < dist):
+        elif (r.read_front_ping_sensor() < dist):
             turning = True
             turnTimer = time.perf_counter()
             #choose a random direction from left and right
             random_direction = np.random.choice(["left", "right"], p=[0.5, 0.5])
             turn(r, random_direction)
-
-            #hej
 
 
 elif ipt == "sensor":
