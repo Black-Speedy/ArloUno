@@ -284,5 +284,7 @@ elif sys.argv[1] == "avoid":
             random_direction = np.random.choice(["left", "right"], p=[0.5, 0.5])
             turn(r, random_direction)
 
+            #hej
+
 
         
