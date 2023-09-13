@@ -292,4 +292,7 @@ elif ipt == "avoid":
             #hej
 
 
-        
+elif ipt == "sensor":
+    while(True):
+        input("press enter: ")
+        print(r.read_front_ping_sensor())
