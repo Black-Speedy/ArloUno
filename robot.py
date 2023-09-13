@@ -295,4 +295,4 @@ elif ipt == "avoid":
 elif ipt == "sensor":
     while(True):
         input("press enter: ")
-        print(r.read_front_ping_sensor())
+        print("Distance: " + str(r.read_front_ping_sensor() / 10) + " cm")
