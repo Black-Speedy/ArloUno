@@ -234,10 +234,10 @@ def smoothTurn(r, direction):
 
 r = Robot()
 
-input = input("Choose a program: test, eight, avoid\n")
+ipt = input("Choose a program: test, eight, avoid\n")
 
 
-if input == "test":
+if ipt == "test":
     while(True):
         dir = input()
 
@@ -250,14 +250,14 @@ if input == "test":
         
         r.stop()
         
-elif input == "eight":    
+elif ipt == "eight":    
     amount = input("How many times do you want to do the eight? ")
     for i in range(0, int(amount)):
         smoothTurn(r, "right")  
         smoothTurn(r, "left")  
 
 
-elif input == "avoid":
+elif ipt == "avoid":
     turn_time = input("Input turn time.")
     isDriving = True
     turning = False
