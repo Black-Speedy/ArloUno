@@ -264,7 +264,7 @@ elif ipt == "avoid":
     straight64(r)
     turnTimer = time.perf_counter()
     start = time.perf_counter()
-    dist = 600
+    dist = input("Input distance: ")
     while (isDriving):  # or some other form of loop
         if (time.perf_counter() - start > 60):
             print (r.stop())
@@ -274,12 +274,12 @@ elif ipt == "avoid":
             if time.perf_counter() - turnTimer >  float(turn_time):
                 turning = False
                 straight64(r)            
-        elif (r.read_front_ping_sensor() < dist and r.read_left_ping_sensor() < 250) :
+        elif (r.read_front_ping_sensor() < dist and r.read_left_ping_sensor() < dist) :
             turning = True
             turnTimer = time.perf_counter()
             turn(r, "right")
             print("turning right")
-        elif (r.read_front_ping_sensor() < dist and r.read_right_ping_sensor() < 250) :
+        elif (r.read_front_ping_sensor() < dist and r.read_right_ping_sensor() < dist) :
             turning = True
             turnTimer = time.perf_counter()
             turn(r, "left")
