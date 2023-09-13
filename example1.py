@@ -39,11 +39,14 @@ WIN_RF = "Example 1"
 """ cv2.namedWindow(WIN_RF)
 cv2.moveWindow(WIN_RF, 100, 100) """
 
+cnt = 0
 
-image = cam.capture_array("main")
+while(True):
+    input("Press Enter to capture image")
+    image = cam.capture_array("main")
 
-# save the image to disk
-cv2.imwrite("test.jpg", image)
+    # save the image to disk
+    cv2.imwrite("test" + str(cnt) + ".jpg", image)
     
 
 # Finished successfully

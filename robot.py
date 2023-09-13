@@ -264,6 +264,7 @@ elif ipt == "avoid":
     distSide = int(input("Input side distance: "))
     isDriving = True
     turning = False
+    turnBackTime = 0
     straight64(r)
     turnTimer = time.perf_counter()
     start = time.perf_counter()
