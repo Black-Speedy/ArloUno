@@ -259,12 +259,12 @@ elif ipt == "eight":
 
 elif ipt == "avoid":
     turn_time = input("Input turn time: ")
+    dist = input("Input distance: ")
     isDriving = True
     turning = False
     straight64(r)
     turnTimer = time.perf_counter()
     start = time.perf_counter()
-    dist = input("Input distance: ")
     while (isDriving):  # or some other form of loop
         if (time.perf_counter() - start > 60):
             print (r.stop())
