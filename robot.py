@@ -259,7 +259,7 @@ elif ipt == "eight":
 
 elif ipt == "avoid":
     turn_time = input("Input turn time: ")
-    dist = input("Input distance: ")
+    dist = int(input("Input distance: "))
     isDriving = True
     turning = False
     straight64(r)
