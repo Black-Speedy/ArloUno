@@ -303,11 +303,14 @@ elif ipt == "auto sensor":
     lst = []
     dist = float(input("Input distance: "))
     for j in range(0, 5):
+        if (j != 0):
+            straight64(r)
+            sleep(dist)
+            r.stop()
+            sleep(1)
         for i in range(0, 5):
             lst.append(r.read_front_ping_sensor())
-        straight64(r)
-        sleep(dist)
-        r.stop()
+            print(lst[j * 5 + i])
 
     print(lst)
     
