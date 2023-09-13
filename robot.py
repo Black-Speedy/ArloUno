@@ -234,7 +234,7 @@ def smoothTurn(r, direction):
 
 r = Robot()
 
-ipt = input("Choose a program: test, eight, avoid\n")
+ipt = input("Choose a program: test, eight, avoid, sensor\n")
 
 
 if ipt == "test":
@@ -258,7 +258,7 @@ elif ipt == "eight":
 
 
 elif ipt == "avoid":
-    turn_time = input("Input turn time.")
+    turn_time = input("Input turn time: ")
     isDriving = True
     turning = False
     straight64(r)
