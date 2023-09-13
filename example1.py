@@ -31,13 +31,13 @@ cam.start(show_preview=False)
 
 pprint(cam.camera_configuration()) # Print the camera configuration in use
 
-time.sleep(10)  # wait for camera to setup
+time.sleep(1)  # wait for camera to setup
 
 
 # Open a window
 WIN_RF = "Example 1"
-cv2.namedWindow(WIN_RF)
-cv2.moveWindow(WIN_RF, 100, 100)
+""" cv2.namedWindow(WIN_RF)
+cv2.moveWindow(WIN_RF, 100, 100) """
 
 
 while cv2.waitKey(4) == -1: # Wait for a key pressed event
