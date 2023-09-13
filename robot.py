@@ -4,6 +4,7 @@ import time
 from time import sleep
 import serial
 import numpy as np
+from picamera2 import Picamera2
 
 
 class Robot(object):
@@ -307,10 +308,13 @@ elif ipt == "auto sensor":
             straight64(r)
             sleep(dist)
             r.stop()
-            sleep(1)
+            sleep(5)
         for i in range(0, 5):
             lst.append(r.read_front_ping_sensor())
             print(lst[j * 5 + i])
 
     print(lst)
     
+elif ipt == "camera":
+    picam2 = Picamera2()
+    picam2.start_and_capture_file("test.jpg")
