@@ -280,7 +280,8 @@ elif sys.argv[1] == "avoid":
         if (r.read_front_ping_sensor() < 250):
             turning = True
             turnTimer = time.perf_counter()
-            random_direction = np.random.choice("right", "left")
+            #choose a random direction from left and right
+            random_direction = np.random.choice(["left", "right"], p=[0.5, 0.5])
             turn(r, random_direction)
 
 
