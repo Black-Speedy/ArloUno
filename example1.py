@@ -1,34 +1,38 @@
-# This script shows how to open a camera in OpenCV and grab frames and show these.
-# Kim S. Pedersen, 2022
+# This script shows how to open a camera the picamera2 module and grab frames and show these.
+# Kim S. Pedersen, 2023
 
 import cv2 # Import the OpenCV library
+import time
+from pprint import *
+
+try:
+    import picamera2
+    print("Camera.py: Using picamera2 module")
+except ImportError:
+    print("Camera.py: picamera2 module not available")
+    exit(-1)
 
 
-def gstreamer_pipeline(capture_width=1024, capture_height=720, framerate=30):
-    """Utility function for setting parameters for the gstreamer camera pipeline"""
-    return (
-        "libcamerasrc !"
-        "videobox autocrop=true !"
-        "video/x-raw, width=(int)%d, height=(int)%d, framerate=(fraction)%d/1 ! "
-        "videoconvert ! "
-        "appsink"
-        % (
-            capture_width,
-            capture_height,
-            framerate,
-        )
-    )
 
 
 print("OpenCV version = " + cv2.__version__)
 
 # Open a camera device for capturing
-cam = cv2.VideoCapture(gstreamer_pipeline(), apiPreference=cv2.CAP_GSTREAMER)
+imageSize = (1280, 720)
+FPS = 30
+cam = picamera2.Picamera2()
+frame_duration_limit = int(1/FPS * 1000000) # Microseconds
+# Change configuration to set resolution, framerate
+picam2_config = cam.create_video_configuration({"size": imageSize, "format": 'RGB888'},
+                                                            controls={"FrameDurationLimits": (frame_duration_limit, frame_duration_limit)},
+                                                            queue=False)
+cam.configure(picam2_config) # Not really necessary
+cam.start(show_preview=False)
 
+pprint(cam.camera_configuration()) # Print the camera configuration in use
 
-if not cam.isOpened(): # Error
-    print("Could not open camera")
-    exit(-1)
+time.sleep(1)  # wait for camera to setup
+
 
 # Open a window
 WIN_RF = "Example 1"
@@ -37,14 +41,10 @@ cv2.moveWindow(WIN_RF, 100, 100)
 
 
 while cv2.waitKey(4) == -1: # Wait for a key pressed event
-    retval, frameReference = cam.read() # Read frame
-    
-    if not retval: # Error
-        print(" < < <  Game over!  > > > ")
-        exit(-1)
+    image = cam.capture_array("main")
     
     # Show frames
-    cv2.imshow(WIN_RF, frameReference)
+    cv2.imshow(WIN_RF, image)
     
 
 # Finished successfully
