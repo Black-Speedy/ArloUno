@@ -260,6 +260,7 @@ elif ipt == "eight":
 elif ipt == "avoid":
     turn_time = input("Input turn time: ")
     dist = int(input("Input distance: "))
+    distSide = int(input("Input side distance: "))
     isDriving = True
     turning = False
     straight64(r)
@@ -274,12 +275,12 @@ elif ipt == "avoid":
             if time.perf_counter() - turnTimer >  float(turn_time):
                 turning = False
                 straight64(r)            
-        elif (r.read_front_ping_sensor() < dist and r.read_left_ping_sensor() < dist) :
+        elif (r.read_left_ping_sensor() < distSide) :
             turning = True
             turnTimer = time.perf_counter()
             turn(r, "right")
             print("turning right")
-        elif (r.read_front_ping_sensor() < dist and r.read_right_ping_sensor() < dist) :
+        elif (r.read_right_ping_sensor() < distSide) :
             turning = True
             turnTimer = time.perf_counter()
             turn(r, "left")
