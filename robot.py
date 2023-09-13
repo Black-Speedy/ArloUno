@@ -274,11 +274,11 @@ elif ipt == "avoid":
             if time.perf_counter() - turnTimer >  float(turn_time):
                 turning = False
                 straight64(r)            
-        if (r.read_front_ping_sensor() < dist and r.read_left_ping_sensor < 250) :
+        if (r.read_front_ping_sensor() < dist and r.read_left_ping_sensor() < 250) :
             turning = True
             turnTimer = time.perf_counter()
             turn(r, "right")
-        if (r.read_front_ping_sensor() < dist and r.read_right_ping_sensor < 250) :
+        if (r.read_front_ping_sensor() < dist and r.read_right_ping_sensor() < 250) :
             turning = True
             turnTimer = time.perf_counter()
             turn(r, "left")
