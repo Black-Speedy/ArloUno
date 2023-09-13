@@ -234,8 +234,10 @@ def smoothTurn(r, direction):
 
 r = Robot()
 
+input = input("Choose a program: test, eight, avoid\n")
 
-if sys.argv[1] == "test":
+
+if input == "test":
     while(True):
         dir = input()
 
@@ -248,13 +250,15 @@ if sys.argv[1] == "test":
         
         r.stop()
         
-elif sys.argv[1] == "eight":    
-    for i in range(0, int(sys.argv[2])):
+elif input == "eight":    
+    amount = input("How many times do you want to do the eight? ")
+    for i in range(0, int(amount)):
         smoothTurn(r, "right")  
         smoothTurn(r, "left")  
 
 
-elif sys.argv[1] == "avoid":
+elif input == "avoid":
+    turn_time = input("Input turn time.")
     isDriving = True
     turning = False
     straight64(r)
@@ -266,7 +270,7 @@ elif sys.argv[1] == "avoid":
             isDriving = False
 
         if (turning):
-            if time.perf_counter() - turnTimer >  float(sys.argv[2]):
+            if time.perf_counter() - turnTimer >  float(turn_time):
                 turning = False
                 straight64(r)            
         if (r.read_front_ping_sensor() < 250 and r.read_left_ping_sensor < 250) :
