@@ -298,3 +298,16 @@ elif ipt == "sensor":
     while(True):
         input("press enter: ")
         print("Distance: " + str(r.read_front_ping_sensor() / 10) + " cm")
+
+elif ipt == "auto sensor":
+    lst = []
+    dist = int(input("Input distance: "))
+    for j in range(0, 5):
+        straight64(r)
+        sleep(dist)
+        r.stop()
+        for i in range(0, 5):
+            lst.append(r.read_front_ping_sensor())
+
+    print(lst)
+    
