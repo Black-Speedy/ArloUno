@@ -44,6 +44,7 @@ cnt = 0
 while(True):
     input("Press Enter to capture image")
     image = cam.capture_array("main")
+    cnt += 1
 
     # save the image to disk
     cv2.imwrite("test" + str(cnt) + ".jpg", image)
