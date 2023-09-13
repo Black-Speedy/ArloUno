@@ -303,11 +303,11 @@ elif ipt == "auto sensor":
     lst = []
     dist = int(input("Input distance: "))
     for j in range(0, 5):
+        for i in range(0, 5):
+            lst.append(r.read_front_ping_sensor())
         straight64(r)
         sleep(dist)
         r.stop()
-        for i in range(0, 5):
-            lst.append(r.read_front_ping_sensor())
 
     print(lst)
     
