@@ -44,7 +44,19 @@ while cv2.waitKey(4) == -1:  # Wait for a key pressed event
         exit(-1)
 
     # Show frames
+
+    # Use openCV ArUco library to detect markers
+    arucoDict = cv2.aruco.Dictionary_get(cv2.aruco.DICT_4X4_50)
+    arucoParams = cv2.aruco.DetectorParameters_create()
+    (corners, ids, rejected) = cv2.aruco.detectMarkers(frameReference, arucoDict, parameters=arucoParams)
+
+    # If markers are detected, draw them
+    if len(corners) > 0:
+        cv2.aruco.drawDetectedMarkers(frameReference, corners, ids)
+
+    # Show the frame
     cv2.imshow(WIN_RF, frameReference)
+
 
 
 # Finished successfully
