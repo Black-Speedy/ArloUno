@@ -51,9 +51,12 @@ while cv2.waitKey(4) == -1:  # Wait for a key pressed event
     # Use openCV ArUco library to detect markers
     (corners, ids, rejected) = cv2.aruco.detectMarkers(frameReference, arucoDict, parameters=arucoParams)
 
+    rvecs, tvecs, _objPoints = cv2.aruco.estimatePoseSingleMarkers(
+        corners, markerLength=0.146, cameraMatrix=cameraMatrix, distCoeffs=None)
+
     if (len(corners) > 0):
         for id in ids:
             print(id)
-        print(cv2.aruco.estimatePoseSingleMarkers(corners, markerLength=0.146, cameraMatrix=cameraMatrix, distCoeffs=None))
+        print(tvecs)
         
 
