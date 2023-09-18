@@ -3,13 +3,6 @@
 
 import cv2  # Import the OpenCV library
 import numpy as np
-import enum
-
-class DriveState(enum):
-    STOP = 0
-    STRAIGHT = 1
-    TURN = 2
-
 
 def gstreamer_pipeline(capture_width=1024, capture_height=720, framerate=30):
     """Utility function for setting parameters for the gstreamer camera pipeline"""
@@ -46,8 +39,6 @@ arucoDict = cv2.aruco.Dictionary_get(cv2.aruco.DICT_6X6_250)
 arucoParams = cv2.aruco.DetectorParameters_create()
 cameraMatrix = np.array([[1708, 0, 640],[0, 1708, 360],[0, 0, 1]])
 print("now looking for markers")
-
-ds = DriveState.STOP
 
 
 while cv2.waitKey(4) == -1:  # Wait for a key pressed event
