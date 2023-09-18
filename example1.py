@@ -34,7 +34,7 @@ if not cam.isOpened():  # Error
 WIN_RF = "Example 1"
 """ cv2.namedWindow(WIN_RF)
 cv2.moveWindow(WIN_RF, 100, 100) """
-f = input("Input focal length: ")
+f = int(input("Input focal length: "))
 
 arucoDict = cv2.aruco.Dictionary_get(cv2.aruco.DICT_6X6_250)
 arucoParams = cv2.aruco.DetectorParameters_create()
