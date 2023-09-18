@@ -35,7 +35,7 @@ WIN_RF = "Example 1"
 """ cv2.namedWindow(WIN_RF)
 cv2.moveWindow(WIN_RF, 100, 100) """
 
-arucoDict = cv2.aruco.Dictionary_get(cv2.aruco.DICT_4X4_50)
+arucoDict = cv2.aruco.Dictionary_get(cv2.aruco.DICT_6X6_250)
 arucoParams = cv2.aruco.DetectorParameters_create()
 print("now looking for markers")
 
