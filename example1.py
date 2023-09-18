@@ -52,8 +52,9 @@ while cv2.waitKey(4) == -1:  # Wait for a key pressed event
     (corners, ids, rejected) = cv2.aruco.detectMarkers(frameReference, arucoDict, parameters=arucoParams)
 
     if (len(corners) > 0):
-        for i in range(len(corners)):
-            print("Marker ID: " + str(ids[i][0]) + " Corners: " + str(corners[i][0]))
+        print(cv2.aruco.estimatePoseSingleMarkers(corners, markerLength=14.6))
+        
+
 
 
     # Show the frame
