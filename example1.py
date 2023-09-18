@@ -50,9 +50,18 @@ while cv2.waitKey(4) == -1:  # Wait for a key pressed event
     arucoParams = cv2.aruco.DetectorParameters_create()
     (corners, ids, rejected) = cv2.aruco.detectMarkers(frameReference, arucoDict, parameters=arucoParams)
 
+    for i in range(len(corners)):
+        print("Marker ID: " + str(ids[i][0]) + " Corners: " + str(corners[i][0]))
+
     # If markers are detected, draw them
     if len(corners) > 0:
         cv2.aruco.drawDetectedMarkers(frameReference, corners, ids)
+        # also draw a circle in the center of the marker
+        for i in range(len(corners)):
+            c = corners[i][0]
+            x = int((c[0][0] + c[1][0] + c[2][0] + c[3][0]) / 4)
+            y = int((c[0][1] + c[1][1] + c[2][1] + c[3][1]) / 4)
+            cv2.circle(frameReference, (x, y), 4, (0, 0, 255), -1)
 
     # Show the frame
     cv2.imshow(WIN_RF, frameReference)
