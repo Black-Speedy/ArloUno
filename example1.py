@@ -37,6 +37,7 @@ cv2.moveWindow(WIN_RF, 100, 100) """
 
 arucoDict = cv2.aruco.Dictionary_get(cv2.aruco.DICT_4X4_50)
 arucoParams = cv2.aruco.DetectorParameters_create()
+print("now looking for markers")
 
 while cv2.waitKey(4) == -1:  # Wait for a key pressed event
     retval, frameReference = cam.read()  # Read frame
@@ -53,8 +54,6 @@ while cv2.waitKey(4) == -1:  # Wait for a key pressed event
     if (len(corners) > 0):
         for i in range(len(corners)):
             print("Marker ID: " + str(ids[i][0]) + " Corners: " + str(corners[i][0]))
-    else:
-        print("No markers detected")
 
 
     # Show the frame
