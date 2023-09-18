@@ -3,6 +3,13 @@
 
 import cv2  # Import the OpenCV library
 import numpy as np
+from robot import *
+import enum
+
+class DriveState(enum):
+    STOP = 0
+    STRAIGHT = 1
+    TURN = 2
 
 
 def gstreamer_pipeline(capture_width=1024, capture_height=720, framerate=30):
@@ -41,6 +48,10 @@ arucoParams = cv2.aruco.DetectorParameters_create()
 cameraMatrix = np.array([[1708, 0, 640],[0, 1708, 360],[0, 0, 1]])
 print("now looking for markers")
 
+r = Robot()
+ds = DriveState.STOP
+
+
 while cv2.waitKey(4) == -1:  # Wait for a key pressed event
     retval, frameReference = cam.read()  # Read frame
 
@@ -48,22 +59,12 @@ while cv2.waitKey(4) == -1:  # Wait for a key pressed event
         print(" < < <  Game over!  > > > ")
         exit(-1)
 
-    # Show frames
-
     # Use openCV ArUco library to detect markers
     (corners, ids, rejected) = cv2.aruco.detectMarkers(frameReference, arucoDict, parameters=arucoParams)
 
     if (len(corners) > 0):
         for id in ids:
             print(id)
-        print(cv2.aruco.estimatePoseSingleMarkers(corners, markerLength=14.6, cameraMatrix=cameraMatrix, distCoeffs=None))
+        print(cv2.aruco.estimatePoseSingleMarkers(corners, markerLength=0.146, cameraMatrix=cameraMatrix, distCoeffs=None))
         
 
-
-
-    # Show the frame
-    #cv2.imshow(WIN_RF, frameReference)
-
-
-
-# Finished successfully
