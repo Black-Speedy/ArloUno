@@ -2,6 +2,7 @@
 # Kim S. Pedersen, 2022
 
 import cv2  # Import the OpenCV library
+import numpy as np
 
 
 def gstreamer_pipeline(capture_width=1024, capture_height=720, framerate=30):
@@ -37,6 +38,7 @@ cv2.moveWindow(WIN_RF, 100, 100) """
 
 arucoDict = cv2.aruco.Dictionary_get(cv2.aruco.DICT_6X6_250)
 arucoParams = cv2.aruco.DetectorParameters_create()
+cameraMatrix = np.array([[1708, 0, 640],[0, 1708, 360],[0, 0, 1]])
 print("now looking for markers")
 
 while cv2.waitKey(4) == -1:  # Wait for a key pressed event
@@ -54,7 +56,7 @@ while cv2.waitKey(4) == -1:  # Wait for a key pressed event
     if (len(corners) > 0):
         for id in ids:
             print(id)
-        print(cv2.aruco.estimatePoseSingleMarkers(corners, markerLength=14.6))
+        print(cv2.aruco.estimatePoseSingleMarkers(corners, markerLength=14.6, cameraMatrix=cameraMatrix, distCoeffs=None))
         
 
 
