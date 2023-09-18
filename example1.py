@@ -3,7 +3,6 @@
 
 import cv2  # Import the OpenCV library
 import numpy as np
-from robot import *
 import enum
 
 class DriveState(enum):
@@ -48,7 +47,6 @@ arucoParams = cv2.aruco.DetectorParameters_create()
 cameraMatrix = np.array([[1708, 0, 640],[0, 1708, 360],[0, 0, 1]])
 print("now looking for markers")
 
-r = Robot()
 ds = DriveState.STOP
 
 
