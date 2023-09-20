@@ -1,4 +1,5 @@
 import robot
+from robot import *
 r = robot.Robot()
 
-robot.locateBox(r)
+locateBox(r)
