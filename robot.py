@@ -252,13 +252,13 @@ class Robot(object):
         stopTurnTimer = time.perf_counter() + (degrees / 90) * 1.95
 
 
-    def locateBox(r): 
+    def locateBox(__self__): 
         noBox = True
         while (noBox):
-            r.turn(r, "left")
+            __self__.turn(r, "left")
             distance, boxDegrees, Xdegrees = e1.lookBox()
             if distance != None:
-                break 
+                noBox = False 
             
 
         
