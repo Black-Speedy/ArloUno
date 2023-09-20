@@ -260,9 +260,9 @@ class Robot(object):
             if result != (0.0, 0.0, 0.0):
                 noBox = False
                 print("IM HERE")
+                print(result)
                 return result
             self.turn("left")
-            print(result)
 
 
                 
