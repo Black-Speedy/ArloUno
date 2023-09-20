@@ -256,9 +256,12 @@ class Robot(object):
         noBox = True
         while noBox:
             self.turn("left")
-            distance, boxDegrees, Xdegrees = e1.lookBox()
-            if distance is not None:
+            result = e1.lookBox()
+            if result is not None:
+                print("IM HERE")
+                distance, boxDegrees, Xdegrees = result
                 noBox = False
+                return distance, boxDegrees, Xdegrees
             else:
                 print("No box detected yet. Waiting...")
                 # You might want to add a delay here to avoid continuous checking
