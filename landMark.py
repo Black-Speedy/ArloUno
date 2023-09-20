@@ -76,8 +76,7 @@ def lookBox():
         print()
         return distance, boxDegrees, Xdegrees
     else:
-        distance, boxDegrees, Xdegrees = None
-        return distance, boxDegrees, Xdegrees
+        return None, None, None
 
 
 
