@@ -262,7 +262,7 @@ class Robot(object):
                 print("IM HERE")
                 print(result)
                 return result
-            self.turnDegree(self, 15, "left")
+            self.turnDegree(15, "left")
 
 
                 
