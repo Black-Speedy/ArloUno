@@ -6,6 +6,7 @@ import serial
 import numpy as np
 from picamera2 import Picamera2
 import enum
+import example1 as e1
 
 # 
 
@@ -257,8 +258,15 @@ def turnDegree(r, degrees, direction):
     stopTurnTimer = time.perf_counter() + (degrees / 90) * 1.95
 
 
-def locateBox(): 
+def locateBox(r): 
     noBox = True
     while (noBox):
+        r.turn(r, "left")
+        distance, boxDegrees, Xdegrees = e1.lookBox()
+        if distance != None:
+            break 
+        
 
+        
+    
 
