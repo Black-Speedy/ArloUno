@@ -258,7 +258,7 @@ class Robot(object):
         while noBox:
             self.turn("left")
             result = e1.lookBox()
-            if result is not 0.0:
+            if result != 0.0:
                 print("IM HERE")
                 distance, boxDegrees, Xdegrees = result
                 noBox = False
