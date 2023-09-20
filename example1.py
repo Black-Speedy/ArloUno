@@ -63,6 +63,6 @@ while cv2.waitKey(4) == -1:  # Wait for a key pressed event
         # print tvecs in format: distance, height, angle 
         print(
             f"distance = {tvecs[0][0][2]}, height = {tvecs[0][0][1]}, angle = {tvecs[0][0][0]}")
-        print(f"rotation = {rvecs[0][0][0]}")
+        print(f"rotation on x: {rvecs[0][0][0]}, rotation on y: {rvecs[0][0][1]}, rotation on z: {rvecs[0][0][2]}")
         print(f"corners = {corners[0][0]}")
 
