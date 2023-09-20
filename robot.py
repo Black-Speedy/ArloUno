@@ -210,11 +210,11 @@ class Robot(object):
         return self.send_command(cmd)
         
 
-    def turn(r, direction):
+    def turn(self, direction):
         if (direction == "left"):
-            r.go_diff(30, 30, 0, 1)
+            self.go_diff(30, 30, 0, 1)
         else:
-            r.go_diff(30, 30, 1, 0)
+            self.go_diff(30, 30, 1, 0)
 
     def straight64(r):
         r.go_diff(65, 70, 1, 1)
