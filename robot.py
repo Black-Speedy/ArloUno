@@ -265,7 +265,7 @@ class Robot(object):
                 print(result)
                 return result
             self.turnDegree(15, "left")
-            sleep(3)
+            sleep(0.7)
             self.stop()
    
 
