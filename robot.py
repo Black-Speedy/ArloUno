@@ -265,7 +265,7 @@ class Robot(object):
             else:
                 print("No box detected yet. Waiting...")
                 # You might want to add a delay here to avoid continuous checking
-                sleep(1)  # Add a delay of 1 second (adjust as needed)
+                sleep(0.1)  # Add a delay of 1 second (adjust as needed)
 
 
                 
