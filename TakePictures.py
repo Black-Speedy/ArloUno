@@ -18,7 +18,7 @@ except ImportError:
 print("OpenCV version = " + cv2.__version__)
 
 # Open a camera device for capturing
-imageSize = (1280, 720)
+imageSize = (854, 480)
 FPS = 30
 cam = picamera2.Picamera2()
 frame_duration_limit = int(1/FPS * 1000000) # Microseconds
