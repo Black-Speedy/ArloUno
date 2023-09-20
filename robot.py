@@ -4,12 +4,14 @@ import time
 from time import sleep
 import serial
 import numpy as np
+import picamera2
 from picamera2 import Picamera2
 import enum
 import landMark as e1
 from landMark import *
 import cv2 # Import the OpenCV library
 from pprint import *
+
 # 
 
 
@@ -256,6 +258,7 @@ class Robot(object):
 
 
     def locateBox(self):
+        picamera2.Picamera2()
         noBox = True
         while noBox:
             sleep(2)
