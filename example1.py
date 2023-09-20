@@ -53,7 +53,7 @@ def lookBox():
     rvecs, tvecs, _objPoints = cv2.aruco.estimatePoseSingleMarkers(
         corners, markerLength=0.146, cameraMatrix=cameraMatrix, distCoeffs=None)
     #cv2.aruco.estimatePoseSingleMarkers returnerer translation vector(tvec) og rotation vector(rvec)
-    
+
     time.sleep(2)
 
     if (len(corners) > 0):
@@ -67,5 +67,9 @@ def lookBox():
         print(f"X = {Xdegrees}")
         #print(f"Y = {np.degrees(rvecs[0][0][1])}")
         #print(f"Z = {np.degrees(rvecs[0][0][0])}")
+
+while True:
+    lookBox()
+
 
 
