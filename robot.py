@@ -238,7 +238,7 @@ class Robot(object):
             r.go_diff(81, 40, 1, 1)
             sleep(8.3)
 
-
+    theta = 0
     def turnDegree(r, degrees, direction):
         global theta
         radians = degrees * np.pi / 180
