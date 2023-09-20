@@ -257,14 +257,13 @@ class Robot(object):
     def locateBox(self):
         noBox = True
         while noBox:
-
             result = e1.lookBox()
             if result != (0.0, 0.0, 0.0):
                 noBox = False
                 print("IM HERE")
                 print(result)
                 return result
-            sleep(2)
+            #sleep(2)
             self.turnDegree(45, "left")
             sleep(0.5)
             self.stop()
