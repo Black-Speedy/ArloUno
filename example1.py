@@ -36,6 +36,8 @@ WIN_RF = "Example 1"
 cv2.moveWindow(WIN_RF, 100, 100) """
 
 focal_length = 1136
+angle_error = 11
+
 
 arucoDict = cv2.aruco.Dictionary_get(cv2.aruco.DICT_6X6_250)
 arucoParams = cv2.aruco.DetectorParameters_create()
@@ -63,7 +65,7 @@ while cv2.waitKey(4) == -1:  # Wait for a key pressed event
         for id in ids:
             print(id)
         radians = tvecs[0][0][0]
-        degrees = np.degrees(radians)+ 10
+        degrees = np.degrees(radians)+ angle_error
         # Print tvecs in format: distance, height, angle in degrees
         print(f"distance = {tvecs[0][0][2]} degrees = {degrees}°")
         #print({rvecs[0][0][2]}, {rvecs[0][0][1]}, {rvecs[0][0][0]})
