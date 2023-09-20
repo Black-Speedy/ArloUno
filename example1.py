@@ -58,11 +58,14 @@ while cv2.waitKey(4) == -1:  # Wait for a key pressed event
     
     #cv2.aruco.estimatePoseSingleMarkers returnerer translation vector(tvec) og rotation vector(rvec)
 
+
     if (len(corners) > 0):
         for id in ids:
             print(id)
-        # print tvecs in format: distance, height, angle 
-        print(f"distance = {tvecs[0][0][2]} angle = {tvecs[0][0][0]}")
+        radians = tvecs[0][0][0]
+        degrees = np.degrees(radians)
+        # Print tvecs in format: distance, height, angle in degrees
+        print(f"distance = {tvecs[0][0][2]} angle = {degrees}°")
         #print({rvecs[0][0][2]}, {rvecs[0][0][1]}, {rvecs[0][0][0]})
 
 
