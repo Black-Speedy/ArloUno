@@ -7,6 +7,7 @@ import numpy as np
 from picamera2 import Picamera2
 import enum
 import example1 as e1
+from example1 import *
 
 # 
 
