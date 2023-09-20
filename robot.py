@@ -8,7 +8,8 @@ from picamera2 import Picamera2
 import enum
 import landMark as e1
 from landMark import *
-
+import cv2 # Import the OpenCV library
+from pprint import *
 # 
 
 
@@ -259,6 +260,9 @@ class Robot(object):
         while noBox:
             sleep(2)
             result = e1.lookBox()
+            image = cam.capture_array("main")
+            cnt += 1
+            cv2.imwrite("test" + str(cnt) + ".jpg", image)
             if result != (0.0, 0.0, 0.0):
                 noBox = False
                 print("IM HERE")
