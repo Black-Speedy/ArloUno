@@ -256,13 +256,13 @@ class Robot(object):
     def locateBox(self):
         noBox = True
         while noBox:
-            self.turn("left")
             result = e1.lookBox()
-            print(result)
             if result != (0.0, 0.0, 0.0):
                 noBox = False
                 print("IM HERE")
                 return result
+            self.turn("left")
+            print(result)
 
 
                 
