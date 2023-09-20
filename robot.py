@@ -263,11 +263,11 @@ class Robot(object):
                 print("IM HERE")
                 print(result)
                 return result
-            #sleep(2)
+            sleep(20)
             self.turnDegree(45, "left")
-            sleep(0.5)
+            sleep(1)
             self.stop()
-            sleep(2)
+   
 
                 
 
