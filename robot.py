@@ -255,7 +255,7 @@ class Robot(object):
     def locateBox(__self__): 
         noBox = True
         while (noBox):
-            __self__.turn(r, "left")
+            __self__.turn(__self__, "left")
             distance, boxDegrees, Xdegrees = e1.lookBox()
             if distance != None:
                 noBox = False 
