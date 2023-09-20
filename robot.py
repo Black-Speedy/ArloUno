@@ -257,6 +257,7 @@ class Robot(object):
     def locateBox(self):
         noBox = True
         while noBox:
+            sleep(2)
             result = e1.lookBox()
             if result != (0.0, 0.0, 0.0):
                 noBox = False
@@ -264,7 +265,7 @@ class Robot(object):
                 print(result)
                 return result
             self.turnDegree(45, "left")
-            sleep(1.5)
+            sleep(3)
             self.stop()
    
 
