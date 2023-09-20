@@ -62,7 +62,7 @@ while cv2.waitKey(4) == -1:  # Wait for a key pressed event
         for id in ids:
             print(id)
         # print tvecs in format: distance, height, angle 
-        print(f"distance = {tvecs[0][0][2]}, height = {tvecs[0][0][1]}, angle = {tvecs[0][0][0]}")
+        print(f"distance = {tvecs[0][0][2]} angle = {tvecs[0][0][0]}")
         #print({rvecs[0][0][2]}, {rvecs[0][0][1]}, {rvecs[0][0][0]})
 
 
