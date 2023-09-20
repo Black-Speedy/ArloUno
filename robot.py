@@ -210,56 +210,56 @@ class Robot(object):
         return self.send_command(cmd)
         
 
-def turn(r, direction):
-    if (direction == "left"):
-        r.go_diff(30, 30, 0, 1)
-    else:
-        r.go_diff(30, 30, 1, 0)
+    def turn(r, direction):
+        if (direction == "left"):
+            r.go_diff(30, 30, 0, 1)
+        else:
+            r.go_diff(30, 30, 1, 0)
 
-def straight64(r):
-    r.go_diff(65, 70, 1, 1)
-
-
-def sv(int):
-    if int > 127:
-        return 127
-    elif int < 30:
-        return 30
-    else:
-        return int
+    def straight64(r):
+        r.go_diff(65, 70, 1, 1)
 
 
-def smoothTurn(r, direction):
-    if (direction == "left"):
-        r.go_diff(38, 84, 1, 1)
-        sleep(8.75)
-    else:
-        r.go_diff(81, 40, 1, 1)
-        sleep(8.3)
+    def sv(int):
+        if int > 127:
+            return 127
+        elif int < 30:
+            return 30
+        else:
+            return int
 
 
-def turnDegree(r, degrees, direction):
-    radians = degrees * np.pi / 180
-    global ds, stopTurnTimer
-    if radians < 0:
-        radians = radians + 2 * np.pi
-    if direction == "left":
-        r.go_diff(30, 30, 0, 1)
-        theta += radians
-    else:
-        r.go_diff(30, 30, 1, 0)
-        theta -= radians
-    stopTurnTimer = time.perf_counter() + (degrees / 90) * 1.95
+    def smoothTurn(r, direction):
+        if (direction == "left"):
+            r.go_diff(38, 84, 1, 1)
+            sleep(8.75)
+        else:
+            r.go_diff(81, 40, 1, 1)
+            sleep(8.3)
 
 
-def locateBox(r): 
-    noBox = True
-    while (noBox):
-        r.turn(r, "left")
-        distance, boxDegrees, Xdegrees = e1.lookBox()
-        if distance != None:
-            break 
-        
+    def turnDegree(r, degrees, direction):
+        radians = degrees * np.pi / 180
+        global ds, stopTurnTimer
+        if radians < 0:
+            radians = radians + 2 * np.pi
+        if direction == "left":
+            r.go_diff(30, 30, 0, 1)
+            theta += radians
+        else:
+            r.go_diff(30, 30, 1, 0)
+            theta -= radians
+        stopTurnTimer = time.perf_counter() + (degrees / 90) * 1.95
+
+
+    def locateBox(r): 
+        noBox = True
+        while (noBox):
+            r.turn(r, "left")
+            distance, boxDegrees, Xdegrees = e1.lookBox()
+            if distance != None:
+                break 
+            
 
         
     
