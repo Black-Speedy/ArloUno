@@ -262,6 +262,7 @@ class Robot(object):
                 print("IM HERE")
                 print(result)
                 return result
+            sleep(1)
             self.turn("left")
 
 
