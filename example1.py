@@ -65,7 +65,7 @@ while cv2.waitKey(4) == -1:  # Wait for a key pressed event
         radians = tvecs[0][0][0]
         degrees = np.degrees(radians)
         # Print tvecs in format: distance, height, angle in degrees
-        print(f"distance = {tvecs[0][0][2]} angle = {degrees}°")
+        print(f"distance = {tvecs[0][0][2]} degrees = {degrees}°")
         #print({rvecs[0][0][2]}, {rvecs[0][0][1]}, {rvecs[0][0][0]})
 
 
