@@ -60,7 +60,7 @@ def lookBox():
     
     #cv2.aruco.estimatePoseSingleMarkers returnerer translation vector(tvec) og rotation vector(rvec)
 
-
+    distance, boxDegrees, Xdegrees = None
     if (len(corners) > 0):
         for id in ids:
             print(id)
@@ -76,7 +76,7 @@ def lookBox():
         print()
         return distance, boxDegrees, Xdegrees
     else:
-        return None, None, None
+        return distance, boxDegrees, Xdegrees
 
 
 
