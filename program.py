@@ -1,5 +1,5 @@
 import robot
-from robot import locateBox
+from robot import *
 r = robot.Robot()
 
 r.locateBox()
