@@ -5,7 +5,7 @@ import cv2  # Import the OpenCV library
 import numpy as np
 import time
 
-def gstreamer_pipeline(capture_width=1920, capture_height=1080, framerate=30):
+def gstreamer_pipeline(capture_width=854, capture_height=480, framerate=30):
     """Utility function for setting parameters for the gstreamer camera pipeline"""
     return (
         "libcamerasrc !"
