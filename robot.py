@@ -263,8 +263,6 @@ class Robot(object):
                 distance, boxDegrees, Xdegrees = result
                 noBox = False
                 return distance, boxDegrees, Xdegrees
-            else:
-                print("No box detected yet. Waiting...")
 
 
                 
