@@ -258,6 +258,7 @@ class Robot(object):
         while noBox:
             self.turn("left")
             result = e1.lookBox()
+            print(result)
             if result != 0.0:
                 noBox = False
                 print("IM HERE")
