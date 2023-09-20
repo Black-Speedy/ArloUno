@@ -3,6 +3,7 @@
 
 import cv2  # Import the OpenCV library
 import numpy as np
+import time
 
 def gstreamer_pipeline(capture_width=1024, capture_height=720, framerate=30):
     """Utility function for setting parameters for the gstreamer camera pipeline"""
@@ -52,6 +53,8 @@ def lookBox():
     rvecs, tvecs, _objPoints = cv2.aruco.estimatePoseSingleMarkers(
         corners, markerLength=0.146, cameraMatrix=cameraMatrix, distCoeffs=None)
     #cv2.aruco.estimatePoseSingleMarkers returnerer translation vector(tvec) og rotation vector(rvec)
+    
+    time.sleep(2)
 
     if (len(corners) > 0):
         for id in ids:
