@@ -262,8 +262,7 @@ class Robot(object):
             if result != (0.0, 0.0, 0.0):
                 noBox = False
                 print("IM HERE")
-                distance, boxDegrees, Xdegrees = result
-        return distance, boxDegrees, Xdegrees
+                return result
 
 
                 
