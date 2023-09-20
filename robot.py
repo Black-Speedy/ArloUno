@@ -6,6 +6,8 @@ import serial
 import numpy as np
 from picamera2 import Picamera2
 
+# 
+
 
 class Robot(object):
     """Defines the Arlo robot API

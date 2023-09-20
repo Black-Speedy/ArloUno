@@ -34,11 +34,11 @@ if not cam.isOpened():  # Error
 WIN_RF = "Example 1"
 """ cv2.namedWindow(WIN_RF)
 cv2.moveWindow(WIN_RF, 100, 100) """
-f = 1126
+focal_length = 1136
 
 arucoDict = cv2.aruco.Dictionary_get(cv2.aruco.DICT_6X6_250)
 arucoParams = cv2.aruco.DetectorParameters_create()
-cameraMatrix = np.array([[f, 0, 640],[0, f, 360],[0, 0, 1]])
+cameraMatrix = np.array([[focal_length, 0, 640],[0, focal_length, 360],[0, 0, 1]])
 print("now looking for markers")
 
 
