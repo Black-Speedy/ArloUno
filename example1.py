@@ -54,15 +54,15 @@ while cv2.waitKey(4) == -1:  # Wait for a key pressed event
 
     rvecs, tvecs, _objPoints = cv2.aruco.estimatePoseSingleMarkers(
         corners, markerLength=0.146, cameraMatrix=cameraMatrix, distCoeffs=None)
+    
+    #cv2.aruco.estimatePoseSingleMarkers returnerer translation vector(tvec) og rotation vector(rvec)
 
     if (len(corners) > 0):
         for id in ids:
             print(id)
-        # print tvecs in format: distance, height, angle
+        # print tvecs in format: distance, height, angle 
         print(
             f"distance = {tvecs[0][0][2]}, height = {tvecs[0][0][1]}, angle = {tvecs[0][0][0]}")
         print(f"rotation = {rvecs[0][0][0]}")
         print(f"corners = {corners[0][0]}")
-
-        
 
