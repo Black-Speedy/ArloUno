@@ -66,11 +66,15 @@ def lookBox():
             print(id)
         radians = tvecs[0][0][0]
         degrees = np.degrees(radians)+ angle_error
+        Xdegrees = np.degrees(rvecs[0][0][2])
+        boxDegrees = np.degrees(radians)+ angle_error
+        distance = tvecs[0][0][2]
         # Print tvecs in format: distance, height, angle in degrees
-        print(f"distance = {tvecs[0][0][2]} degrees = {degrees}°")
-        print(f"X = {np.degrees(rvecs[0][0][2])}")
-        print(f"Y = {np.degrees(rvecs[0][0][1])}")
-        print(f"Z = {np.degrees(rvecs[0][0][0])}")
+        print(f"distance = {distance}")
+        print(f"X = {Xdegrees}")
+        print(f"{boxDegrees}")
+        print()
+        return 
 
 
 
