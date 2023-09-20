@@ -5,6 +5,7 @@ from time import sleep
 import serial
 import numpy as np
 from picamera2 import Picamera2
+import enum
 
 # 
 
@@ -234,4 +235,30 @@ def smoothTurn(r, direction):
     else:
         r.go_diff(81, 40, 1, 1)
         sleep(8.3)
+
+
+class DriveState(enum):
+    STOP = 0
+    STRAIGHT = 1
+    TURN = 2
+
+def turnDegree(r, degrees, direction):
+    radians = degrees * np.pi / 180
+    global ds, stopTurnTimer
+    if radians < 0:
+        radians = radians + 2 * np.pi
+    if direction == "left":
+        r.go_diff(30, 30, 0, 1)
+        theta += radians
+    else:
+        r.go_diff(30, 30, 1, 0)
+        theta -= radians
+    ds = DriveState.TURN
+    stopTurnTimer = time.perf_counter() + (degrees / 90) * 1.95
+
+
+def locateBox(): 
+    noBox = True
+    while (noBox):
+
 
