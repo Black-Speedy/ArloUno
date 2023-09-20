@@ -238,11 +238,6 @@ def smoothTurn(r, direction):
         sleep(8.3)
 
 
-class DriveState(enum):
-    STOP = 0
-    STRAIGHT = 1
-    TURN = 2
-
 def turnDegree(r, degrees, direction):
     radians = degrees * np.pi / 180
     global ds, stopTurnTimer
@@ -254,7 +249,6 @@ def turnDegree(r, degrees, direction):
     else:
         r.go_diff(30, 30, 1, 0)
         theta -= radians
-    ds = DriveState.TURN
     stopTurnTimer = time.perf_counter() + (degrees / 90) * 1.95
 
 
