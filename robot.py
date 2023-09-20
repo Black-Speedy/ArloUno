@@ -264,7 +264,7 @@ class Robot(object):
                 print(result)
                 return result
             self.turn("left")
-            sleep(1)
+            sleep(5)
             self.stop()
 
 
