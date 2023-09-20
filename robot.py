@@ -252,13 +252,19 @@ class Robot(object):
         stopTurnTimer = time.perf_counter() + (degrees / 90) * 1.95
 
 
-    def locateBox(self):
-        noBox = True
-        while noBox:
-            self.turn("left")
-            distance, boxDegrees, Xdegrees = e1.lookBox()
-            if distance is not None:
-                noBox = False
+def locateBox(self):
+    noBox = True
+    while noBox:
+        self.turn("left")
+        result = e1.lookBox()
+        if result is not None:
+            distance, boxDegrees, Xdegrees = result
+            noBox = False
+        else:
+            print("No box detected yet. Waiting...")
+            # You might want to add a delay here to avoid continuous checking
+            sleep(1)  # Add a delay of 1 second (adjust as needed)
+
 
                 
 
