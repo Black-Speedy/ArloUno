@@ -259,7 +259,6 @@ class Robot(object):
         while noBox:
 
             result = e1.lookBox()
-            sleep(2)
             if result != (0.0, 0.0, 0.0):
                 noBox = False
                 print("IM HERE")
