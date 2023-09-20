@@ -46,25 +46,31 @@ cameraMatrix = np.array([[focal_length, 0, 640],[0, focal_length, 360],[0, 0, 1]
 print("now looking for markers")
 
 def lookBox():
-    retval, frameReference = cam.read()
+    retval, frameReference = cam.read()  # Read frame
+
+    if not retval:  # Error
+        print(" < < <  Game over!  > > > ")
+        exit(-1)
+
+    # Use openCV ArUco library to detect markers
     (corners, ids, rejected) = cv2.aruco.detectMarkers(frameReference, arucoDict, parameters=arucoParams)
 
     rvecs, tvecs, _objPoints = cv2.aruco.estimatePoseSingleMarkers(
         corners, markerLength=0.146, cameraMatrix=cameraMatrix, distCoeffs=None)
+    
+    #cv2.aruco.estimatePoseSingleMarkers returnerer translation vector(tvec) og rotation vector(rvec)
+
 
     if (len(corners) > 0):
         for id in ids:
             print(id)
         radians = tvecs[0][0][0]
-        Xdegrees = np.degrees(rvecs[0][0][2])
-        boxDegrees = np.degrees(radians)+ angle_error
-        distance = tvecs[0][0][2]
+        degrees = np.degrees(radians)+ angle_error
         # Print tvecs in format: distance, height, angle in degrees
-        print(f"distance = {distance} degrees = {boxDegrees}°")
-        print(f"X = {Xdegrees}")
-        return distance, boxDegrees, Xdegrees
-        #print(f"Y = {np.degrees(rvecs[0][0][1])}")
-        #print(f"Z = {np.degrees(rvecs[0][0][0])}")
+        print(f"distance = {tvecs[0][0][2]} degrees = {degrees}°")
+        print(f"X = {np.degrees(rvecs[0][0][2])}")
+        print(f"Y = {np.degrees(rvecs[0][0][1])}")
+        print(f"Z = {np.degrees(rvecs[0][0][0])}")
 
 
 
