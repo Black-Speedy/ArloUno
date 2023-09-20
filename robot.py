@@ -240,6 +240,7 @@ class Robot(object):
 
 
     def turnDegree(r, degrees, direction):
+        global theta
         radians = degrees * np.pi / 180
         global ds, stopTurnTimer
         if radians < 0:
