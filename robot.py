@@ -297,11 +297,12 @@ class RobotController():
             exit()
 
     def locateBox(self):
-        result = e1.lookBox()
-        result = e1.lookBox()
-        result = e1.lookBox()
-        result = e1.lookBox()
-        result = e1.lookBox()
+        result = e1.lookBox(8)
+        result = e1.lookBox(8)
+        result = e1.lookBox(8)
+        result = e1.lookBox(8)
+        result = e1.lookBox(8)
+        result = e1.lookBox(8)
         # split result into (x, y, z) and ids
         dist = result[0]
         xDegrees = result[1]
