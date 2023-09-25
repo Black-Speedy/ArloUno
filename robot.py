@@ -225,9 +225,6 @@ class Robot(object):
         else:
             self.go_diff(30, 30, 1, 0)
 
-    def straight64(r):
-        r.go_diff(65, 70, 1, 1)
-
 
     def sv(int):
         if int > 127:
@@ -257,6 +254,10 @@ class RobotController():
         self.stopTimer = 0
         self.stopTurnTimer = 0
         self.box = (0, 0, 0)
+    
+    def straight64(self, cm):
+        self.r.go_diff(65, 70, 1, 1)
+        self.stopTimer = time.perf_counter() + cm * 2.24 / 100
 
     def turnDegree(self, degrees, direction):
         theta = 0
@@ -274,12 +275,11 @@ class RobotController():
     def update(self):
         if (self.ds == DriveState.STOP):
             if (self.stopTimer < time.perf_counter()):
-                #TODO: replace with logic!
-                self.ds = DriveState.SEARCH
+                print("STOP!")
         elif (self.ds == DriveState.TURN):
             if (self.stopTurnTimer < time.perf_counter()):
                 self.ds = DriveState.STOP
-                self.stopTimer = time.perf_counter() + 2
+                self.stopTimer = time.perf_counter() + 0.5
                 self.r.stop()
         elif (self.ds == DriveState.STRAIGHT):
             return
@@ -296,6 +296,9 @@ class RobotController():
             noBox = False
             print("IM HERE")
             print(result)
+            self.box = result
+            self.r.straight64(result[0]/100 - 40)
+            self.ds = DriveState.STRAIGHT
             return result
         
         self.ds = DriveState.TURN
