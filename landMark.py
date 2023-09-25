@@ -55,11 +55,12 @@ def lookBox(id):
     # Use openCV ArUco library to detect markers
     (corners, ids, rejected) = cv2.aruco.detectMarkers(frameReference, arucoDict, parameters=arucoParams)
     rvecs, tvecs, _objPoints = 0, 0, 0
-    for i in range(len(ids)):
-        if ids[i] == id:
-            # Esitmate pose singlemarkes
-            rvecs, tvecs, _objPoints = cv2.aruco.estimatePoseSingleMarkers(
-                corners, markerLength=0.146, cameraMatrix=cameraMatrix, distCoeffs=None)
+    if ids is not None:
+        for i in range(len(ids)):
+            if ids[i] == id:
+                # Esitmate pose singlemarkes
+                rvecs, tvecs, _objPoints = cv2.aruco.estimatePoseSingleMarkers(
+                    corners, markerLength=0.146, cameraMatrix=cameraMatrix, distCoeffs=None)
     
     #cv2.aruco.estimatePoseSingleMarkers returnerer translation vector(tvec) og rotation vector(rvec)
 
