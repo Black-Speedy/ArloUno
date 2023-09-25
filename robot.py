@@ -304,6 +304,12 @@ class RobotController():
         result = e1.lookBox(8)
         result = e1.lookBox(8)
         # split result into (x, y, z) and ids
+
+        if result is None:
+            self.ds = DriveState.TURN
+            self.turnDegree(15, "left")
+            return
+        
         dist = result[0]
         xDegrees = result[1]
         boxDegrees = result[2]
@@ -330,8 +336,7 @@ class RobotController():
                 print("found wrong box?")
             
         
-        self.ds = DriveState.TURN
-        self.turnDegree(15, "left")
+
    
 
                 
