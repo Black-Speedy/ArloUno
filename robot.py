@@ -285,7 +285,9 @@ class RobotController():
         elif (self.ds == DriveState.STRAIGHT):
             return
         elif (self.ds == DriveState.SEARCH):
+            print("11111111111")
             self.locateBox()
+            print("2222222222")
 
     def locateBox(self):
         picamera2.Picamera2()
