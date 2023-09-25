@@ -249,8 +249,6 @@ class Robot(object):
 class RobotController():
     def __init__(self):
         self.r = Robot()
-        self.xPos = 0
-        self.yPos = 0
         self.ds = DriveState.SEARCH
         self.stopTimer = 0
         self.stopTurnTimer = 0
@@ -296,13 +294,11 @@ class RobotController():
     def locateBox(self):
         result = e1.lookBox()
         # split result into (x, y, z) and ids
-
         r = result[0]
         t = result[1]
         boxDegrees = result[2]
         ids = result[3]
 
-            
         #image = cam.capture_array("main")
         """ cnt += 1
         cv2.imwrite("test" + str(cnt) + ".jpg", image) """
@@ -313,8 +309,8 @@ class RobotController():
                 print(result)
                 self.box = result
                 self.r.stop()
-                self.straight64(int(result[0]/100) - 40)
                 self.ds = DriveState.STRAIGHT
+                self.straight64(int(result[0]/100) - 40)
                 return result
             else:
                 print("found wrong box?")
