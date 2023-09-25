@@ -45,7 +45,7 @@ arucoParams = cv2.aruco.DetectorParameters_create()
 cameraMatrix = np.array([[focal_length, 0, 640],[0, focal_length, 360],[0, 0, 1]])
 print("now looking for markers")
 
-def lookBox():
+def lookBox(id):
     retval, frameReference = cam.read()  # Read frame
 
     if not retval:  # Error
@@ -54,9 +54,12 @@ def lookBox():
 
     # Use openCV ArUco library to detect markers
     (corners, ids, rejected) = cv2.aruco.detectMarkers(frameReference, arucoDict, parameters=arucoParams)
-
-    rvecs, tvecs, _objPoints = cv2.aruco.estimatePoseSingleMarkers(
-        corners, markerLength=0.146, cameraMatrix=cameraMatrix, distCoeffs=None)
+    rvecs, tvecs, _objPoints = 0, 0, 0
+    for i in range(len(ids)):
+        if ids[i] == id:
+            # Esitmate pose singlemarkes
+            rvecs, tvecs, _objPoints = cv2.aruco.estimatePoseSingleMarkers(
+                corners, markerLength=0.146, cameraMatrix=cameraMatrix, distCoeffs=None)
     
     #cv2.aruco.estimatePoseSingleMarkers returnerer translation vector(tvec) og rotation vector(rvec)
 
