@@ -309,8 +309,9 @@ class RobotController():
                 print(result)
                 self.box = result
                 self.r.stop()
-                self.ds = DriveState.STRAIGHT
-                self.straight64(int(result[0]/100) - 40)
+                self.ds = DriveState.EXIT
+                """ self.ds = DriveState.STRAIGHT
+                self.straight64(int(result[0]/100) - 40) """
                 return result
             else:
                 print("found wrong box?")
