@@ -299,14 +299,18 @@ class RobotController():
         #image = cam.capture_array("main")
         """ cnt += 1
         cv2.imwrite("test" + str(cnt) + ".jpg", image) """
-        if result != (0.0, 0.0, 0.0, []) and result[3].__contains__(8):
-            noBox = False
-            print("IM HERE")
-            print(result)
-            self.box = result
-            self.r.straight64(result[0]/100 - 40)
-            self.ds = DriveState.STRAIGHT
-            return result
+        if result != (0.0, 0.0, 0.0, []):
+            # if ids contains # 8:
+            if 8 in result[3]:
+                print("IM HERE")
+                print(result)
+                self.box = result
+                self.r.straight64(result[0]/100 - 40)
+                self.ds = DriveState.STRAIGHT
+                return result
+            else:
+                print("found wrong box?")
+            
         
         self.ds = DriveState.TURN
         self.turnDegree(15, "left")
