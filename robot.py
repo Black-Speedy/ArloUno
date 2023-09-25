@@ -312,6 +312,7 @@ class RobotController():
                 print("IM HERE")
                 print(result)
                 self.box = result
+                self.r.stop()
                 self.straight64(result[0]/100 - 40)
                 self.ds = DriveState.STRAIGHT
                 return result
