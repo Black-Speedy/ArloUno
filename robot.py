@@ -18,6 +18,7 @@ class DriveState(Enum):
     STRAIGHT = 1
     TURN = 2
     SEARCH = 3
+    EXIT = 4
 
 
 class Robot(object):
@@ -275,16 +276,22 @@ class RobotController():
     def update(self):
         if (self.ds == DriveState.STOP):
             if (self.stopTimer < time.perf_counter()):
-                print("STOP!")
+                #TODO: replace with logic!
+                self.ds = DriveState.SEARCH
         elif (self.ds == DriveState.TURN):
             if (self.stopTurnTimer < time.perf_counter()):
                 self.ds = DriveState.STOP
                 self.stopTimer = time.perf_counter() + 0.5
                 self.r.stop()
         elif (self.ds == DriveState.STRAIGHT):
-            return
+            if(self.stopTimer < time.perf_counter()):
+                self.r.stop()
+                self.ds = DriveState.EXIT
         elif (self.ds == DriveState.SEARCH):
             self.locateBox()
+        elif (self.ds == DriveState.EXIT):
+            print("EXIT!")
+            exit()
 
     def locateBox(self):
         result = e1.lookBox()
@@ -292,7 +299,7 @@ class RobotController():
         #image = cam.capture_array("main")
         """ cnt += 1
         cv2.imwrite("test" + str(cnt) + ".jpg", image) """
-        if result != (0.0, 0.0, 0.0):
+        if result != (0.0, 0.0, 0.0, []) and result[3].contains(8):
             noBox = False
             print("IM HERE")
             print(result)
