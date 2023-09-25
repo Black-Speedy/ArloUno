@@ -11,7 +11,7 @@ results = lookBox(-1)
 print(results)
 
 for tvec in results:
-    img = cv2.circle(img, (tvec[0][0][2], 100), 150, (255, 255, 255), 3)
+    img = cv2.circle(img, (tvec[2], 100), 150, (255, 255, 255), 3)
 
 cv2.imwrite("tests.png", img)
 
