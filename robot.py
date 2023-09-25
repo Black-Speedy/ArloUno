@@ -285,13 +285,15 @@ class RobotController():
         elif (self.ds == DriveState.STRAIGHT):
             return
         elif (self.ds == DriveState.SEARCH):
-            print("11111111111")
             self.locateBox()
             print("2222222222")
 
     def locateBox(self):
+        print("11111111111")
         picamera2.Picamera2()
+        print("11111111112")
         result = e1.lookBox()
+        print("11111111113")
             
         image = cam.capture_array("main")
         """ cnt += 1
