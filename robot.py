@@ -259,6 +259,7 @@ class RobotController():
         self.stopTimer = time.perf_counter() + cm * 2.24 / 100
 
     def turnDegree(self, degrees, direction):
+        print("turning")
         theta = 0
         radians = degrees * np.pi / 180
         if radians < 0:
