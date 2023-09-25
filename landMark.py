@@ -65,9 +65,6 @@ def lookBox(id):
                 rvecs, tvecs, _objPoints = cv2.aruco.estimatePoseSingleMarkers(
                     corners, markerLength=0.146, cameraMatrix=cameraMatrix, distCoeffs=None)
 
-                #plot tvecs for each marker
-                plt.plot(tvecs[0][0][0], tvecs[0][0][1], 'ro')
-                plt.show()
 
 
                 distance = 0.0
