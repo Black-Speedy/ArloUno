@@ -261,7 +261,6 @@ class RobotController():
     def turnDegree(self, degrees, direction):
         theta = 0
         radians = degrees * np.pi / 180
-        global ds, stopTurnTimer
         if radians < 0:
             radians = radians + 2 * np.pi
         if direction == "left":
@@ -270,7 +269,7 @@ class RobotController():
         else:
             self.r.go_diff(30, 30, 1, 0)
             theta -= radians
-        stopTurnTimer = time.perf_counter() + (degrees / 90) * 1.95
+        self.stopTurnTimer = time.perf_counter() + (degrees / 90) * 1.95
 
     def update(self):
         if (self.ds == DriveState.STOP):
@@ -286,14 +285,9 @@ class RobotController():
             return
         elif (self.ds == DriveState.SEARCH):
             self.locateBox()
-            print("2222222222")
 
     def locateBox(self):
-        print("11111111111")
-        #picamera2.Picamera2()
-        print("11111111112")
         result = e1.lookBox()
-        print("11111111113")
             
         #image = cam.capture_array("main")
         """ cnt += 1
