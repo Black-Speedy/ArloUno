@@ -54,7 +54,7 @@ def lookBox(id):
 
     # Use openCV ArUco library to detect markers
     (corners, ids, rejected) = cv2.aruco.detectMarkers(frameReference, arucoDict, parameters=arucoParams)
-    rvecs, tvecs, _objPoints = 0, 0, 0
+    rvecs, tvecs, _objPoints
     if ids is not None:
         for i in range(len(ids)):
             if ids[i] == id:
