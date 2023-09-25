@@ -299,7 +299,7 @@ class RobotController():
         #image = cam.capture_array("main")
         """ cnt += 1
         cv2.imwrite("test" + str(cnt) + ".jpg", image) """
-        if result != (0.0, 0.0, 0.0, []) and result[3].contains(8):
+        if result != (0.0, 0.0, 0.0, []) and result[3].__contains__(8):
             noBox = False
             print("IM HERE")
             print(result)
