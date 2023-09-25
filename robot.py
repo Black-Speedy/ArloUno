@@ -290,7 +290,7 @@ class RobotController():
 
     def locateBox(self):
         print("11111111111")
-        picamera2.Picamera2()
+        #picamera2.Picamera2()
         print("11111111112")
         result = e1.lookBox()
         print("11111111113")
