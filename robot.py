@@ -253,6 +253,7 @@ class RobotController():
         self.stopTimer = 0
         self.stopTurnTimer = 0
         self.box = (0, 0, 0)
+        self.boxFound = False
     
     def straight64(self, cm):
         self.r.go_diff(65, 70, 1, 1)
@@ -275,8 +276,11 @@ class RobotController():
     def update(self):
         if (self.ds == DriveState.STOP):
             if (self.stopTimer < time.perf_counter()):
-                #TODO: replace with logic!
-                self.ds = DriveState.SEARCH
+                if self.boxFound:
+                    self.ds = DriveState.STRAIGHT
+                    self.straight64(int(self.box[0]*100) - 40)
+                else:
+                    self.ds = DriveState.SEARCH
         elif (self.ds == DriveState.TURN):
             if (self.stopTurnTimer < time.perf_counter()):
                 self.ds = DriveState.STOP
@@ -299,23 +303,26 @@ class RobotController():
         result = e1.lookBox()
         result = e1.lookBox()
         # split result into (x, y, z) and ids
-        r = result[0]
-        t = result[1]
+        dist = result[0]
+        xDegrees = result[1]
         boxDegrees = result[2]
         ids = result[3]
 
         #image = cam.capture_array("main")
         """ cnt += 1
         cv2.imwrite("test" + str(cnt) + ".jpg", image) """
-        if r != 0.0:
+        if dist != 0.0:
             # if ids contains # 8:
             if 8 in ids:
                 print("IM HERE")
                 print(result)
-                self.box = result
+                self.box = (dist, xDegrees, boxDegrees)
                 self.r.stop()
-                self.ds = DriveState.STRAIGHT
-                self.straight64(int(result[0]*100) - 40)
+                self.ds = DriveState.TURN
+                if xDegrees > 0:
+                    self.turnDegree(xDegrees, "right")
+                else:
+                    self.turnDegree(xDegrees, "left")
                 return result
             else:
                 print("found wrong box?")
