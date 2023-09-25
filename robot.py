@@ -295,13 +295,20 @@ class RobotController():
 
     def locateBox(self):
         result = e1.lookBox()
+        # split result into (x, y, z) and ids
+
+        r = result[0]
+        t = result[1]
+        boxDegrees = result[2]
+        ids = result[3]
+
             
         #image = cam.capture_array("main")
         """ cnt += 1
         cv2.imwrite("test" + str(cnt) + ".jpg", image) """
-        if result != (0.0, 0.0, 0.0, []):
+        if r != 0.0:
             # if ids contains # 8:
-            if 8 in result[3]:
+            if 8 in ids:
                 print("IM HERE")
                 print(result)
                 self.box = result
