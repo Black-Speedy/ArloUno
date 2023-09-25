@@ -4,8 +4,6 @@
 import cv2  # Import the OpenCV library
 import numpy as np
 import time
-#import plot lib
-import matplotlib.pyplot as plt
 
 def gstreamer_pipeline(capture_width=1280, capture_height=720, framerate=30):
     """Utility function for setting parameters for the gstreamer camera pipeline"""
@@ -54,7 +52,9 @@ def lookBox(id):
         print(" < < <  Game over!  > > > ")
         exit(-1)
     
-    doAll = True
+    doAll = False
+    if id == -1:
+        doAll = True
 
     # Use openCV ArUco library to detect markers
     (corners, ids, rejected) = cv2.aruco.detectMarkers(frameReference, arucoDict, parameters=arucoParams)
@@ -64,8 +64,6 @@ def lookBox(id):
                 # Esitmate pose singlemarkes
                 rvecs, tvecs, _objPoints = cv2.aruco.estimatePoseSingleMarkers(
                     corners, markerLength=0.146, cameraMatrix=cameraMatrix, distCoeffs=None)
-    
-    #cv2.aruco.estimatePoseSingleMarkers returnerer translation vector(tvec) og rotation vector(rvec)
 
                 #plot tvecs for each marker
                 plt.plot(tvecs[0][0][0], tvecs[0][0][1], 'ro')
