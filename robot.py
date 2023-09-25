@@ -331,7 +331,7 @@ class RobotController():
             
         
         self.ds = DriveState.TURN
-        self.turnDegree(8, "left")
+        self.turnDegree(15, "left")
    
 
                 
