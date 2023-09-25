@@ -281,7 +281,7 @@ class RobotController():
         elif (self.ds == DriveState.TURN):
             if (self.stopTurnTimer < time.perf_counter()):
                 self.ds = DriveState.STOP
-                self.stopTimer = time.perf_counter() + 0.5
+                self.stopTimer = time.perf_counter() + 1
                 self.r.stop()
         elif (self.ds == DriveState.STRAIGHT):
             if(self.stopTimer < time.perf_counter()):
