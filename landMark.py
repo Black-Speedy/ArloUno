@@ -56,34 +56,42 @@ def lookBox(id):
     if id == -1:
         doAll = True
 
-    # Use openCV ArUco library to detect markers
-    (corners, ids, rejected) = cv2.aruco.detectMarkers(frameReference, arucoDict, parameters=arucoParams)
-    if ids is not None:
-        for i in range(len(ids)):
-            if ids[i] == id or doAll:
-                # Esitmate pose singlemarkes
-                rvecs, tvecs, _objPoints = cv2.aruco.estimatePoseSingleMarkers(
-                    corners, markerLength=0.146, cameraMatrix=cameraMatrix, distCoeffs=None)
+    if doAll:
+        (corners, ids, rejected) = cv2.aruco.detectMarkers(frameReference, arucoDict, parameters=arucoParams)
+        rvecs, tvecs, _objPoints = cv2.aruco.estimatePoseSingleMarkers(
+            corners, markerLength=0.146, cameraMatrix=cameraMatrix, distCoeffs=None)
+        
+        if ids is not None:
+            return tvecs
+
+    else:
+        (corners, ids, rejected) = cv2.aruco.detectMarkers(frameReference, arucoDict, parameters=arucoParams)
+        if ids is not None:
+            for i in range(len(ids)):
+                if ids[i] == id:
+                    # Esitmate pose singlemarkes
+                    rvecs, tvecs, _objPoints = cv2.aruco.estimatePoseSingleMarkers(
+                        corners, markerLength=0.146, cameraMatrix=cameraMatrix, distCoeffs=None)
 
 
 
-                distance = 0.0
-                boxDegrees = 0.0
-                Xdegrees = 0.0
-                if (len(corners) > 0):
-                    for id in ids:
-                        print(id)
-                    radians = tvecs[0][0][0]
-                    degrees = np.degrees(radians)+ angle_error
-                    Xdegrees = np.degrees(rvecs[0][0][2])
-                    boxDegrees = np.degrees(radians)+ angle_error
-                    distance = tvecs[0][0][2]
-                    # Print tvecs in format: distance, height, angle in degrees
-                    print(f"distance = {distance}")
-                    print(f"X = {Xdegrees}")
-                    print(f"{boxDegrees}")
-                    print()
-                return distance, boxDegrees, Xdegrees, ids
+                    distance = 0.0
+                    boxDegrees = 0.0
+                    Xdegrees = 0.0
+                    if (len(corners) > 0):
+                        for id in ids:
+                            print(id)
+                        radians = tvecs[0][0][0]
+                        degrees = np.degrees(radians)+ angle_error
+                        Xdegrees = np.degrees(rvecs[0][0][2])
+                        boxDegrees = np.degrees(radians)+ angle_error
+                        distance = tvecs[0][0][2]
+                        # Print tvecs in format: distance, height, angle in degrees
+                        print(f"distance = {distance}")
+                        print(f"X = {Xdegrees}")
+                        print(f"{boxDegrees}")
+                        print()
+                    return distance, boxDegrees, Xdegrees, ids
 
 
 
