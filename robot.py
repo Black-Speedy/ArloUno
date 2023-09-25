@@ -294,6 +294,10 @@ class RobotController():
 
     def locateBox(self):
         result = e1.lookBox()
+        result = e1.lookBox()
+        result = e1.lookBox()
+        result = e1.lookBox()
+        result = e1.lookBox()
         # split result into (x, y, z) and ids
         r = result[0]
         t = result[1]
