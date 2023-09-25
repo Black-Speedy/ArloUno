@@ -295,7 +295,7 @@ class RobotController():
         result = e1.lookBox()
         print("11111111113")
             
-        image = cam.capture_array("main")
+        #image = cam.capture_array("main")
         """ cnt += 1
         cv2.imwrite("test" + str(cnt) + ".jpg", image) """
         if result != (0.0, 0.0, 0.0):
