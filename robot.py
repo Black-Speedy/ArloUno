@@ -319,6 +319,7 @@ class RobotController():
                 self.box = (dist, xDegrees, boxDegrees)
                 self.r.stop()
                 self.ds = DriveState.TURN
+                self.boxFound = True
                 if xDegrees > 0:
                     self.turnDegree(xDegrees, "right")
                 else:
