@@ -13,6 +13,11 @@ import cv2 # Import the OpenCV library
 from pprint import *
 
 # 
+class DriveState(enum):
+    STOP = 0
+    STRAIGHT = 1
+    TURN = 2
+    SEARCH = 3
 
 
 class Robot(object):
@@ -241,39 +246,63 @@ class Robot(object):
             r.go_diff(81, 40, 1, 1)
             sleep(8.3)
 
-    theta = 0
-    def turnDegree(r, degrees, direction):
+
+
+class RobotController():
+    def __init__(self):
+        self.r = Robot()
+        self.xPos = 0
+        self.yPos = 0
+        self.ds = DriveState.SEARCH
+        self.stopTimer = 0
+        self.stopTurnTimer = 0
+        self.box = (0, 0, 0)
+
+    def turnDegree(self, degrees, direction):
         theta = 0
         radians = degrees * np.pi / 180
         global ds, stopTurnTimer
         if radians < 0:
             radians = radians + 2 * np.pi
         if direction == "left":
-            r.go_diff(30, 30, 0, 1)
+            self.r.go_diff(30, 30, 0, 1)
             theta += radians
         else:
-            r.go_diff(30, 30, 1, 0)
+            self.r.go_diff(30, 30, 1, 0)
             theta -= radians
         stopTurnTimer = time.perf_counter() + (degrees / 90) * 1.95
 
+    def update(self):
+        
+        if (self.ds == DriveState.STOP):
+            if (self.stopTimer < time.perf_counter()):
+                #TODO: replace with logic!
+                self.ds = DriveState.SEARCH
+        elif (self.ds == DriveState.TURN):
+            if (self.stopTurnTimer < time.perf_counter()):
+                self.ds = DriveState.STOP
+                self.stopTimer = time.perf_counter() + 2
+                self.r.stop()
+        elif (self.ds == DriveState.STRAIGHT):
+            return
+        elif (self.ds == DriveState.SEARCH):
+            self.locateBox()
 
     def locateBox(self):
         picamera2.Picamera2()
-        noBox = True
-        while noBox:
-            sleep(2)
-            result = e1.lookBox()
-            image = cam.capture_array("main")
-            cnt += 1
-            cv2.imwrite("test" + str(cnt) + ".jpg", image)
-            if result != (0.0, 0.0, 0.0):
-                noBox = False
-                print("IM HERE")
-                print(result)
-                return result
-            self.turnDegree(15, "left")
-            sleep(0.7)
-            self.stop()
+        result = e1.lookBox()
+            
+        image = cam.capture_array("main")
+        """ cnt += 1
+        cv2.imwrite("test" + str(cnt) + ".jpg", image) """
+        if result != (0.0, 0.0, 0.0):
+            noBox = False
+            print("IM HERE")
+            print(result)
+            return result
+        
+        self.ds = DriveState.TURN
+        self.turnDegree(15, "left")
    
 
                 
