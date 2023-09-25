@@ -1,5 +1,7 @@
 import robot
 from robot import *
-r = robot.Robot()
+r = robot.RobotController()
 
-r.locateBox()
+maxTime = 60 + time.perf_counter()
+while(maxTime > time.perf_counter()):
+    r.update()

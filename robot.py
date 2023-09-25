@@ -273,7 +273,6 @@ class RobotController():
         stopTurnTimer = time.perf_counter() + (degrees / 90) * 1.95
 
     def update(self):
-        
         if (self.ds == DriveState.STOP):
             if (self.stopTimer < time.perf_counter()):
                 #TODO: replace with logic!
