@@ -6,14 +6,14 @@ import serial
 import numpy as np
 import picamera2
 from picamera2 import Picamera2
-import enum
+from enum import Enum
 import landMark as e1
 from landMark import *
 import cv2 # Import the OpenCV library
 from pprint import *
 
 # 
-class DriveState(enum):
+class DriveState(Enum):
     STOP = 0
     STRAIGHT = 1
     TURN = 2
