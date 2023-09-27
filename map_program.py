@@ -19,7 +19,7 @@ cv2.imwrite("tests.png", img)
 while(True):
     results, ids = lookBox(-1)
 
-    if results is None:
+    if len(ids) == 0:
         continue
 
     for i in range(0, len(results)):
