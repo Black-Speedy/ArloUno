@@ -8,7 +8,6 @@ img = np.zeros((720, 720, 3), np.uint8)
 
 angle_error = 11
 
-print(results)
 
 
 
