@@ -10,7 +10,7 @@ class GridOccupancyMap(object):
     """
 
     """
-    def __init__(self, low=(0, 0), high=(2, 2), res=0.05) -> None:
+    def __init__(self, low=(0, 0), high=(10000, 10000), res=1) -> None:
         self.map_area = [low, high]    #a rectangular area    
         self.map_size = np.array([high[0]-low[0], high[1]-low[1]])
         self.resolution = res
