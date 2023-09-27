@@ -57,6 +57,7 @@ def main():
         # only update every 0.1 seconds
         if ctime + 0.1 < time.perf_counter():
             print(r.ds)
+            print("theta: " + str(r.theta))
             r.update()
             ctime = time.perf_counter()
 
