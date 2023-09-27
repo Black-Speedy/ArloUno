@@ -6,7 +6,6 @@ import serial
 import numpy as np
 import picamera2
 from picamera2 import Picamera2
-from robot_driving_states import DriveState
 import landMark as e1
 from landMark import *
 import cv2 # Import the OpenCV library
@@ -237,7 +236,7 @@ class Robot(object):
 
 
 
-class RobotController():
+""" class RobotController():
     def __init__(self):
         self.r = Robot()
         self.ds = DriveState.SEARCH
@@ -324,7 +323,7 @@ class RobotController():
                     self.turnDegree(xDegrees, "left")
                 return result
             else:
-                print("found wrong box?")
+                print("found wrong box?") """
             
         
 
