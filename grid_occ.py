@@ -10,7 +10,7 @@ class GridOccupancyMap(object):
     """
 
     """
-    def __init__(self, low=(0, 0), high=(10000, 10000), res=1) -> None:
+    def __init__(self, low=(0, 0), high=(100, 100), res=1) -> None:
         self.map_area = [low, high]    #a rectangular area    
         self.map_size = np.array([high[0]-low[0], high[1]-low[1]])
         self.resolution = res
@@ -68,7 +68,7 @@ class GridOccupancyMap(object):
     
     def draw_map(self):
         #note the x-y axes difference between imshow and plot
-        plt.imshow(self.grid.T, cmap="Greys", origin='lower', vmin=0, vmax=10000, extent=self.extent, interpolation='none')
+        plt.imshow(self.grid.T, cmap="Greys", origin='lower', vmin=0, vmax=100, extent=self.extent, interpolation='none')
 
 if __name__ == '__main__':
     map = GridOccupancyMap()
