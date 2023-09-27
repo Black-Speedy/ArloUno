@@ -63,6 +63,8 @@ def lookBox(id):
         
         if ids is not None:
             return tvecs, ids
+        else:
+            return [0][0], []
 
     else:
         (corners, ids, rejected) = cv2.aruco.detectMarkers(frameReference, arucoDict, parameters=arucoParams)
