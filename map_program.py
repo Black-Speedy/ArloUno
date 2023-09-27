@@ -6,7 +6,7 @@ img = np.zeros((720, 720, 3), np.uint8)
 
 
 
-angle_error = 11
+angle_error = 5.5
 
 
 
@@ -31,10 +31,12 @@ while(True):
             x = int(360 + results[i][0][2]*100 *
                     np.sin(radians + np.deg2rad(5.5)))
 
-        print(f"offset = {results[i][0][2]*100 * np.sin(radians + np.deg2rad(5.5))}")
+        print(
+            f"offset = {results[i][0][2]*100 * np.sin(radians + np.deg2rad(5.5))}")
         print(f"offset w/o = {results[i][0][2]*100 * np.sin(radians)}")
         y = int((720)/2) - int(results[i][0][2]*100)
-        print(f"x value = {x} y value = {y}")
+        # print(f"x value = {x} y value = {y}")
+        print(f"radians: {radians} degrees: {degrees}")
         img = cv2.circle(img, (x, y), 35, (255, 255, 255), 3)
         # write the id of the box
         font = cv2.FONT_HERSHEY_SIMPLEX
