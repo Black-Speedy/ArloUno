@@ -41,6 +41,8 @@ class GridOccupancyMap(object):
         origins = []
         radius = []
 
+        print(f"results: {results}")
+
         for i in range(0, len(results)):
             radians = results[i][0][0]
             degrees = np.degrees(radians) + lm.angle_error
@@ -66,7 +68,7 @@ class GridOccupancyMap(object):
     
     def draw_map(self):
         #note the x-y axes difference between imshow and plot
-        plt.imshow(self.grid.T, cmap="Greys", origin='lower', vmin=0, vmax=1, extent=self.extent, interpolation='none')
+        plt.imshow(self.grid.T, cmap="Greys", origin='lower', vmin=0, vmax=10000, extent=self.extent, interpolation='none')
 
 if __name__ == '__main__':
     map = GridOccupancyMap()
