@@ -16,7 +16,7 @@ class RobotController():
         self.ds = DriveState.SEARCH
         self.stopTimer = 0
         self.stopTurnTimer = 0
-        self.path = path
+        self.path = np.array(path)
         self.theta = 0
         self.currentPoint = 0
     
