@@ -4,6 +4,7 @@ Module for interfacing a 2D Map in the form of Grid Occupancy
 
 import numpy as np
 import matplotlib.pyplot as plt
+import landMark as lm 
 
 class GridOccupancyMap(object):
     """
@@ -31,15 +32,27 @@ class GridOccupancyMap(object):
         
         return self.grid[indices[0], indices[1]] 
 
-    def populate(self, n_obs=6):
+    def populate(self):
         """
         generate a grid map with some circle shaped obstacles
         """
-        origins = np.random.uniform(
-            low=self.map_area[0] + self.map_size[0]*0.2, 
-            high=self.map_area[0] + self.map_size[0]*0.8, 
-            size=(n_obs, 2))
-        radius = np.random.uniform(low=0.1, high=0.3, size=n_obs)
+        results, ids = lm.lookBox(-1)
+
+        origins = []
+        radius = []
+
+        for i in range(0, len(results)):
+            radians = results[i][0][0]
+            degrees = np.degrees(radians) + lm.angle_error
+            if (degrees < 0):
+                x = int(360 - results[i][0][2]*100 * np.sin(radians + np.deg2rad(lm.angle_error)))
+            else:
+                x = int(360 + results[i][0][2]*100 *
+                        np.sin(radians + np.deg2rad(lm.angle_error)))
+            y = int((720)/2) - int(results[i][0][2]*100)
+            origins.append([x, y])
+            radius.append(0.35)
+
         #fill the grids by checking if the grid centroid is in any of the circle
         for i in range(self.n_grids[0]):
             for j in range(self.n_grids[1]):
