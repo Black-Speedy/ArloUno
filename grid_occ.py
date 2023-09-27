@@ -52,13 +52,13 @@ class GridOccupancyMap(object):
             radians = results[i][0][0]
             degrees = np.degrees(radians) + angle_error
             if (degrees < 0):
-                x = int(results[i][0][2] *
+                x = (results[i][0][2] *
                         np.sin(radians + np.deg2rad(angle_error)))
             else:
-                x = int(results[i][0][2] *
+                x = (results[i][0][2] *
                         np.sin(radians + np.deg2rad(angle_error)))
 
-            y = int(results[i][0][2])
+            y = (results[i][0][2])
             print(f"x: {x} y: {y}")
             origins.append([x, y])
             radius.append(0.175)
