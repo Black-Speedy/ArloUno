@@ -70,7 +70,7 @@ class RobotController():
             print("next point: " + str(self.path[self.currentPoint + 1]))
             print("theta: " + str(np.degrees(theta)))
 
-            if (0.1 > theta > -0.1):
+            if (not (0.1 > theta > -0.1)):
                 # we need to turn
                 self.ds = DriveState.TURN
                 if (theta > 0):
