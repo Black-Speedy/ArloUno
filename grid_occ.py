@@ -10,7 +10,7 @@ class GridOccupancyMap(object):
     """
 
     """
-    def __init__(self, low=(0, 0), high=(100, 100), res=1) -> None:
+    def __init__(self, low=(-50, 0), high=(50, 100), res=1) -> None:
         self.map_area = [low, high]    #a rectangular area    
         self.map_size = np.array([high[0]-low[0], high[1]-low[1]])
         self.resolution = res
@@ -47,11 +47,11 @@ class GridOccupancyMap(object):
             radians = results[i][0][0]
             degrees = np.degrees(radians) + lm.angle_error
             if (degrees < 0):
-                x = int(360 - results[i][0][2]*100 * np.sin(radians + np.deg2rad(lm.angle_error)))
+                x = int(results[i][0][2]*100 * np.sin(radians + np.deg2rad(lm.angle_error)))
             else:
-                x = int(360 + results[i][0][2]*100 *
+                x = int(results[i][0][2]*100 *
                         np.sin(radians + np.deg2rad(lm.angle_error)))
-            y = int((720)/2) - int(results[i][0][2]*100)
+            y = int(results[i][0][2]*100)
             origins.append([x, y])
             radius.append(0.35)
 
