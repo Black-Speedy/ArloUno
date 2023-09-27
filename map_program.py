@@ -30,6 +30,8 @@ while(True):
         else:
             x = int(360 + results[i][0][2]*100 * np.cos(radians + np.deg2rad(11)))
 
+        print(f"degrees = {results[i][0][2]*100 * np.cos(radians + np.deg2rad(11))}")
+        print(f"degrees without offset = {results[i][0][2]*100 * np.cos(radians)}")
         y = int((720)/2) - int(results[i][0][2]*100)
         print(f"x value = {x} y value = {y}")
         img = cv2.circle(img, (x, y), 35, (255, 255, 255), 3)
