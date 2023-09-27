@@ -21,7 +21,7 @@ for i in range(0, len(results)):
         
     y = int((720 - int(results[i][0][2]*100))/2)
     print(f"x value = {x} y value = {y-640}")
-    img = cv2.circle(img, (x, y), 16, (255, 255, 255), 3)
+    img = cv2.circle(img, (x, y), 35, (255, 255, 255), 3)
     # write the id of the box
     font = cv2.FONT_HERSHEY_SIMPLEX
     cv2.putText(img, str(ids[i]), (x, y),
