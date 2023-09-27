@@ -179,16 +179,12 @@ class RRT:
         if node is None:
             return False
 
-        # Define the robot's width (assuming it's symmetric)
-        robot_width = 0.70
-
         for p in node.path:
             # Iterate over a grid of points within the robot's footprint
-            for x_offset in range(int(-robot_width // 2), int((robot_width // 2) + 1)):
-                for y_offset in range(int(-robot_width // 2), int((robot_width // 2) + 1)):
+            for x_offset in range(-2, 2):
+                for y_offset in range(-2, 2):
                     # Calculate the adjusted position
-                    adjusted_position = np.array(
-                        p) + np.array([x_offset, y_offset])
+                    adjusted_position = np.array(p) + np.array([x_offset * 0.2, y_offset * 0.2])
 
                     # Print adjusted position
                     print(adjusted_position)
