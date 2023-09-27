@@ -62,9 +62,10 @@ class RobotController():
                 self.ds = DriveState.EXIT
                 return
             
+            ydiff = self.path[self.currentPoint + 1][1] - self.path[self.currentPoint][1]
+            xdiff = self.path[self.currentPoint + 1][0] - self.path[self.currentPoint][0]
             # find angle to next point
-            theta = np.arctan2(self.path[self.currentPoint + 1][1] - self.path[self.currentPoint][1],
-                               self.path[self.currentPoint + 1][0] - self.path[self.currentPoint][0])
+            theta = np.arctan2(ydiff, xdiff) - self.theta
             
             theta = theta % (2 * np.pi)
             print("current point: " + str(self.path[self.currentPoint]))
