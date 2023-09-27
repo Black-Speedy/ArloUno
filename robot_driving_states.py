@@ -1,5 +1,5 @@
 from enum import Enum
-import robot as Robot
+import robot as rb
 import time
 import numpy as np
 
@@ -12,7 +12,7 @@ class DriveState(Enum):
 
 class RobotController():
     def __init__(self):
-        self.r = Robot()
+        self.r = rb.Robot()
         self.ds = DriveState.SEARCH
         self.stopTimer = 0
         self.stopTurnTimer = 0
