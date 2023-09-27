@@ -187,10 +187,10 @@ class RRT:
                 return False
             if self.map.in_collision(np.array(([p[0]-0.3, p[1]]))):
                 return False
-            if self.map.in_collision(np.array(([p[0], p[1]+0.3]))):
+            """ if self.map.in_collision(np.array(([p[0], p[1]+0.3]))):
                 return False
             if self.map.in_collision(np.array(([p[0], p[1]-0.3]))):
-                return False
+                return False """
             
 
             return True
