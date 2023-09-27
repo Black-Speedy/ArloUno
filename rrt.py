@@ -178,23 +178,14 @@ class RRT:
     def check_collision_free(self, node):
         if node is None:
             return False
-
-        # Define the robot's width (assuming it's symmetric)
-        robot_width = 0.35
-
         for p in node.path:
-            # Iterate over a grid of points within the robot's footprint
-            for x_offset in range(int(-robot_width // 2), int((robot_width // 2) + 1)):
-                for y_offset in range(int(-robot_width // 2), int((robot_width // 2) + 1)):
-                    # Calculate the adjusted position
-                    adjusted_position = np.array(p) + np.array([x_offset, y_offset])
+            #check if the node will collide, considering all nodes in a radius around the robot
+            print(f"p: {p}")
+            if self.map.in_collision(np.array(p)):
+                return False
+            
 
-                    # Check if the adjusted position is in collision
-                    if self.map.in_collision(adjusted_position):
-                        return False
-
-        return True
-
+            return True
 
 
 import grid_occ, robot_models
