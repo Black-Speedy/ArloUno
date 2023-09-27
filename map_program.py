@@ -6,7 +6,7 @@ img = np.zeros((720, 720, 3), np.uint8)
 
 
 
-angle_error = 5.5
+angle_error = 11
 
 
 
@@ -26,13 +26,13 @@ while(True):
         radians = results[i][0][0]
         degrees = np.degrees(radians) + angle_error
         if (degrees < 0):
-            x = int(360 - results[i][0][2]*100 * np.sin(radians + np.deg2rad(5.5)))
+            x = int(360 - results[i][0][2]*100 * np.sin(radians + np.deg2rad(angle_error)))
         else:
             x = int(360 + results[i][0][2]*100 *
-                    np.sin(radians + np.deg2rad(5.5)))
+                    np.sin(radians + np.deg2rad(angle_error)))
 
         print(
-            f"offset = {results[i][0][2]*100 * np.sin(radians + np.deg2rad(5.5))}")
+            f"offset = {results[i][0][2]*100 * np.sin(radians + np.deg2rad(angle_error))}")
         print(f"offset w/o = {results[i][0][2]*100 * np.sin(radians)}")
         y = int((720)/2) - int(results[i][0][2]*100)
         # print(f"x value = {x} y value = {y}")
