@@ -2,7 +2,7 @@ from robot import *
 from landMark import *
 # visuelize the tvecs as an image, draw a box for each tvec and save it in a file
 
-img = np.zeros((720, 1280, 3), np.uint8)
+img = np.zeros((720, 720, 3), np.uint8)
 
 
 results, ids = lookBox(-1)
@@ -15,9 +15,9 @@ for i in range(0, len(results)):
     radians = results[i][0][0]
     degrees = np.degrees(radians)+ angle_error
     if(degrees < 0):
-        x = int(640 - results[i][0][2]*100 * np.cos(radians + np.deg2rad(11)))
+        x = int(360 - results[i][0][2]*100 * np.cos(radians + np.deg2rad(11)))
     else:
-        x = int(640 + results[i][0][2]*100 * np.cos(radians + np.deg2rad(11)))
+        x = int(360 + results[i][0][2]*100 * np.cos(radians + np.deg2rad(11)))
         
     y = int((720 - int(results[i][0][2]*100))/2)
     print(f"x value = {x} y value = {y-640}")
