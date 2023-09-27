@@ -64,7 +64,7 @@ class RobotController():
             
             # find angle to next point
             theta = np.arctan2(self.path[self.currentPoint + 1][1] - self.path[self.currentPoint][1],
-                               self.path[self.currentPoint + 1][0] - self.path[self.currentPoint][0]) - self.theta
+                               self.path[self.currentPoint + 1][0] - self.path[self.currentPoint][0])
             
             theta = theta % (2 * np.pi)
             print("current point: " + str(self.path[self.currentPoint]))
