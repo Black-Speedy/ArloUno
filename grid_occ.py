@@ -58,9 +58,9 @@ class GridOccupancyMap(object):
                         np.sin(radians + np.deg2rad(angle_error)))
 
             y = int(results[i][0][2])
-
+            print(f"x: {x} y: {y}")
             origins.append([x, y])
-            radius.append(0.35)
+            radius.append(0.175)
 
 
         # fill the grids by checking if the grid centroid is in any of the circle
