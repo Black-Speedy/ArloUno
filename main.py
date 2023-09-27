@@ -1,5 +1,4 @@
 from robot_driving_states import RobotController
-from robot import Robot
 from rrt import *
 
 def main():
