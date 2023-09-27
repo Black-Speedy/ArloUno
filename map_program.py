@@ -38,4 +38,3 @@ while(True):
         cv2.putText(img, str(ids[i]), (x, y),
                     font, 1, (255, 255, 255), 2, cv2.LINE_AA)
         
-    cv2.imshow("img", img)
