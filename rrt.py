@@ -207,9 +207,9 @@ def main():
     metadata = dict(title="RRT Test")
     writer = FFMpegWriter(fps=15, metadata=metadata)
     fig = plt.figure()
+    path = rrt.planning(animation=show_animation, writer=writer)
     
     with writer.saving(fig, "rrt_test.mp4", 100):
-        path = rrt.planning(animation=show_animation, writer=writer)
 
         if path is None:
             print("Cannot find path")
@@ -225,6 +225,12 @@ def main():
                 plt.savefig("map_with_path.png")
                 writer.grab_frame()
 
+
+    rrt.draw_graph()
+    plt.plot([x for (x, y) in path], [y for (x, y) in path], '-r')
+    plt.grid(True)
+    plt.pause(0.01)  # Need for Mac
+    plt.savefig("map_with_path.png")
 
 if __name__ == '__main__':
     main()
