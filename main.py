@@ -1,5 +1,6 @@
 from robot_driving_states import RobotController
 from rrt import *
+import time
 
 def main():
 
@@ -48,8 +49,16 @@ def main():
 
     r = RobotController(path)
 
-    while(True):
-        r.update()
+    maxTime = 60 + time.perf_counter()
+
+
+    ctime = time.perf_counter()
+    while (maxTime > time.perf_counter()):
+        # only update every 0.1 seconds
+        if ctime + 0.1 < time.perf_counter():
+            print(r.ds)
+            r.update()
+            ctime = time.perf_counter()
 
 
 if __name__ == '__main__':
