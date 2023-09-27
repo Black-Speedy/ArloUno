@@ -1,5 +1,7 @@
 from enum import Enum
-from robot import *
+import robot as Robot
+import time
+import numpy as np
 
 class DriveState(Enum):
     STOP = 0
