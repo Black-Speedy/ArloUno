@@ -6,20 +6,11 @@ import serial
 import numpy as np
 import picamera2
 from picamera2 import Picamera2
-from enum import Enum
+from robot_driving_states import DriveState
 import landMark as e1
 from landMark import *
 import cv2 # Import the OpenCV library
 from pprint import *
-
-# 
-class DriveState(Enum):
-    STOP = 0
-    STRAIGHT = 1
-    TURN = 2
-    SEARCH = 3
-    EXIT = 4
-
 
 class Robot(object):
     """Defines the Arlo robot API
