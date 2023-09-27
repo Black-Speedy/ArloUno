@@ -191,7 +191,7 @@ class RRT:
                         p) + np.array([x_offset, y_offset])
 
                     # Check if the adjusted position is within the map bounds
-                    if (0 <= adjusted_position[0] < self.map.width) and (0 <= adjusted_position[1] < self.map.height):
+                    if (-1 <= adjusted_position[0] < 1) and (0 <= adjusted_position[1] < 2):
                         # Check if the adjusted position is in collision
                         if self.map.in_collision(adjusted_position):
                             return False
