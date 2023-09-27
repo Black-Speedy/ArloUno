@@ -26,11 +26,12 @@ while(True):
         radians = results[i][0][0]
         degrees = np.degrees(radians) + angle_error
         if (degrees < 0):
-            x = int(360 - results[i][0][2]*100 * np.sin(radians + np.deg2rad(11)))
+            x = int(360 - results[i][0][2]*100 * np.sin(radians + np.deg2rad(5.5)))
         else:
-            x = int(360 + results[i][0][2]*100 * np.sin(radians + np.deg2rad(11)))
+            x = int(360 + results[i][0][2]*100 *
+                    np.sin(radians + np.deg2rad(5.5)))
 
-        print(f"offset = {results[i][0][2]*100 * np.sin(radians + np.deg2rad(11))}")
+        print(f"offset = {results[i][0][2]*100 * np.sin(radians + np.deg2rad(5.5))}")
         print(f"offset w/o = {results[i][0][2]*100 * np.sin(radians)}")
         y = int((720)/2) - int(results[i][0][2]*100)
         print(f"x value = {x} y value = {y}")

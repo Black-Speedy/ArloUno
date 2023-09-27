@@ -59,7 +59,7 @@ def lookBox(id):
     if doAll:
         (corners, ids, rejected) = cv2.aruco.detectMarkers(frameReference, arucoDict, parameters=arucoParams)
         rvecs, tvecs, _objPoints = cv2.aruco.estimatePoseSingleMarkers(
-            corners, markerLength=0.146, cameraMatrix=cameraMatrix, distCoeffs=None)
+            corners, markerLength=0.15, cameraMatrix=cameraMatrix, distCoeffs=None)
         
         if ids is not None:
             return tvecs, ids
