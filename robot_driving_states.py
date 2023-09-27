@@ -11,12 +11,12 @@ class DriveState(Enum):
     EXIT = 4
 
 class RobotController():
-    def __init__(self):
+    def __init__(self, path):
         self.r = rb.Robot()
         self.ds = DriveState.SEARCH
         self.stopTimer = 0
         self.stopTurnTimer = 0
-        self.path = []
+        self.path = path
         self.theta = 0
         self.currentPoint = 0
     
