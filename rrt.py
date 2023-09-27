@@ -180,11 +180,12 @@ class RRT:
             return False
         for p in node.path:
             #check if the node will collide, considering all nodes in a radius around the robot
-            """ for i in range(-1, 2):
+            for i in range(-1, 2):
                 for j in range(-1, 2):
-                    if self.map.in_collision([p[0]+i*0.23, p[1]+j*0.23]):
-                        return False """
-            if self.map.in_collision(np.array(p)):
+                    if self.map.in_collision(np.array(p([p.pos[0] + i, p.pos[1] + j]))):
+                        return False
+                    
+            if self.map.in_collision():
                 return False
 
             return True
