@@ -183,7 +183,13 @@ class RRT:
             print(f"p: {p}")
             if self.map.in_collision(np.array(p)):
                 return False
-            if self.map.in_collision(np.array(([p[0]+0.1, p[1]]))):
+            if self.map.in_collision(np.array(([p[0]+0.3, p[1]]))):
+                return False
+            if self.map.in_collision(np.array(([p[0]-0.3, p[1]]))):
+                return False
+            if self.map.in_collision(np.array(([p[0], p[1]+0.3]))):
+                return False
+            if self.map.in_collision(np.array(([p[0], p[1]-0.3]))):
                 return False
             
 
