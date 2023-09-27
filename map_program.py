@@ -19,7 +19,7 @@ for i in range(0, len(results)):
     else:
         x = int(360 + results[i][0][2]*100 * np.cos(radians + np.deg2rad(11)))
         
-    y = int((720 - int(results[i][0][2]*100))/2)
+    y = int((720)/2) - int(results[i][0][2]*100)
     print(f"x value = {x} y value = {y-640}")
     img = cv2.circle(img, (x, y), 35, (255, 255, 255), 3)
     # write the id of the box
