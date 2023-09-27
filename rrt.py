@@ -179,9 +179,15 @@ class RRT:
         if node is None:
             return False
         for p in node.path:
-            if self.map.in_collision(np.array(p)):
-                return False
-        return True
+            #check if the node will collide, considering all nodes in a radius around the robot
+            for i in range(-1, 2):
+                for j in range(-1, 2):
+                    if self.map.in_collision([p[0]+i*0.23, p[1]+j*0.23]):
+                        return False
+            """ if self.map.in_collision(np.array(p)):
+                return False """
+
+            return True
 
 
 import grid_occ, robot_models
@@ -222,7 +228,7 @@ def main():
                 plt.plot([x for (x, y) in path], [y for (x, y) in path], '-r')
                 plt.grid(True)
                 plt.pause(0.01)  # Need for Mac
-                plt.savefig("map_with_path.png")
+                plt.show()
                 writer.grab_frame()
 
 
