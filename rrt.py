@@ -180,7 +180,7 @@ class RRT:
             return False
 
         # Define the robot's width (assuming it's symmetric)
-        robot_width = 0.2
+        robot_width = 0.35
 
         for p in node.path:
             # Iterate over a grid of points within the robot's footprint
