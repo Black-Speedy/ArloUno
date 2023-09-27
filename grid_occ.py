@@ -46,6 +46,7 @@ class GridOccupancyMap(object):
         results, ids = lm.lookBox(-1)
 
         angle_error = 11
+        print(results)
 
         for i in range(0, len(results)):
             radians = results[i][0][0]
