@@ -306,8 +306,6 @@ class Robot(object):
         ids = result[3]
 
         #image = cam.capture_array("main")
-        """ cnt += 1
-        cv2.imwrite("test" + str(cnt) + ".jpg", image) """
         if dist != 0.0:
             # if ids contains # 8:
             if 8 in ids:
