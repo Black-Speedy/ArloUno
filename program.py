@@ -1,5 +1,6 @@
-from robot import *
-r = RobotController()
+import robot_driving_states
+import time
+r = robot_driving_states.RobotController()
 
 maxTime = 60 + time.perf_counter()
 
