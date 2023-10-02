@@ -70,7 +70,7 @@ class RobotController():
             if(self.stopTimer < time.perf_counter()):
                 self.r.stop()
                 self.ds = DriveState.STOP
-                self.stopTimer = time.perf_counter() + self.waitTime 
+                self.stopTimer = time.perf_counter() + self.waitTime
 
         elif (self.ds == DriveState.SEARCH):
             if self.currentPoint == len(self.path) - 1:
