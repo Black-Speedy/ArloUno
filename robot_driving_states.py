@@ -79,7 +79,7 @@ class RobotController():
             #theta = self.wrapTheta(theta)
             print("theta new: " + str(np.rad2deg(theta)))
 
-            if (not (0.4 > theta > -0.4)):
+            if (not (0.001 > theta > -0.001)):
                 # we need to turn
                 self.ds = DriveState.TURN
                 if (theta > 0):
