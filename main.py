@@ -15,7 +15,7 @@ def main():
         goal=[0, 1.5],
         robot_model=robot,
         map=map,
-        expand_dis=0.6,
+        expand_dis=0.4,
         path_resolution=path_res,
     )
 
