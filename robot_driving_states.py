@@ -35,11 +35,9 @@ class RobotController():
         if direction == "left":
             self.r.go_diff(30, 30, 0, 1)
             self.theta += radians
-            self.theta = self.wrapTheta(self.theta)
         else:
             self.r.go_diff(30, 30, 1, 0)
             self.theta -= radians
-            self.theta = self.wrapTheta(self.theta)
         self.stopTurnTimer = time.perf_counter() + (degrees / 90) * 1.95
 
     def wrapTheta(self, theta):
