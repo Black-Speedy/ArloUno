@@ -77,6 +77,7 @@ class RobotController():
             # find angle to next point
             theta = np.arctan2(ydiff, xdiff) - self.theta
             theta = self.wrapTheta(theta)
+            print("theta new: " + str(np.rad2deg(theta)))
 
             if (not (0.4 > theta > -0.4)):
                 # we need to turn
