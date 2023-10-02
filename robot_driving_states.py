@@ -78,7 +78,7 @@ class RobotController():
             theta = np.arctan2(ydiff, xdiff) - self.theta
             theta = self.wrapTheta(theta)
 
-            if (not (0.1 > theta > -0.1)):
+            if (not (0.4 > theta > -0.4)):
                 # we need to turn
                 self.ds = DriveState.TURN
                 if (theta < np.pi):
