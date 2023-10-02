@@ -9,11 +9,12 @@ class DriveState(Enum):
     TURN = 2
     SEARCH = 3
     EXIT = 4
+    SETUP = 5
 
 class RobotController():
     def __init__(self, path):
         self.r = rb.Robot()
-        self.ds = DriveState.SEARCH
+        self.ds = DriveState.SETUP
         self.stopTimer = 0
         self.stopTurnTimer = 0
         self.path = np.flip(np.array(path), 0)
@@ -49,6 +50,11 @@ class RobotController():
         return theta % 2*np.pi
 
     def update(self):
+        if (self.ds == DriveState.SETUP):
+            # Drive half robots length forward
+            self.ds = DriveState.STRAIGHT
+            self.straight64(22)
+
         if (self.ds == DriveState.STOP):
             if (self.stopTimer < time.perf_counter()):
                 self.ds = DriveState.SEARCH
@@ -81,7 +87,7 @@ class RobotController():
             print(f"current point {self.currentPoint}, x: {self.path[self.currentPoint][0]}, y: {self.path[self.currentPoint][1]}")
             print("theta to turn: " + str(np.rad2deg(theta)))
             print(f"robots theta: {np.rad2deg(self.theta)}")
-            
+
             if (not (0.001 > theta > -0.001)):
                 # we need to turn
                 self.ds = DriveState.TURN
