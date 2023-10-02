@@ -20,6 +20,7 @@ class RobotController():
         self.path = np.flip(np.array(path), 0)
         self.theta = np.pi/2
         self.currentPoint = 0
+        self.waitTime = 0
     
     def straight64(self, cm):
         self.r.go_diff(65, 70, 1, 1)
@@ -62,14 +63,14 @@ class RobotController():
         elif (self.ds == DriveState.TURN):
             if (self.stopTurnTimer < time.perf_counter()):
                 self.ds = DriveState.STOP
-                self.stopTimer = time.perf_counter() + 0.3
+                self.stopTimer = time.perf_counter() + self.waitTime
                 self.r.stop()
 
         elif (self.ds == DriveState.STRAIGHT):
             if(self.stopTimer < time.perf_counter()):
                 self.r.stop()
                 self.ds = DriveState.STOP
-                self.stopTimer = time.perf_counter() + 0.3
+                self.stopTimer = time.perf_counter() + self.waitTime 
 
         elif (self.ds == DriveState.SEARCH):
             if self.currentPoint == len(self.path) - 1:
