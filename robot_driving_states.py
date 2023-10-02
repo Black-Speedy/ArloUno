@@ -20,7 +20,7 @@ class RobotController():
         self.path = np.flip(np.array(path), 0)
         self.theta = np.pi/2
         self.currentPoint = 0
-        self.waitTime = 0.8
+        self.waitTime = 0.0
     
     def straight64(self, cm):
         self.r.go_diff(65, 70, 1, 1)
