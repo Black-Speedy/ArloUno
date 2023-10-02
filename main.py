@@ -46,8 +46,8 @@ def main():
 
     rrt.draw_graph()
     plt.plot([x for (x, y) in path], [y for (x, y) in path], '-r')
-    for i in range(0, len(rrt.node_list)):
-        plt.text(rrt.node_list[i].pos[0], rrt.node_list[i].pos[1], str(
+    for i in range(0, len(path)):
+        plt.text(path[i].pos[0], path[i].pos[1], str(
             i), color="blue", fontsize=10)
     plt.grid(True)
     plt.pause(0.01)  # Need for Mac
