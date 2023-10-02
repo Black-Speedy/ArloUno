@@ -36,6 +36,9 @@ def main():
             if show_animation:
                 rrt.draw_graph()
                 plt.plot([x for (x, y) in path], [y for (x, y) in path], '-r')
+                # write the node number
+                for (x, y, i) in rrt.node_list:
+                    plt.text(x, y, str(i), color="blue", fontsize=10)
                 plt.grid(True)
                 plt.pause(0.01)  # Need for Mac
                 plt.show()
