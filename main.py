@@ -47,6 +47,7 @@ def main():
     plt.pause(0.01)  # Need for Mac
     plt.savefig("map_with_path.png")
 
+    
     r = RobotController(path)
 
     maxTime = 60 + time.perf_counter()
