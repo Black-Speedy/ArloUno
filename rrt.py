@@ -181,8 +181,8 @@ class RRT:
 
         for p in node.path:
             # Iterate over a grid of points within the robot's footprint
-            for x_offset in range(-1, 1):
-                for y_offset in range(-1, 1):
+            for x_offset in range(0, 0):
+                for y_offset in range(0, 0):
                     # Calculate the adjusted position
                     adjusted_position = np.array(p) + np.array([x_offset * 0.23, y_offset * 0.23])
 
