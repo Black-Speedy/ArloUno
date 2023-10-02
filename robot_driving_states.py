@@ -9,22 +9,20 @@ class DriveState(Enum):
     TURN = 2
     SEARCH = 3
     EXIT = 4
-    SETUP = 5
 
 class RobotController():
     def __init__(self, path):
         self.r = rb.Robot()
-        self.ds = DriveState.SETUP
+        self.ds = DriveState.SEARCH
         self.stopTimer = 0
         self.stopTurnTimer = 0
         self.path = np.flip(np.array(path), 0)
         self.theta = np.pi/2
         self.currentPoint = 0
-        self.waitTime = 0
     
     def straight64(self, cm):
         self.r.go_diff(65, 70, 1, 1)
-        self.stopTimer = time.perf_counter() + (cm * 2.24) / 100
+        self.stopTimer = time.perf_counter() + (cm * 2.14) / 100
 
     def turnDegree(self, degrees, direction, convert=False):
         print("turning")
@@ -51,11 +49,6 @@ class RobotController():
         return theta % 2*np.pi
 
     def update(self):
-        if (self.ds == DriveState.SETUP):
-            # Drive half robots length forward
-            self.ds = DriveState.STRAIGHT
-            self.straight64(22)
-
         if (self.ds == DriveState.STOP):
             if (self.stopTimer < time.perf_counter()):
                 self.ds = DriveState.SEARCH
@@ -63,14 +56,14 @@ class RobotController():
         elif (self.ds == DriveState.TURN):
             if (self.stopTurnTimer < time.perf_counter()):
                 self.ds = DriveState.STOP
-                self.stopTimer = time.perf_counter() + self.waitTime
+                self.stopTimer = time.perf_counter() + 0.3
                 self.r.stop()
 
         elif (self.ds == DriveState.STRAIGHT):
             if(self.stopTimer < time.perf_counter()):
                 self.r.stop()
                 self.ds = DriveState.STOP
-                self.stopTimer = time.perf_counter() + self.waitTime
+                self.stopTimer = time.perf_counter() + 0.3
 
         elif (self.ds == DriveState.SEARCH):
             if self.currentPoint == len(self.path) - 1:
@@ -88,19 +81,16 @@ class RobotController():
             print(f"current point {self.currentPoint}, x: {self.path[self.currentPoint][0]}, y: {self.path[self.currentPoint][1]}")
             print("theta to turn: " + str(np.rad2deg(theta)))
             print(f"robots theta: {np.rad2deg(self.theta)}")
-
+            
             if (not (0.001 > theta > -0.001)):
                 # we need to turn
                 self.ds = DriveState.TURN
-                if (theta > 0 and theta < np.pi):
+                if (theta > 0):
                     print("turning left")
                     self.turnDegree(np.degrees(theta), "left", True)
                 else:
                     print("turning right")
-                    if theta < 0:
-                        self.turnDegree(np.degrees(np.abs(theta)), "right", True)
-                    else:
-                        self.turnDegree(np.degrees(180 - (theta - 180)), "right", True)
+                    self.turnDegree(np.degrees(np.abs(theta)), "right", True)
             else:
                 # we need to drive straight
                 self.ds = DriveState.STRAIGHT
