@@ -184,6 +184,7 @@ class RRT:
             for x_offset in range(-1, 2):
                 for y_offset in range(-1, 2):
                     # Calculate the adjusted position
+                    print(f"x_offset: {x_offset}, y_offset: {y_offset}")
                     adjusted_position = np.array(p) + np.array([x_offset * 0.23, y_offset * 0.23])
 
                     # Check if the adjusted position is within the map bounds
