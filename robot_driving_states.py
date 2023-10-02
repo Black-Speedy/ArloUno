@@ -43,12 +43,12 @@ class RobotController():
         self.stopTurnTimer = time.perf_counter() + (degrees / 90) * 1.95
 
     def wrapTheta(self, theta):
-        if theta > np.pi * 2:
+        """ if theta > np.pi * 2:
             return theta - np.pi * 2
         elif theta < 0:
             return theta + np.pi * 2
-        else:
-            return theta
+        else: """
+        return theta % 2*np.pi
 
     def update(self):
         if (self.ds == DriveState.STOP):
