@@ -84,6 +84,7 @@ class RobotController():
             print(f"current point {self.currentPoint}, x: {self.path[self.currentPoint][0]}, y: {self.path[self.currentPoint][1]}")
             print("theta to turn: " + str(thetaDegrees))
             print(f"robots theta: {np.rad2deg(self.theta)}")
+            print(f"Distance to next point: {np.linalg.norm(self.path[self.currentPoint + 1] - self.path[self.currentPoint])}")
 
             if (not (0.001 > thetaDegrees > -0.001)):
                 # we need to turn
