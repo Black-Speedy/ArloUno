@@ -88,7 +88,9 @@ class RobotController():
             else:
                 # we need to drive straight
                 self.ds = DriveState.STRAIGHT
-                self.straight64(np.linalg.norm(self.path[self.currentPoint + 1] - self.path[self.currentPoint]))
+                self.straight64(np.linalg.norm(self.path[self.currentPoint + 1] - self.path[self.currentPoint])* 100)
+                print("drive dist: "+ str(np.linalg.norm(
+                    self.path[self.currentPoint + 1] - self.path[self.currentPoint])))
                 self.currentPoint += 1
 
         elif (self.ds == DriveState.EXIT):
