@@ -82,10 +82,12 @@ class RobotController():
             if (not (0.4 > theta > -0.4)):
                 # we need to turn
                 self.ds = DriveState.TURN
-                if (theta < np.pi):
+                if (theta > 0):
+                    print("turning left")
                     self.turnDegree(np.degrees(theta), "left", True)
                 else:
-                    self.turnDegree(np.degrees(np.abs(theta-(np.pi*2))), "right", True)
+                    print("turning right")
+                    self.turnDegree(np.degrees(np.abs(theta)), "right", True)
             else:
                 # we need to drive straight
                 self.ds = DriveState.STRAIGHT
