@@ -39,6 +39,9 @@ def main():
                 # write the node number
                 for (x, y, i) in rrt.node_list:
                     plt.text(x, y, str(i), color="blue", fontsize=10)
+                    print(i)
+                    print("done something")
+
                 plt.grid(True)
                 plt.pause(0.01)  # Need for Mac
                 plt.show()
