@@ -19,6 +19,7 @@ class RobotController():
         self.path = np.flip(np.array(path), 0)
         self.theta = np.pi/2
         self.currentPoint = 0
+        self.waitTime = 0.8
     
     def straight64(self, cm):
         self.r.go_diff(65, 70, 1, 1)
@@ -76,21 +77,26 @@ class RobotController():
             xdiff = self.path[self.currentPoint + 1][0] - self.path[self.currentPoint][0]
             # find angle to next point
             theta = np.arctan2(ydiff, xdiff) - self.theta
+
+            thetaDegrees = np.rad2deg(theta)
             #theta = self.wrapTheta(theta)
             
             print(f"current point {self.currentPoint}, x: {self.path[self.currentPoint][0]}, y: {self.path[self.currentPoint][1]}")
-            print("theta to turn: " + str(np.rad2deg(theta)))
+            print("theta to turn: " + str(thetaDegrees))
             print(f"robots theta: {np.rad2deg(self.theta)}")
-            
-            if (not (0.001 > theta > -0.001)):
+
+            if (not (0.001 > thetaDegrees > -0.001)):
                 # we need to turn
                 self.ds = DriveState.TURN
-                if (theta > 0):
+                if (thetaDegrees > 0):
                     print("turning left")
-                    self.turnDegree(np.degrees(theta), "left", True)
+                    self.turnDegree(thetaDegrees, "left", True)
                 else:
                     print("turning right")
-                    self.turnDegree(np.degrees(np.abs(theta)), "right", True)
+                    if theta < 0:
+                        self.turnDegree(np.abs(thetaDegrees), "right", True)
+                    else:
+                        self.turnDegree(180 - (thetaDegrees - 180), "right", True)
             else:
                 # we need to drive straight
                 self.ds = DriveState.STRAIGHT
