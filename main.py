@@ -63,8 +63,6 @@ def main():
     while (maxTime > time.perf_counter()):
         # only update every 0.1 seconds
         if ctime + 0.1 < time.perf_counter():
-            print(r.ds)
-            print("theta: " + str(np.rad2deg(r.theta)))
             r.update()
             ctime = time.perf_counter()
 
