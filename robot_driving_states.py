@@ -73,33 +73,32 @@ class RobotController():
 
             thetaDegrees = np.rad2deg(theta)
             
-            print(f"current target point {self.currentPoint}, x: {self.path[self.currentPoint][0]}, y: {self.path[self.currentPoint][1]}")
+            print(f"current target point {self.currentPoint}")
             print("theta to turn: " + str(thetaDegrees))
             print(f"robots theta: {self.theta}")
-            print(f"Distance to next point: {np.linalg.norm(self.path[self.currentPoint + 1] - self.path[self.currentPoint])}")
 
             if ((0.001 > thetaDegrees > -0.001) or (thetaDegrees > 359.999) or (thetaDegrees < -359.999)):
                 # we need to drive straight
                 self.ds = DriveState.STRAIGHT
                 self.straight64(np.linalg.norm(self.path[self.currentPoint + 1] - self.path[self.currentPoint])* 100)
-                print("drive dist: "+ str(np.linalg.norm(
-                    self.path[self.currentPoint + 1] - self.path[self.currentPoint])))
+                print("drive straight")
                 self.currentPoint += 1
             else:
                 # we need to turn
                 self.ds = DriveState.TURN
                 if (thetaDegrees > 0):
                     if thetaDegrees > 180:
+                        print(f"turning right {thetaDegrees - 180}")
                         self.turnDegree(thetaDegrees - 180, "right")
                     else:
-                        print("turning left")
+                        print(f"turning left {thetaDegrees}}")
                         self.turnDegree(thetaDegrees, "left")
                 else:
                     if -180 < theta < 0:
-                        print("turning right")
+                        print(f"turning right {np.abs(thetaDegrees)}")
                         self.turnDegree(np.abs(thetaDegrees), "right")
                     elif theta <= -180:
-                        print("turning left")
+                        print(f"turning left {np.abs(thetaDegrees) - 180}")
                         self.turnDegree(np.abs(thetaDegrees) - 180, "left")
 
 
