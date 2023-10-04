@@ -9,11 +9,12 @@ class DriveState(Enum):
     TURN = 2
     SEARCH = 3
     EXIT = 4
+    SETUP = 5
 
 class RobotController():
     def __init__(self, path):
         self.r = rb.Robot()
-        self.ds = DriveState.SEARCH
+        self.ds = DriveState.SETUP
         self.stopTimer = 0
         self.stopTurnTimer = 0
         self.path = np.flip(np.array(path), 0)
