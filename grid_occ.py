@@ -49,7 +49,7 @@ class GridOccupancyMap(object):
         print(results)
 
 
-        if (results == None):
+        if (ids == None):
             print("no markers found")
             return
 
