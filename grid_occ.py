@@ -61,7 +61,7 @@ class GridOccupancyMap(object):
             y = (results[i][0][2] + 0.175 )
             print(f"x: {x} y: {y}")
             origins.append([x, y])
-            radius.append(0.175 + 0.24)
+            radius.append(0.175 + 0.23 + 0.15)
 
 
         # fill the grids by checking if the grid centroid is in any of the circle
