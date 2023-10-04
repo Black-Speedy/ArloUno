@@ -94,10 +94,10 @@ class RobotController():
                         print(f"turning left {thetaDegrees}")
                         self.turnDegree(thetaDegrees, "left")
                 else:
-                    if -180 < theta < 0:
+                    if -180 < thetaDegrees < 0:
                         print(f"turning right {np.abs(thetaDegrees)}")
                         self.turnDegree(np.abs(thetaDegrees), "right")
-                    elif theta <= -180:
+                    elif thetaDegrees <= -180:
                         print(f"turning left {np.abs(thetaDegrees) - 180}")
                         self.turnDegree(np.abs(thetaDegrees) - 180, "left")
 
