@@ -66,7 +66,7 @@ def main():
     ctime = time.perf_counter()
     while (maxTime > time.perf_counter()):
         # only update every 0.1 seconds
-        if ctime + 0.1 < time.perf_counter():
+        if ctime + 0.001 < time.perf_counter():
             r.update()
             ctime = time.perf_counter()
 
