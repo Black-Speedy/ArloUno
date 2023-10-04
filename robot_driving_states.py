@@ -20,7 +20,7 @@ class RobotController():
         self.path = np.flip(np.array(path), 0)
         self.theta = 90
         self.currentPoint = 0
-        self.waitTime = 0.0
+        self.waitTime = 0.5
         self.x = 0
         self.y = 0
     
