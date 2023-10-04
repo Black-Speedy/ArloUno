@@ -48,6 +48,11 @@ class GridOccupancyMap(object):
         angle_error = 11
         print(results)
 
+
+        if (results == None):
+            print("no markers found")
+            return
+
         for i in range(0, len(results)):
             radians = results[i][0][0]
             degrees = np.degrees(radians) + angle_error
