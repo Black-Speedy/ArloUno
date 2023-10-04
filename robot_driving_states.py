@@ -91,11 +91,13 @@ class RobotController():
                     print("turning left")
                     self.turnDegree(thetaDegrees, "left")
                 else:
-                    print("turning right")
-                    if theta < 0:
+                    if -180 < theta < 0:
+                        print("turning right")
                         self.turnDegree(np.abs(thetaDegrees), "right")
-                    else:
-                        self.turnDegree(180 - (thetaDegrees - 180), "right")
+                    elif theta <= -180:
+                        print("turning left")
+                        self.turnDegree(np.abs(thetaDegrees) - 180, "left")
+
 
         elif (self.ds == DriveState.EXIT):
             print("EXIT!")
