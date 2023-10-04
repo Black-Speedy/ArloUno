@@ -46,10 +46,11 @@ def main():
 
     rrt.draw_graph()
     plt.plot([x for (x, y) in path], [y for (x, y) in path], '-r')
-    path = np.flip(np.array(path)) # might need np.array here
+    """ path = np.flip(np.array(path)) # might need np.array here
     for i in range(0, len(path)):
         plt.text(path[i][1], path[i][0], str(
             i), color="blue", fontsize=10)
+     """
     plt.grid(True)
     plt.pause(0.01)  # Need for Mac
     plt.savefig("map_with_path.png")
