@@ -77,15 +77,13 @@ class RobotController():
                 self.ds = DriveState.EXIT
                 return
             
-
-            
             ydiff = self.path[self.currentPoint + 1][1] - self.path[self.currentPoint][1]
             xdiff = self.path[self.currentPoint + 1][0] - self.path[self.currentPoint][0]
+
             # find angle to next point
             theta = np.arctan2(ydiff, xdiff) - self.theta
 
             thetaDegrees = np.rad2deg(theta)
-            #theta = self.wrapTheta(theta)
             
             print(f"current point {self.currentPoint}, x: {self.path[self.currentPoint][0]}, y: {self.path[self.currentPoint][1]}")
             print("theta to turn: " + str(thetaDegrees))

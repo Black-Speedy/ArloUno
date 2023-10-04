@@ -94,6 +94,3 @@ def lookBox(id):
                         print(f"{boxDegrees}")
                         print()
                     return distance, boxDegrees, Xdegrees, ids
-
-
-
