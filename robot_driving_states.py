@@ -18,7 +18,7 @@ class RobotController():
         self.stopTimer = 0
         self.stopTurnTimer = 0
         self.path = np.flip(np.array(path), 0)
-        self.theta = 90
+        self.theta = np.pi / 2
         self.currentPoint = 0
         self.waitTime = 0.0
         self.x = 0
@@ -31,11 +31,11 @@ class RobotController():
     def turnDegree(self, degrees, direction):
         if direction == "left":
             self.r.go_diff(30, 30, 0, 1)
-            self.theta += degrees
+            self.theta += np.deg2rad(degrees)
             self.stopTurnTimer = time.perf_counter() + (degrees / 90) * 2.4 #1.95
         else:
             self.r.go_diff(30, 30, 1, 0)
-            self.theta -= degrees
+            self.theta -= np.deg2rad(degrees)
             self.stopTurnTimer = time.perf_counter() + (degrees / 90) * 1.75 #1.95
 
     def update(self):
@@ -69,10 +69,7 @@ class RobotController():
             xdiff = self.path[self.currentPoint + 1][0] - self.path[self.currentPoint][0]
 
             # find angle to next point
-            print(
-                f"theta (in radians): {np.arctan2(ydiff, xdiff) - np.deg2rad(self.theta)}")
-            print()
-            theta = np.arctan2(ydiff, xdiff) - np.deg2rad(self.theta)
+            theta = np.arctan2(ydiff, xdiff) - (self.theta)
 
             thetaDegrees = np.rad2deg(theta)
             print("")
@@ -109,6 +106,6 @@ class RobotController():
             print("EXIT!")
             exit()
         
-        if (self.theta > 360 or self.theta < 0):
+        """ if (self.theta > 360 or self.theta < 0):
             print(f"regulating theta from {self.theta} to {self.theta % 360}")
-            self.theta = self.theta % 360
+            self.theta = self.theta % 360 """
