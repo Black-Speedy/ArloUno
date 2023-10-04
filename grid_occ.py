@@ -83,6 +83,7 @@ class GridOccupancyMap(object):
         # note the x-y axes difference between imshow and plot
         plt.imshow(self.grid.T, cmap="Greys", origin='lower', vmin=0,
                    vmax=1, extent=self.extent, interpolation='none')
+        
 
 
 if __name__ == '__main__':
