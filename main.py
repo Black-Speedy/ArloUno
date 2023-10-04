@@ -46,7 +46,7 @@ def main():
 
     rrt.draw_graph()
     plt.plot([x for (x, y) in path], [y for (x, y) in path], '-r')
-    path = np.flip(path) # might need np.array here
+    #path = np.flip(path) # might need np.array here
     for i in range(0, len(path)):
         plt.text(path[i][0], path[i][1], str(
             i), color="blue", fontsize=10)
