@@ -72,7 +72,7 @@ class RobotController():
             theta = np.arctan2(ydiff, xdiff) - np.deg2rad(self.theta)
 
             thetaDegrees = np.rad2deg(theta)
-            
+            print("")
             print(f"current target point {self.currentPoint}")
             print("theta to turn: " + str(thetaDegrees))
             print(f"robots theta: {self.theta}")
@@ -81,7 +81,7 @@ class RobotController():
                 # we need to drive straight
                 self.ds = DriveState.STRAIGHT
                 self.straight64(np.linalg.norm(self.path[self.currentPoint + 1] - self.path[self.currentPoint])* 100)
-                print("drive straight")
+                print(f"drive straight for {np.linalg.norm(self.path[self.currentPoint + 1] - self.path[self.currentPoint])* 100:.2} cm")
                 self.currentPoint += 1
             else:
                 # we need to turn
