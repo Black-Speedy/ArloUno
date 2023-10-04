@@ -89,8 +89,11 @@ class RobotController():
                 # we need to turn
                 self.ds = DriveState.TURN
                 if (thetaDegrees > 0):
-                    print("turning left")
-                    self.turnDegree(thetaDegrees, "left")
+                    if thetaDegrees > 180:
+                        self.turnDegree(thetaDegrees - 180, "right")
+                    else:
+                        print("turning left")
+                        self.turnDegree(thetaDegrees, "left")
                 else:
                     if -180 < theta < 0:
                         print("turning right")
