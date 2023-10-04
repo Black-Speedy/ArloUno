@@ -1,6 +1,7 @@
 from robot_driving_states import RobotController
 from rrt import *
 import time
+from github import Github
 
 def main():
 
@@ -53,6 +54,9 @@ def main():
     plt.grid(True)
     plt.pause(0.01)  # Need for Mac
     plt.savefig("map_with_path.png")
+
+    # Use github to push the image
+    
 
     
     r = RobotController(path)
