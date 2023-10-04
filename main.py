@@ -12,7 +12,7 @@ def main():
 
     rrt = RRT(
         start=[0, 0],
-        goal=[0, 1.9],
+        goal=[0, 2.2],
         robot_model=robot,
         map=map,
         expand_dis=0.4,
