@@ -69,6 +69,9 @@ class RobotController():
             xdiff = self.path[self.currentPoint + 1][0] - self.path[self.currentPoint][0]
 
             # find angle to next point
+            print(
+                f"theta (in radians): {np.arctan2(ydiff, xdiff) - np.deg2rad(self.theta)}")
+            print()
             theta = np.arctan2(ydiff, xdiff) - np.deg2rad(self.theta)
 
             thetaDegrees = np.rad2deg(theta)
