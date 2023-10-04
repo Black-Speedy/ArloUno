@@ -9,12 +9,11 @@ class DriveState(Enum):
     TURN = 2
     SEARCH = 3
     EXIT = 4
-    SETUP = 5
 
 class RobotController():
     def __init__(self, path):
         self.r = rb.Robot()
-        self.ds = DriveState.SETUP
+        self.ds = DriveState.SEARCH
         self.stopTimer = 0
         self.stopTurnTimer = 0
         self.path = np.flip(np.array(path), 0)
@@ -26,7 +25,7 @@ class RobotController():
     
     def straight64(self, cm):
         self.r.go_diff(65, 70, 1, 1)
-        self.stopTimer = time.perf_counter() + (cm * 2.24) / 100
+        self.stopTimer = time.perf_counter() + (cm * 2.14) / 100
 
     def turnDegree(self, degrees, direction):
         if direction == "left":
@@ -50,14 +49,14 @@ class RobotController():
         elif (self.ds == DriveState.TURN):
             if (self.stopTurnTimer < time.perf_counter()):
                 self.ds = DriveState.STOP
-                self.stopTimer = time.perf_counter() + self.waitTime
+                self.stopTimer = time.perf_counter() + 0.3
                 self.r.stop()
 
         elif (self.ds == DriveState.STRAIGHT):
             if(self.stopTimer < time.perf_counter()):
                 self.r.stop()
                 self.ds = DriveState.STOP
-                self.stopTimer = time.perf_counter() + self.waitTime
+                self.stopTimer = time.perf_counter() + 0.3
 
         elif (self.ds == DriveState.SEARCH):
             if self.currentPoint == len(self.path) - 1:
