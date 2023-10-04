@@ -78,7 +78,7 @@ class RobotController():
             print(f"robots theta: {self.theta}")
             print(f"Distance to next point: {np.linalg.norm(self.path[self.currentPoint + 1] - self.path[self.currentPoint])}")
 
-            if (0.001 > thetaDegrees > -0.001):
+            if ((0.001 > thetaDegrees > -0.001) or (thetaDegrees > 359.999) or (thetaDegrees < -359.999)):
                 # we need to drive straight
                 self.ds = DriveState.STRAIGHT
                 self.straight64(np.linalg.norm(self.path[self.currentPoint + 1] - self.path[self.currentPoint])* 100)
