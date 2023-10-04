@@ -48,7 +48,7 @@ class RRT:
         self.map = map
         
         np.random.seed(2)
-        
+
         self.min_rand = map.map_area[0]
         self.max_rand = map.map_area[1]
 
