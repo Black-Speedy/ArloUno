@@ -19,7 +19,7 @@ class RobotController():
         self.path = np.flip(np.array(path), 0)
         self.theta = np.pi/2
         self.currentPoint = 0
-        self.waitTime = 0.8
+        self.waitTime = 0.0
     
     def straight64(self, cm):
         self.r.go_diff(65, 70, 1, 1)
@@ -39,7 +39,7 @@ class RobotController():
         else:
             self.r.go_diff(30, 30, 1, 0)
             self.theta -= radians
-        self.stopTurnTimer = time.perf_counter() + (degrees / 90) * 1.95
+        self.stopTurnTimer = time.perf_counter() + (degrees / (np.pi/2)) * 1.95
 
     def wrapTheta(self, theta):
         """ if theta > np.pi * 2:
@@ -71,15 +71,13 @@ class RobotController():
                 self.ds = DriveState.EXIT
                 return
             
-
-            
             ydiff = self.path[self.currentPoint + 1][1] - self.path[self.currentPoint][1]
             xdiff = self.path[self.currentPoint + 1][0] - self.path[self.currentPoint][0]
+
             # find angle to next point
             theta = np.arctan2(ydiff, xdiff) - self.theta
 
             thetaDegrees = np.rad2deg(theta)
-            #theta = self.wrapTheta(theta)
             
             print(f"current point {self.currentPoint}, x: {self.path[self.currentPoint][0]}, y: {self.path[self.currentPoint][1]}")
             print("theta to turn: " + str(thetaDegrees))

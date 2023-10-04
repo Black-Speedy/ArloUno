@@ -12,10 +12,10 @@ def main():
 
     rrt = RRT(
         start=[0, 0],
-        goal=[0, 1.9],
+        goal=[0, 1.5],
         robot_model=robot,
         map=map,
-        expand_dis=0.6,
+        expand_dis=0.4,
         path_resolution=path_res,
     )
 
@@ -46,6 +46,7 @@ def main():
 
     rrt.draw_graph()
     plt.plot([x for (x, y) in path], [y for (x, y) in path], '-r')
+    path = np.flip(path) # might need np.array here
     for i in range(0, len(path)):
         plt.text(path[i][0], path[i][1], str(
             i), color="blue", fontsize=10)

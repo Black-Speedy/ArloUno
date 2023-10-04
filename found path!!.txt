@@ -1,116 +1,74 @@
+[[[-0.62375545  0.24017797  1.67528665]]
+
+ [[ 0.19291339  0.131436    0.76053451]]]
+x: -0.7010711383207197 y: 1.8502866484724565
+x: 0.2855549186817361 y: 0.9355345121507754
 found path!!
 Waiting for serial port connection ...
 Running ...
 current point 0, x: 0.0, y: 0.0
-theta to turn: 61.413201351040726
+theta to turn: 31.898197493623837
 robots theta: 90.0
+Distance to next point: 0.4
 turning left
 turning
 current point 0, x: 0.0, y: 0.0
 theta to turn: 0.0
-robots theta: 151.41320135104073
-drive dist: 0.20000000000000004
-current point 1, x: -0.17561864921936066, y: 0.0956979103552798
-theta to turn: -76.87553250592921
-robots theta: 151.41320135104073
+robots theta: 121.89819749362384
+Distance to next point: 0.4
+drive dist: 0.4
+current point 1, x: -0.21136465043633024, y: 0.33959532468208087
+theta to turn: -37.95944000429116
+robots theta: 121.89819749362384
+Distance to next point: 0.40000000000000024
 turning right
 turning
-current point 1, x: -0.17561864921936066, y: 0.0956979103552798
+current point 1, x: -0.21136465043633024, y: 0.33959532468208087
 theta to turn: 0.0
-robots theta: 74.53766884511151
-drive dist: 0.19999999999999996
-current point 2, x: -0.12229769242201893, y: 0.2884590982697975
-theta to turn: -44.226464899150415
-robots theta: 74.53766884511151
+robots theta: 83.93875748933267
+Distance to next point: 0.40000000000000024
+drive dist: 0.40000000000000024
+current point 2, x: -0.16912807789606155, y: 0.737359164089399
+theta to turn: -254.80887814295355
+robots theta: 83.93875748933267
+Distance to next point: 0.4
 turning right
 turning
-current point 2, x: -0.12229769242201893, y: 0.2884590982697975
+current point 2, x: -0.16912807789606155, y: 0.737359164089399
 theta to turn: 0.0
-robots theta: 30.311203945961104
-drive dist: 0.19999999999999996
-current point 3, x: 0.05036168275185804, y: 0.3893983877688146
-theta to turn: 2.431357237315432
-robots theta: 30.311203945961104
+robots theta: -170.87012065362086
+Distance to next point: 0.4
+drive dist: 0.4
+current point 3, x: -0.564060555563257, y: 0.673889974054783
+theta to turn: 261.54820230000195
+robots theta: -170.87012065362086
+Distance to next point: 0.4000000000000002
 turning left
 turning
-current point 3, x: 0.05036168275185804, y: 0.3893983877688146
-theta to turn: 0.0
-robots theta: 32.742561183276536
-drive dist: 0.20000000000000007
-current point 4, x: 0.21858353106968076, y: 0.49757144240135914
-theta to turn: 57.199844255453904
-robots theta: 32.742561183276536
-turning left
-turning
-current point 4, x: 0.21858353106968076, y: 0.49757144240135914
-theta to turn: 0.0
-robots theta: 89.94240543873045
-drive dist: 0.19999999999999996
-current point 5, x: 0.21878457398090234, y: 0.6975713413557032
-theta to turn: -9.386890288465299
-robots theta: 89.94240543873045
+current point 3, x: -0.564060555563257, y: 0.673889974054783
+theta to turn: -1.2722218725854067e-14
+robots theta: 90.6780816463811
+Distance to next point: 0.4000000000000002
+drive dist: 0.4000000000000002
+current point 4, x: -0.5687943479884658, y: 1.073861962085539
+theta to turn: -53.33856366230144
+robots theta: 90.6780816463811
+Distance to next point: 0.40000000000000024
 turning right
 turning
-current point 5, x: 0.21878457398090234, y: 0.6975713413557032
+current point 4, x: -0.5687943479884658, y: 1.073861962085539
 theta to turn: 0.0
-robots theta: 80.55551515026514
-drive dist: 0.19999999999999998
-current point 6, x: 0.2516029528936422, y: 0.8948603527211105
-theta to turn: -19.183959472368663
-robots theta: 80.55551515026514
+robots theta: 37.33951798407966
+Distance to next point: 0.40000000000000024
+drive dist: 0.40000000000000024
+current point 5, x: -0.2507722159863881, y: 1.3164767257683232
+theta to turn: -1.1416371016147617
+robots theta: 37.33951798407966
+Distance to next point: 0.3107531118033075
 turning right
 turning
-current point 6, x: 0.2516029528936422, y: 0.8948603527211105
+current point 5, x: -0.2507722159863881, y: 1.3164767257683232
 theta to turn: 0.0
-robots theta: 61.37155567789648
-drive dist: 0.2
-current point 7, x: 0.3474284870962284, y: 1.0704093971354536
-theta to turn: -8.914153232205887
-robots theta: 61.37155567789648
-turning right
-turning
-current point 7, x: 0.3474284870962284, y: 1.0704093971354536
-theta to turn: 0.0
-robots theta: 52.4574024456906
-drive dist: 0.20000000000000012
-current point 8, x: 0.46929870573514465, y: 1.228989502473112
-theta to turn: 46.1235690509938
-robots theta: 52.4574024456906
-turning left
-turning
-current point 8, x: 0.46929870573514465, y: 1.228989502473112
-theta to turn: 0.0
-robots theta: 98.5809714966844
-drive dist: 0.2
-current point 9, x: 0.4394573138777075, y: 1.4267507002142534
-theta to turn: -65.23135093394878
-robots theta: 98.5809714966844
-turning right
-turning
-current point 9, x: 0.4394573138777075, y: 1.4267507002142534
-theta to turn: 0.0
-robots theta: 33.34962056273563
-drive dist: 0.2
-current point 10, x: 0.606523628089832, y: 1.5366999915060835
-theta to turn: 100.84749269861324
-robots theta: 33.34962056273563
-turning left
-turning
-current point 10, x: 0.606523628089832, y: 1.5366999915060835
-theta to turn: -2.5444437451708134e-14
-robots theta: 134.19711326134887
-drive dist: 0.1999999999999997
-current point 11, x: 0.4670978317308108, y: 1.6800891379211893
-theta to turn: -295.68974879073045
-robots theta: 134.19711326134887
-turning right
-turning
-current point 11, x: 0.4670978317308108, y: 1.6800891379211893
-theta to turn: -2.5444437451708134e-14
-robots theta: -161.4926355293816
-drive dist: 0.19528961270121284
-^[[A^[[Acurrent point 12, x: 0.2819080387129602, y: 1.6180990307185448
-theta to turn: 300.31941215428503
-robots theta: -161.4926355293816
-turning left
-turning
+robots theta: 36.1978808824649
+Distance to next point: 0.3107531118033075
+drive dist: 0.3107531118033075
