@@ -17,7 +17,8 @@ def isRunningOnArlo():
       You can use this flag to switch the code from running on you laptop to Arlo - you need to do the programming here!
     """
     if robottype == 'arlo':
-        return onRobot
+        onRobot = True
+    return onRobot
 
 
 if isRunningOnArlo():
