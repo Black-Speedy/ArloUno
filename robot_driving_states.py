@@ -75,7 +75,7 @@ class RobotController():
             print("")
             print(f"current target point {self.currentPoint}")
             print("theta to turn: " + str(thetaDegrees))
-            print(f"robots theta: {self.theta}")
+            print(f"robots theta: {np.rad2deg(self.theta)}")
 
             if ((0.001 > thetaDegrees > -0.001) or (thetaDegrees > 359.999) or (thetaDegrees < -359.999)):
                 # we need to drive straight
