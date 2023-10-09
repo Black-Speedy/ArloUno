@@ -125,6 +125,7 @@ class Camera(object):
             self.distortion_coeffs = np.asarray([0., 0., 2.0546093607192093e-02, -3.5538453075048249e-03, 0.], dtype = np.float64)
         if robottype == 'frindo':
             self.imageSize = (640, 480)
+            print("I'm Frindo!")
             #self.intrinsic_matrix = np.asarray([ 7.1305391967046853e+02, 0., 3.1172820723774367e+02, 0.,
             #       7.0564929862291285e+02, 2.5634470978315028e+02, 0., 0., 1. ], dtype = np.float64)
             #self.intrinsic_matrix = np.asarray([ 6.0727040957659040e+02, 0., 3.0757300398967601e+02, 0.,
@@ -138,6 +139,7 @@ class Camera(object):
         elif robottype == 'scribbler':
             # Unknown calibration - just using the Frindo calibration
             self.imageSize = (640, 480)
+            print("I'm Scribbler!")
             self.intrinsic_matrix = np.asarray([7.1305391967046853e+02, 0., 3.1172820723774367e+02, 0.,
                    7.0564929862291285e+02, 2.5634470978315028e+02, 0., 0., 1.], dtype = np.float64)
             self.intrinsic_matrix.shape = (3, 3)
@@ -145,6 +147,7 @@ class Camera(object):
                    1.9287903277399834e-02, -2.3728201444308114e-03, -2.8137265581326476e-01], dtype = np.float64)
         elif robottype == 'macbookpro':
             self.imageSize = (1280, 720)
+            print("I'm MBPro!")
             #self.imageSize = (1080, 720)
             #self.intrinsic_matrix = np.asarray([ 8.6955302212233869e+02, 0., 5.2076864848745902e+02, 0.,
             #       8.7317664932843684e+02, 4.0331768178896669e+02, 0., 0., 1. ], dtype = np.float64)
