@@ -7,7 +7,7 @@ class Particle(object):
     def __init__(self, x=0.0, y=0.0, theta=0.0, weight=0.0):
         self.x = x
         self.y = y
-        self.theta = np.mod(theta, 2.0*np.pi)
+        self.theta = np.mod(theta, 2.0*np.pi) #Radianer
         self.weight = weight
 
     def getX(self):
@@ -44,16 +44,16 @@ def estimate_pose(particles_list):
     sin_sum = 0.0
      
     for particle in particles_list:
-        x_sum += particle.getX()
-        y_sum += particle.getY()
-        cos_sum += np.cos(particle.getTheta())
-        sin_sum += np.sin(particle.getTheta())
+        x_sum += particle.getX() #Summer alle x-værdier
+        y_sum += particle.getY() #Summer alle y-værdier
+        cos_sum += np.cos(particle.getTheta()) #Summer alle cos-værdier
+        sin_sum += np.sin(particle.getTheta()) #Summer alle sin-værdier
         
     flen = len(particles_list)
     if flen != 0:
-        x = x_sum / flen
-        y = y_sum / flen
-        theta = np.arctan2(sin_sum/flen, cos_sum/flen)
+        x = x_sum / flen #gns x. Scalar
+        y = y_sum / flen # gns y. Scalar
+        theta = np.arctan2(sin_sum/flen, cos_sum/flen) #gns vinkel. Scalar
     else:
         x = x_sum
         y = y_sum
@@ -64,6 +64,10 @@ def estimate_pose(particles_list):
      
 def move_particle(particle, delta_x, delta_y, delta_theta):
     """Move the particle by (delta_x, delta_y, delta_theta)"""
+    Particle.setX(particle, particle.getX() + delta_x)
+    Particle.setY(particle, particle.getY() + delta_y)
+    Particle.setTheta(particle, particle.getTheta() + delta_theta)  
+    
     print("particle.py: move_particle not implemented. You should do this.") 
 
 
