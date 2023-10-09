@@ -32,7 +32,7 @@ class RobotController():
         if direction == "left":
             self.r.go_diff(30, 30, 0, 1)
             self.theta += np.deg2rad(degrees)
-            self.stopTurnTimer = time.perf_counter() + (degrees / 90) * 2.4 #1.95
+            self.stopTurnTimer = time.perf_counter() + (degrees / 90) * 1.95 #1.95
         else:
             self.r.go_diff(30, 30, 1, 0)
             self.theta -= np.deg2rad(degrees)
@@ -77,7 +77,7 @@ class RobotController():
             print("theta to turn: " + str(thetaDegrees))
             print(f"robots theta: {self.theta}")
 
-            if ((2 > thetaDegrees > -2) or (thetaDegrees > 359.999) or (thetaDegrees < -359.999)):
+            if ((0.001 > thetaDegrees > -0.001) or (thetaDegrees > 359.999) or (thetaDegrees < -359.999)):
                 # we need to drive straight
                 self.ds = DriveState.STRAIGHT
                 self.straight64(np.linalg.norm(self.path[self.currentPoint + 1] - self.path[self.currentPoint])* 100)
