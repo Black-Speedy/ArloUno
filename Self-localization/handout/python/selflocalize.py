@@ -234,7 +234,8 @@ try:
                 
             # Resampling
             # remove all particles with weight 0
-            particles = [p for p in particles if p.getWeight() > np.mean([p.getWeight() for p in particles]) / 10]
+            avg = np.mean([p.getWeight() for p in particles]) / 10
+            particles = [p for p in particles if p.getWeight() > avg]
             # Normalize weights
             """ sumWeights = 0
             for p in particles:
