@@ -211,18 +211,19 @@ try:
                 d_to_8 = np.sqrt((p.getY() - landmarks[8][1])**2 + ((p.getX() - landmarks[8][0])**2))
                 #d_to_8 = np.linalg.norm((p.getX(), p.getY()) - landmarks[8])
 
-                tmp = 0
+                tmpDist = 0
+                tmpAngle = 0
 
                 for obj in detected_objects:
                     # check if distance is close to the recorded distance
                     if obj[0] == 1:
-                        tmp += (abs(obj[1] - d_to_1) / 100)
-                        tmp += (abs(obj[2] - p.getTheta()))
+                        tmpDist += (abs(obj[1] - d_to_1) / 100)
+                        tmpAngle += (abs(obj[2] - p.getTheta()))
                     elif obj[0] == 8:
-                        tmp += (abs(obj[1] - d_to_8) / 100)
-                        tmp += (abs(obj[2] - p.getTheta()))
+                        tmpDist += (abs(obj[1] - d_to_8) / 100)
+                        tmpAngle += (abs(obj[2] - p.getTheta()))
 
-                p.setWeight(2-tmp)
+                p.setWeight(2-(tmpAngle * tmpDist))
 
 
             
