@@ -223,7 +223,7 @@ try:
                         tmpDist += (abs(obj[1] - d_to_8) / 100)
                         tmpAngle += (abs(obj[2] - p.getTheta())/2)
 
-                p.setWeight(4-(tmpAngle * tmpDist))
+                p.setWeight(2-(tmpAngle * tmpDist))
 
 
             
@@ -234,7 +234,7 @@ try:
                 
             # Resampling
             # remove all particles with weight 0
-            particles = [p for p in particles if p.getWeight() > 0]
+            particles = [p for p in particles if p.getWeight() > np.mean([p.getWeight() for p in particles]) / 10]
             # Normalize weights
             """ sumWeights = 0
             for p in particles:
