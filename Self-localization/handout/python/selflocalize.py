@@ -207,8 +207,7 @@ try:
                 
                 # Compute particle weights 
                 # XXX: You do this
-                for p in particles:
-                    
+                
                   
                 #weight = distLLH*vinkelLLH
              
