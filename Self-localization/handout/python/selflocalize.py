@@ -188,12 +188,18 @@ try:
         # Fetch next frame
         colour = cam.get_next_frame()
         
+        
         # Detect objects
         objectIDs, dists, angles = cam.detect_aruco_objects(colour)
         if not isinstance(objectIDs, type(None)):
             # List detected objects
+            # XXX: Do something for each detected object - remember, the same ID may appear several times
             unique_object_ids = set()
             detected_objects = [] 
+    
+            def N(x):
+                return np.random.normal(x, 0 , 1)
+            
             for i in range(len(objectIDs)):
                 object_id = objectIDs[i]
                 if object_id not in unique_object_ids:
@@ -202,36 +208,45 @@ try:
                     angle = angles[i]
                     detected_objects.append((object_id, distance, angle))
                     print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
-            # XXX: Do something for each detected object - remember, the same ID may appear several times
-            
+#distance                
+            dist_weight_list = []
+            for p in particles:
+                x_i, y_i = p.getX(), p.getY()
+                for object in detected_objects:
+                    lx = landmarks[(object[0])][0]
+                    ly = landmarks[object[0]][1]
+                    unique_particle_distance = np.sqrt((lx - x_i) ** 2 + (ly - y_i) ** 2)
+                    dist_error = unique_particle_distance - object[1]
+                    dist_weight = N(dist_error)
+                dist_weight_list.append(dist_weight)
+#angle                    
+            angle_weight_list = []
+            for p in particles:
+                x_i, y_i, theta_i = p.getX(), p.getY(), p.getTheta()
+                for object in detected_objects: 
+                    lx = landmarks[(object[0])][0]
+                    ly = landmarks[object[0]][1]
+                    delta_x = lx - x_i
+                    delta_y = ly - y_i                    
+                    distance = np.sqrt(delta_x**2 + delta_y**2)
+                    
+                    e_theta = np.array([np.cos(theta_i), np.sin(theta_i)])
+                    e_l = np.array([(delta_x) / distance, delta_y / distance])
+                    e_hat = np.array([-np.sin(theta_i), np.cos(theta_i)]) 
+                    phi = np.sign(np.dot(e_l,e_hat))*np.arccos(np.dot(e_l, e_theta))
+
+                    angle_error = phi - object[2]
+                    angle_weight = N(angle_error)
+                angle_weight_list.append(angle_weight)
+                
             # Compute particle weights 
             # XXX: You do this
-            for p in particles:
-                d_to_1 = np.sqrt((p.getY() - landmarks[1][1])**2 + ((p.getX() - landmarks[1][0])**2))
-                d_to_8 = np.sqrt((p.getY() - landmarks[8][1])**2 + ((p.getX() - landmarks[8][0])**2))
-                #d_to_8 = np.linalg.norm((p.getX(), p.getY()) - landmarks[8])
-
-                tmpDist = 0
-                tmpAngle = 0
-
-                for obj in detected_objects:
-                    # check if distance is close to the recorded distance
-                    if obj[0] == 1:
-                        tmpDist += (abs(obj[1] - d_to_1) / 100)
-                        tmpAngle += (abs(obj[2] - p.getTheta()))
-                    if obj[0] == 8:
-                        tmpDist += (abs(obj[1] - d_to_8) / 100)
-                        tmpAngle += (abs(obj[2] - p.getTheta()))
-
-                p.setWeight(2-(tmpAngle * tmpDist))
-
-
-            
-                
-            #weight = distLLH*vinkelLLH
+            particle_weight_list = np.multiply(dist_weight_list,angle_weight_list)
+            for p in range(len(particles)):
+                particles[p].setWeight(particle_weight_list[p])
+                print(particles[p].getWeight())     
              
-                
-                
+                              
             # Resampling
             # remove all particles with weight 0
             avg = np.mean([p.getWeight() for p in particles]) / 10
