@@ -236,11 +236,11 @@ try:
             # remove all particles with weight 0
             particles = [p for p in particles if p.getWeight() > 0]
             # Normalize weights
-            """ sumWeights = 0
+            sumWeights = 0
             for p in particles:
                 sumWeights += p.getWeight()
             for p in particles:
-                p.setWeight(p.getWeight() / sumWeights) """
+                p.setWeight(p.getWeight() / sumWeights)
             # Resample
             particles = initialize_particles(num_particles - len(particles)) + particles
 
