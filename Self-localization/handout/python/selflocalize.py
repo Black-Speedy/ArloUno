@@ -217,7 +217,7 @@ try:
                     # check if distance is close to the recorded distance
                     if obj[0] == 1:
                         tmp += abs(obj[1] - d_to_1)
-                    if obj[0] == 8:
+                    elif obj[0] == 8:
                         tmp += abs(obj[1] - d_to_8)
 
                 p.setWeight(2-tmp)
