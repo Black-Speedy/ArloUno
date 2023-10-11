@@ -68,7 +68,7 @@ def move_particle(particle, delta_x, delta_y, delta_theta):
     Particle.setY(particle, particle.getY() + delta_y)
     Particle.setTheta(particle, particle.getTheta() + delta_theta)  
     
-    print("particle.py: move_particle not implemented. You should do this.") 
+    #print("particle.py: move_particle not implemented. You should do this.") 
 
 
 def add_uncertainty(particles_list, sigma, sigma_theta):

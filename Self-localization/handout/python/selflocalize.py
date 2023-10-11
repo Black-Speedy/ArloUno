@@ -179,6 +179,12 @@ try:
 
 
         # Use motor controls to update particles
+        for p in particles:
+            # apply velocity
+            particle.move_particle(p, velocity * np.cos(p.getTheta()),
+                                   velocity * np.sin(p.getTheta()), angular_velocity)
+
+
         # XXX: Make the robot drive
         # XXX: You do this
 
@@ -201,7 +207,7 @@ try:
                     distance = dists[i]
                     angle = angles[i]
                     detected_objects.append((object_id, distance, angle))
-                    print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
+                    #print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
             # XXX: Do something for each detected object - remember, the same ID may appear several times
             
             # Compute particle weights 
@@ -213,22 +219,27 @@ try:
 
                 tmpDist = 0
                 tmpAngle = 0
+                correctAngle = 0
 
                 for obj in detected_objects:
                     # check if distance is close to the recorded distance
                     if obj[0] == 1:
                         tmpDist += (abs(obj[1] - d_to_1) / 100)
                         tmpAngle += (abs(obj[2] - p.getTheta()))
-                        correctAngle = np.arctan((landmarks[1][1] - p.getY()), (landmarks[1][0] - p.getX()))
-                        tmpAngle += (abs(correctAngle - p.getTheta()))
+
+                        correctAngle = np.arctan2(landmarks[1][1] - p.getY(), landmarks[1][0] - p.getX())
+                        correctAngle = abs(correctAngle - obj[2])
+                        
                     if obj[0] == 8:
                         tmpDist += (abs(obj[1] - d_to_8) / 100)
                         tmpAngle += (abs(obj[2] - p.getTheta()))
-                        correctAngle = np.arctan((landmarks[8][1] - p.getY()), (landmarks[8][0] - p.getX()))
-                        tmpAngle += (abs(correctAngle - p.getTheta()))
-                    
 
-                p.setWeight(2-(tmpAngle * tmpDist))
+                        correctAngle = np.arctan2(landmarks[8][1] - p.getY(), landmarks[8][0] - p.getX())
+                        correctAngle = abs(correctAngle - obj[2])
+                
+                correctAngle *= 0.5
+
+                p.setWeight(2-(tmpAngle * tmpDist + correctAngle))
 
 
             
@@ -238,9 +249,12 @@ try:
                 
                 
             # Resampling
-            # remove all particles with weight 0
-            avg = np.mean([p.getWeight() for p in particles]) / 10
-            particles = [p for p in particles if p.getWeight() > avg]
+            #sort particles by weight
+            particles.sort(key=lambda x: x.getWeight(), reverse=True)
+            #remove particles the last 10% of the list
+
+            particles = particles[:int(len(particles)*0.7)]
+
             # Normalize weights
             """ sumWeights = 0
             for p in particles:
