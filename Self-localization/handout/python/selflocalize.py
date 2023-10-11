@@ -47,10 +47,10 @@ CBLACK = (0, 0, 0)
 
 # Landmarks.
 # The robot knows the position of 2 landmarks. Their coordinates are in the unit centimeters [cm].
-landmarkIDs = [1, 2]
+landmarkIDs = [1, 8]
 landmarks = {
     1: (0.0, 0.0),  # Coordinates for landmark 1
-    2: (300.0, 0.0)  # Coordinates for landmark 2
+    8: (300.0, 0.0)  # Coordinates for landmark 2
 }
 landmark_colors = [CRED, CGREEN] # Colors used when drawing the landmarks
 
@@ -202,13 +202,27 @@ try:
                     angle = angles[i]
                     detected_objects.append((object_id, distance, angle))
                     print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
-                # XXX: Do something for each detected object - remember, the same ID may appear several times
+            # XXX: Do something for each detected object - remember, the same ID may appear several times
+            
+            # Compute particle weights 
+            # XXX: You do this
+            for p in particles:
+                d_to_1 = np.linalg.norm((p.getX(), p.getY()) - landmarks[1])
+                d_to_8 = np.linalg.norm((p.getX(), p.getY()) - landmarks[8])
+
+                tmp = 0
+
+                for obj in detected_objects:
+                    # check if distance is close to the recorded distance
+                    if obj[0] == 1:
+                        tmp += abs(obj[1] - d_to_1)
+
+                p.setWeight(1-tmp)
+
+
+            
                 
-                # Compute particle weights 
-                # XXX: You do this
-                
-                  
-                #weight = distLLH*vinkelLLH
+            #weight = distLLH*vinkelLLH
              
                 
                 
