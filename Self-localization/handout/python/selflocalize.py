@@ -153,7 +153,7 @@ try:
     if camera.isRunningOnArlo():
         cam = camera.Camera(0, 'arlo', useCaptureThread = True)
     else:
-        cam = camera.Camera(0, 'macbookpro', useCaptureThread = True)
+        cam = camera.Camera(0, 'arlo', useCaptureThread = True) #changed macbookpro to arlo
 
     while True:
 
