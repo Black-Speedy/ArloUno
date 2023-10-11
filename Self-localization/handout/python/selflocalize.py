@@ -223,7 +223,7 @@ try:
                         tmpDist += (abs(obj[1] - d_to_8) / 100)
                         tmpAngle += (abs(obj[2] - p.getTheta())/2)
 
-                p.setWeight(2-(tmpAngle * tmpDist))
+                p.setWeight(4-(tmpAngle * tmpDist))
 
 
             
