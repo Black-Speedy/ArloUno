@@ -219,9 +219,14 @@ try:
                     if obj[0] == 1:
                         tmpDist += (abs(obj[1] - d_to_1) / 100)
                         tmpAngle += (abs(obj[2] - p.getTheta()))
+                        correctAngle = np.arctan((landmarks[1][1] - p.getY()), (landmarks[1][0] - p.getX()))
+                        tmpAngle += (abs(correctAngle - p.getTheta()))
                     if obj[0] == 8:
                         tmpDist += (abs(obj[1] - d_to_8) / 100)
                         tmpAngle += (abs(obj[2] - p.getTheta()))
+                        correctAngle = np.arctan((landmarks[8][1] - p.getY()), (landmarks[8][0] - p.getX()))
+                        tmpAngle += (abs(correctAngle - p.getTheta()))
+                    
 
                 p.setWeight(2-(tmpAngle * tmpDist))
 
