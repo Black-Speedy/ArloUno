@@ -16,6 +16,8 @@ def isRunningOnArlo():
     """Return True if we are running on Arlo, otherwise False.
       You can use this flag to switch the code from running on you laptop to Arlo - you need to do the programming here!
     """
+    #if 'arlo' in sys.platform.lower():
+    #    onRobot = True
     return onRobot
 
 
@@ -142,6 +144,7 @@ try:
     angular_velocity = 0.0 # radians/sec
 
     # Initialize the robot (XXX: You do this)
+    
 
     # Allocate space for world map
     world = np.zeros((500,500,3), dtype=np.uint8)
@@ -190,13 +193,27 @@ try:
         objectIDs, dists, angles = cam.detect_aruco_objects(colour)
         if not isinstance(objectIDs, type(None)):
             # List detected objects
+            unique_object_ids = set()
+            detected_objects = [] 
             for i in range(len(objectIDs)):
-                print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
+                object_id = objectIDs[i]
+                if object_id not in unique_object_ids:
+                    unique_object_ids.add(object_id)
+                    distance = dists[i]
+                    angle = angles[i]
+                    detected_objects.append((object_id, distance, angle))
+                    print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
                 # XXX: Do something for each detected object - remember, the same ID may appear several times
-
-            # Compute particle weights
-            # XXX: You do this
-
+                
+                # Compute particle weights 
+                # XXX: You do this
+                for p in particles:
+                    
+                  
+                #weight = distLLH*vinkelLLH
+             
+                
+                
             # Resampling
             # XXX: You do this
 
