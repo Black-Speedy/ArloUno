@@ -208,6 +208,7 @@ try:
             # XXX: You do this
             for p in particles:
                 d_to_1 = np.sqrt((p.getY() - landmarks[1][1])**2 + ((p.getX() - landmarks[1][0])**2))
+                d_to_8 = np.sqrt((p.getY() - landmarks[8][1])**2 + ((p.getX() - landmarks[8][0])**2))
                 #d_to_8 = np.linalg.norm((p.getX(), p.getY()) - landmarks[8])
 
                 tmp = 0
@@ -216,8 +217,10 @@ try:
                     # check if distance is close to the recorded distance
                     if obj[0] == 1:
                         tmp += abs(obj[1] - d_to_1)
+                    if obj[0] == 8:
+                        tmp += abs(obj[1] - d_to_8)
 
-                p.setWeight(1-tmp)
+                p.setWeight(2-tmp)
 
 
             
