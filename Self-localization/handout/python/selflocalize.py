@@ -89,7 +89,7 @@ def draw_world(est_pose, particles, world):
     for particle in particles:
         x = int(particle.getX() + offsetX)
         y = ymax - (int(particle.getY() + offsetY))
-        colour = jet(particle.getWeight() / max_weight)
+        colour = tuple(map(int, jet(particle.getWeight() / max_weight)))
         cv2.circle(world, (x,y), 2, colour, 2)
         b = (int(particle.getX() + 15.0*np.cos(particle.getTheta()))+offsetX, 
                                      ymax - (int(particle.getY() + 15.0*np.sin(particle.getTheta()))+offsetY))
@@ -238,28 +238,26 @@ try:
                     angle_error = phi - object[2]
                     angle_weight = N(angle_error)
                 angle_weight_list.append(angle_weight)
-                
+            
+            
             # Compute particle weights 
             # XXX: You do this
             particle_weight_list = np.multiply(dist_weight_list,angle_weight_list)
+            #print(f"res: {dist_weight_list[0]} * {angle_weight_list[0]} = {particle_weight_list[0]}")
+            # find max weight
+            max_weight = np.max(particle_weight_list)
+
             for p in range(len(particles)):
-                particles[p].setWeight(particle_weight_list[p])
-                print(particles[p].getWeight())     
+                particles[p].setWeight(max_weight - particle_weight_list[p])
              
                               
             # Resampling
             # remove all particles with weight 0
+             
             avg = np.mean([p.getWeight() for p in particles]) / 10
             particles = [p for p in particles if p.getWeight() > avg]
-            # Normalize weights
-            """ sumWeights = 0
-            for p in particles:
-                sumWeights += p.getWeight()
-            for p in particles:
-                p.setWeight(p.getWeight() / sumWeights) """
-            # Resample
             particles = initialize_particles(num_particles - len(particles)) + particles
-
+            
 
             # Draw detected objects
             cam.draw_aruco_objects(colour)
