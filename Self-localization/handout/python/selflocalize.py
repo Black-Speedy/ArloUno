@@ -159,7 +159,6 @@ try:
         cam = camera.Camera(0, 'macbookpro', useCaptureThread = True) #changed macbookpro to arlo
 
     while True:
-
         # Move the robot according to user input (only for testing)
         action = cv2.waitKey(10)
         if action == ord('q'): # Quit
@@ -179,11 +178,11 @@ try:
                 angular_velocity -= 0.2
 
 
-
-        
         # Use motor controls to update particles
         # XXX: Make the robot drive
         # XXX: You do this
+
+        particle.add_uncertainty(particles, 0.1, 0.1)
 
 
         # Fetch next frame
