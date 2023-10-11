@@ -216,9 +216,9 @@ try:
                 for obj in detected_objects:
                     # check if distance is close to the recorded distance
                     if obj[0] == 1:
-                        tmp += abs(obj[1] - d_to_1)
+                        tmp += (abs(obj[1] - d_to_1) / 100)
                     elif obj[0] == 8:
-                        tmp += abs(obj[1] - d_to_8)
+                        tmp += (abs(obj[1] - d_to_8) / 100)
 
                 p.setWeight(2-tmp)
 
