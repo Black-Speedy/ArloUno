@@ -218,10 +218,10 @@ try:
                     # check if distance is close to the recorded distance
                     if obj[0] == 1:
                         tmpDist += (abs(obj[1] - d_to_1) / 100)
-                        tmpAngle += (abs(obj[2] - p.getTheta())/2)
+                        tmpAngle += (abs(obj[2] - p.getTheta()))
                     if obj[0] == 8:
                         tmpDist += (abs(obj[1] - d_to_8) / 100)
-                        tmpAngle += (abs(obj[2] - p.getTheta())/2)
+                        tmpAngle += (abs(obj[2] - p.getTheta()))
 
                 p.setWeight(2-(tmpAngle * tmpDist))
 
