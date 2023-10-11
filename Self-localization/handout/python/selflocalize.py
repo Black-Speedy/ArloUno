@@ -218,10 +218,10 @@ try:
                     # check if distance is close to the recorded distance
                     if obj[0] == 1:
                         tmpDist += (abs(obj[1] - d_to_1) / 100)
-                        tmpAngle += (abs(obj[2] - p.getTheta()))
+                        tmpAngle += (abs(obj[2] - p.getTheta())/2)
                     elif obj[0] == 8:
                         tmpDist += (abs(obj[1] - d_to_8) / 100)
-                        tmpAngle += (abs(obj[2] - p.getTheta()))
+                        tmpAngle += (abs(obj[2] - p.getTheta())/2)
 
                 p.setWeight(2-(tmpAngle * tmpDist))
 
@@ -233,7 +233,17 @@ try:
                 
                 
             # Resampling
-            # XXX: You do this
+            # remove all particles with weight 0
+            particles = [p for p in particles if p.getWeight() > 0]
+            # Normalize weights
+            sumWeights = 0
+            for p in particles:
+                sumWeights += p.getWeight()
+            for p in particles:
+                p.setWeight(p.getWeight() / sumWeights)
+            # Resample
+            particles = particle.resample_particles(particles)
+
 
             # Draw detected objects
             cam.draw_aruco_objects(colour)
