@@ -207,8 +207,8 @@ try:
             # Compute particle weights 
             # XXX: You do this
             for p in particles:
-                d_to_1 = np.linalg.norm((p.getX(), p.getY()) - landmarks[1])
-                d_to_8 = np.linalg.norm((p.getX(), p.getY()) - landmarks[8])
+                d_to_1 = np.sqrt((p.getY() - landmarks[1])**2 + ((p.getX() - landmarks[1][1])**2))
+                #d_to_8 = np.linalg.norm((p.getX(), p.getY()) - landmarks[8])
 
                 tmp = 0
 
