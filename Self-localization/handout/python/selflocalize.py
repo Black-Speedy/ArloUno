@@ -5,6 +5,7 @@ import numpy as np
 import time
 from timeit import default_timer as timer
 import sys
+import random_numbers
 
 
 # Flags
@@ -53,9 +54,6 @@ landmarks = {
     8: (300.0, 0.0)  # Coordinates for landmark 2
 }
 landmark_colors = [CRED, CGREEN] # Colors used when drawing the landmarks
-
-
-
 
 
 def jet(x):
@@ -132,9 +130,8 @@ try:
         cv2.namedWindow(WIN_World)
         cv2.moveWindow(WIN_World, 500, 50)
 
-
     # Initialize particles
-    num_particles = 1000
+    num_particles = 500
     particles = initialize_particles(num_particles)
 
     est_pose = particle.estimate_pose(particles) # The estimate of the robots current pose
@@ -163,19 +160,19 @@ try:
         action = cv2.waitKey(10)
         if action == ord('q'): # Quit
             break
-    
+        
         if not isRunningOnArlo():
             if action == ord('w'): # Forward
-                velocity += 4.0
+                velocity += 1.0
             elif action == ord('x'): # Backwards
-                velocity -= 4.0
+                velocity -= 1.0
             elif action == ord('s'): # Stop
                 velocity = 0.0
                 angular_velocity = 0.0
             elif action == ord('a'): # Left
-                angular_velocity += 0.2
+                angular_velocity += 0.1
             elif action == ord('d'): # Right
-                angular_velocity -= 0.2
+                angular_velocity -= 0.1
 
 
         # Use motor controls to update particles
@@ -183,6 +180,12 @@ try:
         # XXX: You do this
 
         particle.add_uncertainty(particles, 0.1, 0.1)
+
+        for p in particles:
+            delta_x = np.cos(p.getTheta()) * velocity
+            delta_y = np.sin(p.getTheta()) * velocity
+            particle.move_particle(p, delta_x, delta_y, angular_velocity)
+
 
 
         # Fetch next frame
@@ -198,7 +201,14 @@ try:
             detected_objects = [] 
     
             def N(x):
-                return np.random.normal(x, 0 , 1)
+                """ var = 0.01
+                a = (1/(np.sqrt(2 * np.pi * var**2))) 
+                b = np.exp((-x**2)/(2*var**2))
+                print(a)
+                print(b)
+                return a * b """
+                return random_numbers.randn(x, 0.1)
+                #return np.random.normal(x,0, 1)
             
             for i in range(len(objectIDs)):
                 object_id = objectIDs[i]
@@ -207,22 +217,27 @@ try:
                     distance = dists[i]
                     angle = angles[i]
                     detected_objects.append((object_id, distance, angle))
-                    print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
+                    #print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
 #distance                
             dist_weight_list = []
             for p in particles:
                 x_i, y_i = p.getX(), p.getY()
+                dist_error = 0
+
                 for object in detected_objects:
                     lx = landmarks[(object[0])][0]
                     ly = landmarks[object[0]][1]
                     unique_particle_distance = np.sqrt((lx - x_i) ** 2 + (ly - y_i) ** 2)
-                    dist_error = unique_particle_distance - object[1]
-                    dist_weight = N(dist_error)
+                    dist_error += np.abs(unique_particle_distance - object[1])
+
+                dist_weight = N(dist_error)
+                    
                 dist_weight_list.append(dist_weight)
 #angle                    
             angle_weight_list = []
             for p in particles:
                 x_i, y_i, theta_i = p.getX(), p.getY(), p.getTheta()
+                angle_error = 0
                 for object in detected_objects: 
                     lx = landmarks[(object[0])][0]
                     ly = landmarks[object[0]][1]
@@ -230,34 +245,62 @@ try:
                     delta_y = ly - y_i                    
                     distance = np.sqrt(delta_x**2 + delta_y**2)
                     
-                    e_theta = np.array([np.cos(theta_i), np.sin(theta_i)])
+                    e_theta = np.array([np.cos(theta_i), np.sin(theta_i)])                    
                     e_l = np.array([(delta_x) / distance, delta_y / distance])
                     e_hat = np.array([-np.sin(theta_i), np.cos(theta_i)]) 
                     phi = np.sign(np.dot(e_l,e_hat))*np.arccos(np.dot(e_l, e_theta))
 
-                    angle_error = phi - object[2]
-                    angle_weight = N(angle_error)
-                angle_weight_list.append(angle_weight)
+                    angle_error += np.abs(phi - object[2])
             
+                
+                angle_weight = N(angle_error * 20)
+            
+
+                angle_weight_list.append(angle_weight)
             
             # Compute particle weights 
             # XXX: You do this
             particle_weight_list = np.multiply(dist_weight_list,angle_weight_list)
-            #print(f"res: {dist_weight_list[0]} * {angle_weight_list[0]} = {particle_weight_list[0]}")
             # find max weight
             max_weight = np.max(particle_weight_list)
 
             for p in range(len(particles)):
-                particles[p].setWeight(max_weight - particle_weight_list[p])
-             
+                particles[p].setWeight((max_weight - particle_weight_list[p]))
                               
             # Resampling
-            # remove all particles with weight 0
-             
-            avg = np.mean([p.getWeight() for p in particles]) / 10
-            particles = [p for p in particles if p.getWeight() > avg]
-            particles = initialize_particles(num_particles - len(particles)) + particles
-            
+            # sort particles
+            particles = sorted(particles, key=lambda particle: particle.getWeight())
+
+            particles = particles[100:]
+
+            max_weight = -1
+            for p in particles:
+                if p.getWeight() > max_weight:
+                    max_weight = p.getWeight()
+
+            # normalize weights
+            for p in particles:
+                p.setWeight(p.getWeight() / max_weight)
+                # p.setWeight(np.linalg.norm(w))
+
+            """ print(f"w[0]: {particles[0].getWeight()}")
+            print(f"w[1]: {particles[1].getWeight()}")
+            print(f"w[2]: {particles[2].getWeight()}")
+            print(f"w[3]: {particles[3].getWeight()}")
+            print(f"w[4]: {particles[4].getWeight()}") """
+            #print(f"w[500]: {particles[500].getWeight()}")
+            # resample based on probability, given the weights
+            oldParticles = []
+            for p in particles:
+                r = np.random.random()
+                approve = r < p.getWeight()
+                if approve:
+                    oldParticles.append(p)
+
+            newParticles = (initialize_particles(num_particles - len(particles)))
+
+            # combine arrrays
+            particles = np.concatenate([newParticles, oldParticles], axis=0)
 
             # Draw detected objects
             cam.draw_aruco_objects(colour)
