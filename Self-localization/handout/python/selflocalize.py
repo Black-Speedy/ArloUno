@@ -273,14 +273,16 @@ try:
 
             particles = particles[100:]
 
+
+            sum = np.sum(particle_weight_list)
+
+            for p in particles:
+                p.setWeight(p.getWeight() / sum)
+
             max_weight = -1
             for p in particles:
                 if p.getWeight() > max_weight:
                     max_weight = p.getWeight()
-
-            # normalize weights
-            for p in particles:
-                p.setWeight(p.getWeight() / max_weight)
                 # p.setWeight(np.linalg.norm(w))
 
             """ print(f"w[0]: {particles[0].getWeight()}")
@@ -292,9 +294,8 @@ try:
             # resample based on probability, given the weights
             oldParticles = []
             for p in particles:
-                r = np.random.random()
-                approve = r < p.getWeight()
-                if approve:
+                r = np.random.uniform(0, max_weight)
+                if r < p.getWeight() + (max_weight / 4):
                     oldParticles.append(p)
 
             newParticles = (initialize_particles(num_particles - len(particles)))
