@@ -1,44 +1,42 @@
-print("a")
 from robot_driving_states import RobotController
 from rrt import *
 import sys
 import os
 sys.path.append(("Self-localization"))
 import selflocalize
-print("b")
 import camera
-print("c")
 import time
 
 
 def main():
-    print("0")
-    cam = camera.Camera(0, 'arlo', useCaptureThread=True)
-    print("1")
-    path_res = 0.05
-    print("2")
-    map = grid_occ.GridOccupancyMap(low=(-2, 0), high=(2, 4), res=path_res, cam=cam)
-    print("3")
-    map.populate()
-    print("4")
 
+    cam = camera.Camera(0, 'arlo', useCaptureThread=True)
+    pos = selflocalize.Localize(cam)
+
+    path_res = 0.05
+    map = grid_occ.GridOccupancyMap(low=(-2, 0), high=(2, 4), res=path_res, cam=cam)
+    map.populate()
+
+    print("1")
     robot = robot_models.PointMassModel(ctrl_range=[-path_res, path_res])   #
-    print("5")
+    print("2")
+
+
 
     # Get start position and robot theta
 
-    pos = selflocalize.Localize(cam)
 
 
     rrt = RRT(
-        start=[0, 0],
-        goal=[0, 1.5],
+        start=[pos[0], pos[1]],
+        goal=[150.0, 0],
         robot_model=robot,
         map=map,
         expand_dis=1.0,
         path_resolution=path_res,
     )
 
+    print("3")
     show_animation = False
     metadata = dict(title="RRT Test")
     writer = FFMpegWriter(fps=15, metadata=metadata)
@@ -76,7 +74,7 @@ def main():
 
     # Use github to push the image
 
-    r = RobotController(path)
+    r = RobotController(path, x = pos[0], y = pos[1], theta = pos[2])
 
     maxTime = 60 + time.perf_counter()
 
