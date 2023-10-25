@@ -6,8 +6,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 #import landMark as lm
 import sys
-sys.path.append(("Self-localization"))
-import camera
 
 class GridOccupancyMap(object):
     """
