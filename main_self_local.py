@@ -30,7 +30,7 @@ def main():
     # Get start position and robot theta
 
     rrt = RRT(
-        start=[pos.getX() * 100, pos.getY() * 100],
+        start=[pos.getX() / 100, pos.getY() / 100],
         goal=[0.5, 0],
         robot_model=robot,
         map=map,
@@ -76,7 +76,7 @@ def main():
 
     # Use github to push the image
 
-    r = RobotController(path, x=pos.getX() * 100, y=pos.getY() * 100, theta=pos.getTheta())
+    r = RobotController(path, x=pos.getX() / 100, y=pos.getY() / 100, theta=pos.getTheta())
 
     maxTime = 60 + time.perf_counter()
 
