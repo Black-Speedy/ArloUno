@@ -18,7 +18,7 @@ def main():
 
     print("0")
     path_res = 0.05
-    map = grid_occ.GridOccupancyMap(low=(-2, 0), high=(2, 4), res=path_res, cam=cam)
+    map = grid_occ.GridOccupancyMap(low=(-6, -6), high=(6, 6), res=path_res, cam=cam)
     map.populate()
 
     print("1")
@@ -29,11 +29,9 @@ def main():
 
     # Get start position and robot theta
 
-
-
     rrt = RRT(
-        start=[pos.getX(), pos.getY()],
-        goal=[75.0, 0],
+        start=[pos.getX() * 100, pos.getY() * 100],
+        goal=[0.5, 0],
         robot_model=robot,
         map=map,
         expand_dis=1.0,
@@ -78,7 +76,7 @@ def main():
 
     # Use github to push the image
 
-    r = RobotController(path, x=pos.getX(), y=pos.getY(), theta=pos.getTheta())
+    r = RobotController(path, x=pos.getX() * 100, y=pos.getY() * 100, theta=pos.getTheta())
 
     maxTime = 60 + time.perf_counter()
 
