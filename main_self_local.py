@@ -32,8 +32,8 @@ def main():
 
 
     rrt = RRT(
-        start=[pos[0], pos[1]],
-        goal=[150.0, 0],
+        start=[pos.getX(), pos.getY()],
+        goal=[75.0, 0],
         robot_model=robot,
         map=map,
         expand_dis=1.0,
@@ -78,7 +78,7 @@ def main():
 
     # Use github to push the image
 
-    r = RobotController(path, x = pos[0], y = pos[1], theta = pos[2])
+    r = RobotController(path, x=pos.getX(), y=pos.getY(), theta=pos.getTheta())
 
     maxTime = 60 + time.perf_counter()
 
