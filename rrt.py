@@ -9,6 +9,8 @@ https://github.com/AtsushiSakai/PythonRobotics/blob/master/PathPlanning/RRT/rrt.
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FFMpegWriter
+import grid_occ
+import robot_models
 
 class RRT:
     """
@@ -196,9 +198,6 @@ class RRT:
 
         return True
 
-
-
-import grid_occ, robot_models
 
 def main():
 
