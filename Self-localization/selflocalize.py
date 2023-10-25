@@ -185,7 +185,7 @@ def Localize(myCam):
             # XXX: Make the robot drive
             # XXX: You do this
 
-            particle.add_uncertainty(particles, 0.8, 0.08)
+            particle.add_uncertainty(particles, 0.75, 0.1)
 
             for p in particles:
                 delta_x = np.cos(p.getTheta()) * velocity
@@ -237,7 +237,7 @@ def Localize(myCam):
                         ly = landmarks[object[0]][1]
                         unique_particle_distance = np.sqrt((lx - x_i) ** 2 + (ly - y_i) ** 2) #d_i
                         
-                        dist_error *= N(20, (np.abs(object[1] - (unique_particle_distance)))) #(d_m - d_i)^2
+                        dist_error *= N(10, (np.abs(object[1] - (unique_particle_distance)))) #(d_m - d_i)^2
                 
                     #stderror_distance = np.std(List_dist, ddof=1) #/ np.sqrt(np.size(List.dist))
                     
@@ -262,7 +262,7 @@ def Localize(myCam):
                         e_hat = np.array([-np.sin(theta_i), np.cos(theta_i)])
                         phi = np.sign(np.dot(e_l,e_hat))*np.arccos(np.dot(e_l, e_theta))
 
-                        angle_error *= N(0.35, np.abs(object[2] - (phi))) #(\phi_m - \phi_i)
+                        angle_error *= N(0.25, np.abs(object[2] - (phi))) #(\phi_m - \phi_i)
             
                     #angle_weight = (angle_error * 20,std_error_angles)#,std_error_angles
                 
@@ -297,7 +297,7 @@ def Localize(myCam):
                 
                 chosenParticles = sorted(chosenParticles, key=lambda particle: particle.getWeight())
                 # Remove the worst 5%
-                chosenParticles = chosenParticles[int(0.05 * len(chosenParticles)):]
+                chosenParticles = chosenParticles[int(0.1 * len(chosenParticles)):]
 
                 x_values = np.array([p.getX() for p in chosenParticles])
                 y_values = np.array([p.getY() for p in chosenParticles])
@@ -309,7 +309,7 @@ def Localize(myCam):
 
                 print(f"x_covar: {x_covar}, y_covar: {y_covar}, theta_covar: {theta_covar}")
 
-                if (x_covar < 5 and y_covar < 5 and theta_covar < 0.025 and startTime + 3 < timer()):
+                if (x_covar < 5 and y_covar < 5 and theta_covar < 0.015 and startTime + 3 < timer()):
                     # found the robot
                     est_pose = particle.estimate_pose(chosenParticles[:int(0.7 * len(chosenParticles))])
                     draw_world(est_pose, particles, world)
