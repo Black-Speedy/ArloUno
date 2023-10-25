@@ -10,13 +10,17 @@ import time
 
 def main():
 
-    #cam = camera.Camera(0, 'arlo', useCaptureThread=True)
-
+    cam = camera.Camera(0, 'arlo', useCaptureThread=True)
+    print("1")
     path_res = 0.05
+    print("2")
     map = grid_occ.GridOccupancyMap(low=(-2, 0), high=(2, 4), res=path_res, cam=cam)
+    print("3")
     map.populate()
+    print("4")
 
     robot = robot_models.PointMassModel(ctrl_range=[-path_res, path_res])   #
+    print("5")
 
     # Get start position and robot theta
 
