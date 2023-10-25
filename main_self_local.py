@@ -3,21 +3,24 @@ from rrt import *
 import sys
 import os
 sys.path.append(("Self-localization"))
-from selflocalize import * 
+import selflocalize
+import camera
 import time
 
 
 def main():
 
+    cam = camera.Camera(0, 'arlo', useCaptureThread=True)
+
     path_res = 0.05
-    map = grid_occ.GridOccupancyMap(low=(-2, 0), high=(2, 4), res=path_res)
+    map = grid_occ.GridOccupancyMap(low=(-2, 0), high=(2, 4), res=path_res, cam=cam)
     map.populate()
 
     robot = robot_models.PointMassModel(ctrl_range=[-path_res, path_res])   #
 
     # Get start position and robot theta
 
-    pos = Localize()
+    pos = selflocalize.Localize(cam)
 
 
     rrt = RRT(

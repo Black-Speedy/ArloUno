@@ -120,7 +120,7 @@ def initialize_particles(num_particles):
 
 
 # Main program #
-def Localize():
+def Localize(myCam):
     try:
         if showGUI:
             # Open windows
@@ -154,7 +154,7 @@ def Localize():
 
         print("Opening and initializing camera")
         if camera.isRunningOnArlo():
-            cam = camera.Camera(0, 'arlo', useCaptureThread = True)
+            cam = myCam
         else:
             cam = camera.Camera(0, 'macbookpro', useCaptureThread = True) #changed macbookpro to arlo
 

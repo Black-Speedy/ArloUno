@@ -1,11 +1,9 @@
 # This script shows how to open a camera in OpenCV and grab frames and show these.
 # Kim S. Pedersen, 2022
-import sys
-sys.path.append(("Self-localization"))
-import camera
+
+import cv2  # Import the OpenCV library
 import numpy as np
 import time
-import cv2
 
 def gstreamer_pipeline(capture_width=1280, capture_height=720, framerate=30):
     """Utility function for setting parameters for the gstreamer camera pipeline"""
@@ -26,8 +24,7 @@ def gstreamer_pipeline(capture_width=1280, capture_height=720, framerate=30):
 print("OpenCV version = " + cv2.__version__)
 
 # Open a camera device for capturing
-# cv2.VideoCapture(gstreamer_pipeline(), apiPreference=cv2.CAP_GSTREAMER)
-cam = camera.Camera.get_capture()
+cam = cv2.VideoCapture(gstreamer_pipeline(), apiPreference=cv2.CAP_GSTREAMER)
 
 
 if not cam.isOpened():  # Error

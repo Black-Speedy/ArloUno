@@ -5,16 +5,20 @@ Module for interfacing a 2D Map in the form of Grid Occupancy
 import numpy as np
 import matplotlib.pyplot as plt
 import landMark as lm
+import sys
+sys.path.append(("Self-localization"))
+import camera
 
 class GridOccupancyMap(object):
     """
 
     """
 
-    def __init__(self, low=(-2, 0), high=(2, 2), res=0.05) -> None:
+    def __init__(self, low=(-2, 0), high=(2, 2), res=0.05, cam = None) -> None:
         self.map_area = [low, high]  # a rectangular area
         self.map_size = np.array([high[0]-low[0], high[1]-low[1]])
         self.resolution = res
+        self.cam = cam
 
         self.n_grids = [int(s//res) for s in self.map_size]
 
@@ -43,22 +47,26 @@ class GridOccupancyMap(object):
         origins = []
         radius = []
 
-        results, ids = lm.lookBox(-1)
+
+        # Detect objects
+        colour = self.cam.get_next_frame()
+
+        ids, dists, angles = self.cam.detect_aruco_objects()
 
         angle_error = 11
-        print(results)
+        print(f"ids: {ids}, dists: {dists}, angles: {angles}")
 
-        for i in range(0, len(results)):
-            radians = results[i][0][0]
+        for i in range(0, len(ids)):
+            radians = angles[i]
             degrees = np.degrees(radians) + angle_error
             if (degrees < 0):
-                x = (results[i][0][2] *
+                x = (dists[i] *
                         np.sin(radians + np.deg2rad(angle_error)))
             else:
-                x = (results[i][0][2] *
+                x = (dists[i] *
                         np.sin(radians + np.deg2rad(angle_error)))
 
-            y = (results[i][0][2] + 0.175 )
+            y = (dists[i] + 0.175)
             print(f"x: {x} y: {y}")
             origins.append([x, y])
             radius.append(0.175 + 0.23 + 0.10)
