@@ -341,5 +341,3 @@ def Localize(myCam):
         # Clean-up capture thread
         cam.terminateCaptureThread()
 
-
-Localize()
