@@ -227,6 +227,9 @@ def Localize(myCam):
                     dist_error = 1
 
                     for object in detected_objects:
+                        # check if id exists in landmarks:
+                        if not landmarks.__contains__(object[0]):
+                            continue
                         lx = landmarks[(object[0])][0]
                         ly = landmarks[object[0]][1]
                         unique_particle_distance = np.sqrt((lx - x_i) ** 2 + (ly - y_i) ** 2) #d_i
@@ -243,6 +246,8 @@ def Localize(myCam):
                     x_i, y_i, theta_i = p.getX(), p.getY(), p.getTheta()
                     angle_error = 1
                     for object in detected_objects: 
+                        if not landmarks.__contains__(object[0]):
+                            continue
                         lx = landmarks[(object[0])][0]
                         ly = landmarks[object[0]][1]
                         delta_x = lx - x_i
