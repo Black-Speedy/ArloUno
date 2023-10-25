@@ -12,6 +12,8 @@ def main():
 
     print("-1")
     cam = camera.Camera(0, 'arlo', useCaptureThread=True)
+    print("-0.5")
+
     pos = selflocalize.Localize(cam)
 
     print("0")
