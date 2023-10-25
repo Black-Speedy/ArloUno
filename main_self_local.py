@@ -2,7 +2,7 @@ from robot_driving_states import RobotController
 from rrt import *
 import sys
 import os
-sys.path.append(os.path.abspath("~/Arlo/ArloUno/Self-localization/"))
+sys.path.append(("Self-localization"))
 from selflocalize import * 
 import time
 
