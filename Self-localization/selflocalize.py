@@ -103,6 +103,9 @@ def draw_world(est_pose, particles, world):
     cv2.circle(world, a, 5, CMAGENTA, 2)
     cv2.line(world, a, b, CMAGENTA, 2)
 
+    # save the img on the robot
+    cv2.imwrite("world.png", world)
+
 
 
 def initialize_particles(num_particles):
@@ -308,7 +311,10 @@ def Localize(myCam):
 
                 if (x_covar + y_covar < 25 and theta_covar < 0.025 and startTime + 3 < timer()):
                     # found the robot
-                    return particle.estimate_pose(particles)
+                    est_pose = particle.estimate_pose(particles)
+                    draw_world(est_pose, particles, world)
+
+                    return est_pose
                 
                 newParticles = (initialize_particles(num_particles - len(chosenParticles)))
 
@@ -335,6 +341,7 @@ def Localize(myCam):
 
                 # Show world
                 cv2.imshow(WIN_World, world)
+
         
     
     finally: 
