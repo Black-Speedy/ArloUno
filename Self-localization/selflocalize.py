@@ -19,6 +19,7 @@ def isRunningOnArlo():
     """
     #if 'arlo' in sys.platform.lower():
     #    onRobot = True
+    
     return onRobot
 
 
@@ -26,6 +27,8 @@ if isRunningOnArlo():
     # XXX: You need to change this path to point to where your robot.py file is located
     sys.path.append("../../../../../../../../../../../../../../../..~/Arlo/ArloUno/robot.py")
     print(sys.path.append("~/Arlo/ArloUno/robot.py"))
+
+    #showGUI = False
 try:
     import robot
     onRobot = True
@@ -51,7 +54,7 @@ CBLACK = (0, 0, 0)
 landmarkIDs = [8, 5]
 landmarks = {
     8: (0.0, 0.0),  # Coordinates for landmark 1
-    5: (145.0, 0.0)  # Cordinates for landmark 2
+    5: (300.0, 0.0)  # Cordinates for landmark 2
 }
 landmark_colors = [CRED, CGREEN] # Colors used when drawing the landmarks
 
@@ -118,210 +121,230 @@ def initialize_particles(num_particles):
     return particles
 
 
+
+
+
 # Main program #
-try:
-    if showGUI:
-        # Open windows
-        WIN_RF1 = "Robot view"
-        cv2.namedWindow(WIN_RF1)
-        cv2.moveWindow(WIN_RF1, 50, 50)
+def Localize():
+    try:
+        if showGUI:
+            # Open windows
+            WIN_RF1 = "Robot view"
+            cv2.namedWindow(WIN_RF1)
+            cv2.moveWindow(WIN_RF1, 50, 50)
 
-        WIN_World = "World view"
-        cv2.namedWindow(WIN_World)
-        cv2.moveWindow(WIN_World, 500, 50)
+            WIN_World = "World view"
+            cv2.namedWindow(WIN_World)
+            cv2.moveWindow(WIN_World, 500, 50)
 
-    # Initialize particles
-    num_particles = 500
-    particles = initialize_particles(num_particles)
+        # Initialize particles
+        num_particles = 1000
+        particles = initialize_particles(num_particles)
 
-    est_pose = particle.estimate_pose(particles) # The estimate of the robots current pose
+        startTime = timer()
 
-    # Driving parameters
-    velocity = 0.0 # cm/sec
-    angular_velocity = 0.0 # radians/sec
-
-    # Initialize the robot (XXX: You do this)
-    
-
-    # Allocate space for world map
-    world = np.zeros((500,500,3), dtype=np.uint8)
-
-    # Draw map
-    draw_world(est_pose, particles, world)
-
-    print("Opening and initializing camera")
-    if camera.isRunningOnArlo():
-        cam = camera.Camera(0, 'arlo', useCaptureThread = True)
-    else:
-        cam = camera.Camera(0, 'macbookpro', useCaptureThread = True) #changed macbookpro to arlo
-
-    while True:
-        # Move the robot according to user input (only for testing)
-        action = cv2.waitKey(10)
-        if action == ord('q'): # Quit
-            break
-        
-        if not isRunningOnArlo():
-            if action == ord('w'): # Forward
-                velocity += 1.0
-            elif action == ord('x'): # Backwards
-                velocity -= 1.0
-            elif action == ord('s'): # Stop
-                velocity = 0.0
-                angular_velocity = 0.0
-            elif action == ord('a'): # Left
-                angular_velocity += 0.1
-            elif action == ord('d'): # Right
-                angular_velocity -= 0.1
-
-
-        # Use motor controls to update particles
-        # XXX: Make the robot drive
-        # XXX: You do this
-
-        particle.add_uncertainty(particles, 0.6, 0.1)
-
-        for p in particles:
-            delta_x = np.cos(p.getTheta()) * velocity
-            delta_y = np.sin(p.getTheta()) * velocity
-            particle.move_particle(p, delta_x, delta_y, angular_velocity)
-
-
-
-        # Fetch next frame
-        colour = cam.get_next_frame()
-        
-        
-        # Detect objects
-        objectIDs, dists, angles = cam.detect_aruco_objects(colour)
-        if not isinstance(objectIDs, type(None)):
-            # List detected objects
-            # XXX: Do something for each detected object - remember, the same ID may appear several times
-            unique_object_ids = set()
-            detected_objects = [] 
-    
-            def N(sigma, error): #,stderror         
-                a = (1/(np.sqrt(2 * np.pi * sigma**2))) 
-                b = np.exp(-(error**2)/(2*sigma**2))
-                #print(f"a: {a}, b: {b}, a*b: {a*b}")
-                result = a * b
-                return result
-                #return random_numbers.randn(error, 0.1)
-                #return np.random.normal(x,0, 1)
-            
-            for i in range(len(objectIDs)):
-                object_id = objectIDs[i]
-                if object_id not in unique_object_ids:
-                    unique_object_ids.add(object_id)
-                    distance = dists[i]
-                    angle = angles[i]
-                    detected_objects.append((object_id, distance, angle))
-                    #print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
-#distance                
-            dist_weight_list = []
-            for p in particles:
-                x_i, y_i = p.getX(), p.getY()
-                dist_error = 1
-
-                for object in detected_objects:
-                    lx = landmarks[(object[0])][0]
-                    ly = landmarks[object[0]][1]
-                    unique_particle_distance = np.sqrt((lx - x_i) ** 2 + (ly - y_i) ** 2) #d_i
-                    
-                    dist_error *= N(20, (np.abs(object[1] - (unique_particle_distance)))) #(d_m - d_i)^2
-            
-                #stderror_distance = np.std(List_dist, ddof=1) #/ np.sqrt(np.size(List.dist))
-                
-                #dist_weight = (dist_error,stderror_distance)
-                dist_weight_list.append(dist_error)
-#angle                    
-            angle_weight_list = []
-            for p in particles:
-                x_i, y_i, theta_i = p.getX(), p.getY(), p.getTheta()
-                angle_error = 1
-                for object in detected_objects: 
-                    lx = landmarks[(object[0])][0]
-                    ly = landmarks[object[0]][1]
-                    delta_x = lx - x_i
-                    delta_y = ly - y_i                    
-                    distance = np.sqrt(delta_x**2 + delta_y**2)
-                    
-                    e_theta = np.array([np.cos(theta_i), np.sin(theta_i)])                    
-                    e_l = np.array([(delta_x) / distance, delta_y / distance])
-                    e_hat = np.array([-np.sin(theta_i), np.cos(theta_i)])
-                    phi = np.sign(np.dot(e_l,e_hat))*np.arccos(np.dot(e_l, e_theta))
-
-                    angle_error *= N(0.35, np.abs(object[2] - (phi))) #(\phi_m - \phi_i)
-        
-                #angle_weight = (angle_error * 20,std_error_angles)#,std_error_angles
-            
-                angle_weight_list.append(angle_error * 20)
-            
-            # Compute particle weights 
-            
-            #dist_weight_list = np.arange(len(dist_weight_list))
-            particle_weight_list = np.multiply(dist_weight_list, angle_weight_list)
-            
-            # find max weight
-            max_weight = np.max(particle_weight_list)
-            
-            #print(f"before: {particles[0].getWeight()}")
-            for p in range(len(particles)):
-                particles[p].setWeight(particle_weight_list[p])
-            
-            sum = np.sum(particle_weight_list)
-
-            for p in particles:
-                p.setWeight(p.getWeight() / sum)
-
-            chosenParticles = []
-            for i in range(num_particles):
-                r = np.random.random()
-                for p in particles:
-                    #print(f"r: {r}")
-                    #print(p.getWeight())
-                    r -= p.getWeight()
-                    if r <= 0:
-                        #print(f"weight right now: {p.getWeight()}")
-                        chosenParticles.append(particle.Particle(p.getX(), p.getY(), p.getTheta(), p.getWeight()))
-                        break
-
-            
-            chosenParticles = sorted(chosenParticles, key=lambda particle: particle.getWeight())
-            # Remove the worst 5%
-            chosenParticles = chosenParticles[int(0.05 * len(chosenParticles)):]
-            
-            newParticles = (initialize_particles(num_particles - len(chosenParticles)))
-
-            # combine arrrays
-            particles = np.concatenate([newParticles, chosenParticles], axis=0)
-            # Draw detected objects…
-            cam.draw_aruco_objects(colour)
-        else:
-            # No observation - reset weights to uniform distribution
-            for p in particles:
-                p.setWeight(1.0/num_particles)
-
-    
         est_pose = particle.estimate_pose(particles) # The estimate of the robots current pose
 
-        if showGUI:
-            # Draw map
-            draw_world(est_pose, particles, world)
-    
-            # Show frame
-            cv2.imshow(WIN_RF1, colour)
+        # Driving parameters
+        velocity = 0.0 # cm/sec
+        angular_velocity = 0.0 # radians/sec
 
-            # Show world
-            cv2.imshow(WIN_World, world)
-    
-  
-finally: 
-    # Make sure to clean up even if an exception occurred
-    
-    # Close all windows
-    cv2.destroyAllWindows()
+        # Initialize the robot (XXX: You do this)
 
-    # Clean-up capture thread
-    cam.terminateCaptureThread()
+        # Allocate space for world map
+        world = np.zeros((500,500,3), dtype=np.uint8)
 
+        # Draw map
+        draw_world(est_pose, particles, world)
+
+        print("Opening and initializing camera")
+        if camera.isRunningOnArlo():
+            cam = camera.Camera(0, 'arlo', useCaptureThread = True)
+        else:
+            cam = camera.Camera(0, 'macbookpro', useCaptureThread = True) #changed macbookpro to arlo
+
+        while True:
+            # Move the robot according to user input (only for testing)
+            action = cv2.waitKey(10)
+            if action == ord('q'): # Quit
+                break
+            
+            if not isRunningOnArlo():
+                if action == ord('w'): # Forward
+                    velocity += 1.0
+                elif action == ord('x'): # Backwards
+                    velocity -= 1.0
+                elif action == ord('s'): # Stop
+                    velocity = 0.0
+                    angular_velocity = 0.0
+                elif action == ord('a'): # Left
+                    angular_velocity += 0.1
+                elif action == ord('d'): # Right
+                    angular_velocity -= 0.1
+
+
+            # Use motor controls to update particles
+            # XXX: Make the robot drive
+            # XXX: You do this
+
+            particle.add_uncertainty(particles, 0.6, 0.1)
+
+            for p in particles:
+                delta_x = np.cos(p.getTheta()) * velocity
+                delta_y = np.sin(p.getTheta()) * velocity
+                particle.move_particle(p, delta_x, delta_y, angular_velocity)
+
+
+
+            # Fetch next frame
+            colour = cam.get_next_frame()
+            
+            
+            # Detect objects
+            objectIDs, dists, angles = cam.detect_aruco_objects(colour)
+            if not isinstance(objectIDs, type(None)):
+                # List detected objects
+                # XXX: Do something for each detected object - remember, the same ID may appear several times
+                unique_object_ids = set()
+                detected_objects = [] 
+        
+                def N(sigma, error): #,stderror         
+                    a = (1/(np.sqrt(2 * np.pi * sigma**2))) 
+                    b = np.exp(-(error**2)/(2*sigma**2))
+                    #print(f"a: {a}, b: {b}, a*b: {a*b}")
+                    result = a * b
+                    return result
+                    #return random_numbers.randn(error, 0.1)
+                    #return np.random.normal(x,0, 1)
+                
+                for i in range(len(objectIDs)):
+                    object_id = objectIDs[i]
+                    if object_id not in unique_object_ids:
+                        unique_object_ids.add(object_id)
+                        distance = dists[i]
+                        angle = angles[i]
+                        detected_objects.append((object_id, distance, angle))
+                        #print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
+    #distance                
+                dist_weight_list = []
+                for p in particles:
+                    x_i, y_i = p.getX(), p.getY()
+                    dist_error = 1
+
+                    for object in detected_objects:
+                        lx = landmarks[(object[0])][0]
+                        ly = landmarks[object[0]][1]
+                        unique_particle_distance = np.sqrt((lx - x_i) ** 2 + (ly - y_i) ** 2) #d_i
+                        
+                        dist_error *= N(20, (np.abs(object[1] - (unique_particle_distance)))) #(d_m - d_i)^2
+                
+                    #stderror_distance = np.std(List_dist, ddof=1) #/ np.sqrt(np.size(List.dist))
+                    
+                    #dist_weight = (dist_error,stderror_distance)
+                    dist_weight_list.append(dist_error)
+    #angle                    
+                angle_weight_list = []
+                for p in particles:
+                    x_i, y_i, theta_i = p.getX(), p.getY(), p.getTheta()
+                    angle_error = 1
+                    for object in detected_objects: 
+                        lx = landmarks[(object[0])][0]
+                        ly = landmarks[object[0]][1]
+                        delta_x = lx - x_i
+                        delta_y = ly - y_i                    
+                        distance = np.sqrt(delta_x**2 + delta_y**2)
+                        
+                        e_theta = np.array([np.cos(theta_i), np.sin(theta_i)])                    
+                        e_l = np.array([(delta_x) / distance, delta_y / distance])
+                        e_hat = np.array([-np.sin(theta_i), np.cos(theta_i)])
+                        phi = np.sign(np.dot(e_l,e_hat))*np.arccos(np.dot(e_l, e_theta))
+
+                        angle_error *= N(0.35, np.abs(object[2] - (phi))) #(\phi_m - \phi_i)
+            
+                    #angle_weight = (angle_error * 20,std_error_angles)#,std_error_angles
+                
+                    angle_weight_list.append(angle_error * 20)
+                
+               
+                
+                particle_weight_list = np.multiply(dist_weight_list, angle_weight_list)
+                
+                
+                #print(f"before: {particles[0].getWeight()}")
+                for p in range(len(particles)):
+                    particles[p].setWeight(particle_weight_list[p])
+                
+                sum = np.sum(particle_weight_list)
+
+                for p in particles:
+                    p.setWeight(p.getWeight() / sum)
+
+                chosenParticles = []
+                for i in range(num_particles):
+                    r = np.random.random()
+                    for p in particles:
+                        #print(f"r: {r}")
+                        #print(p.getWeight())
+                        r -= p.getWeight()
+                        if r <= 0:
+                            #print(f"weight right now: {p.getWeight()}")
+                            chosenParticles.append(particle.Particle(p.getX(), p.getY(), p.getTheta(), p.getWeight()))
+                            break
+
+                
+                chosenParticles = sorted(chosenParticles, key=lambda particle: particle.getWeight())
+                # Remove the worst 5%
+                chosenParticles = chosenParticles[int(0.05 * len(chosenParticles)):]
+
+                x_values = np.array([p.getX() for p in chosenParticles])
+                y_values = np.array([p.getY() for p in chosenParticles])
+                theta_values = np.array([p.getTheta() for p in chosenParticles])
+
+                x_covar = np.cov(x_values)
+                y_covar = np.cov(y_values)
+                theta_covar = np.cov(theta_values)
+
+                #print(f"x_covar: {x_covar}, y_covar: {y_covar}, theta_covar: {theta_covar}")
+
+                if (x_covar + y_covar < 10 and theta_covar < 0.015 and startTime + 3 < timer()):
+                    # found the robot
+                    return particle.estimate_pose(particles)
+                
+                newParticles = (initialize_particles(num_particles - len(chosenParticles)))
+
+                # combine arrrays
+                particles = np.concatenate([newParticles, chosenParticles], axis=0)
+                # Draw detected objects…
+                cam.draw_aruco_objects(colour)
+            else:
+                # No observation - reset weights to uniform distribution
+                for p in particles:
+                    p.setWeight(1.0/num_particles)
+
+        
+            est_pose = particle.estimate_pose(particles) # The estimate of the robots current pose
+
+            #print(f"est post: {est_pose.getX()}, {est_pose.getY()}, {est_pose.getTheta()}")
+
+            if showGUI:
+                # Draw map
+                draw_world(est_pose, particles, world)
+        
+                # Show frame
+                cv2.imshow(WIN_RF1, colour)
+
+                # Show world
+                cv2.imshow(WIN_World, world)
+        
+    
+    finally: 
+        # Make sure to clean up even if an exception occurred
+        
+        # Close all windows
+        cv2.destroyAllWindows()
+
+        # Clean-up capture thread
+        cam.terminateCaptureThread()
+
+
+Localize()
