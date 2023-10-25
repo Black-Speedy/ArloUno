@@ -10,9 +10,11 @@ import time
 
 def main():
 
+    print("-1")
     cam = camera.Camera(0, 'arlo', useCaptureThread=True)
     pos = selflocalize.Localize(cam)
 
+    print("0")
     path_res = 0.05
     map = grid_occ.GridOccupancyMap(low=(-2, 0), high=(2, 4), res=path_res, cam=cam)
     map.populate()
