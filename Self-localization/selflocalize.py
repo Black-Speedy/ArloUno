@@ -7,11 +7,9 @@ from timeit import default_timer as timer
 import sys
 import random_numbers
 
-
 # Flags
 showGUI = True  # Whether or not to open GUI windows
 onRobot = True # Whether or not we are running on the Arlo robot
-
 
 def isRunningOnArlo():
     """Return True if we are running on Arlo, otherwise False.
@@ -22,7 +20,6 @@ def isRunningOnArlo():
     
     return onRobot
 
-
 if isRunningOnArlo():
     # XXX: You need to change this path to point to where your robot.py file is located
     sys.path.append("../../../../../../../../../../../../../../../..~/Arlo/ArloUno/robot.py")
@@ -30,15 +27,12 @@ if isRunningOnArlo():
 
     #showGUI = False
 try:
-    import robot
+    #import robot
     onRobot = True
     showGUI = False
 except ImportError:
     print("selflocalize.py: robot module not present - forcing not running on Arlo!")
     onRobot = False
-
-
-
 
 # Some color constants in BGR format
 CRED = (0, 0, 255)
