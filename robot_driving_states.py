@@ -12,17 +12,17 @@ class DriveState(Enum):
     SETUP = 5
 
 class RobotController():
-    def __init__(self, path):
+    def __init__(self, path, x = 0, y = 0, theta = np.pi / 2):
         self.r = rb.Robot()
         self.ds = DriveState.SETUP
         self.stopTimer = 0
         self.stopTurnTimer = 0
         self.path = np.flip(np.array(path), 0)
-        self.theta = np.pi / 2
+        self.theta = theta
         self.currentPoint = 0
         self.waitTime = 0.0
-        self.x = 0
-        self.y = 0
+        self.x = x
+        self.y = y
     
     def straight64(self, cm):
         self.r.go_diff(65, 70, 1, 1)
