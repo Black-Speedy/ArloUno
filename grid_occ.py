@@ -51,7 +51,7 @@ class GridOccupancyMap(object):
         # Detect objects
         colour = self.cam.get_next_frame()
 
-        ids, dists, angles = self.cam.detect_aruco_objects()
+        ids, dists, angles = self.cam.detect_aruco_objects(colour)
 
         angle_error = 11
         print(f"ids: {ids}, dists: {dists}, angles: {angles}")

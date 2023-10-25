@@ -153,10 +153,11 @@ def Localize(myCam):
         draw_world(est_pose, particles, world)
 
         print("Opening and initializing camera")
-        if camera.isRunningOnArlo():
+        """ if camera.isRunningOnArlo():
             cam = myCam
         else:
-            cam = camera.Camera(0, 'macbookpro', useCaptureThread = True) #changed macbookpro to arlo
+            cam = camera.Camera(0, 'macbookpro', useCaptureThread = True) #changed macbookpro to arlo """
+        cam = myCam
 
         while True:
             # Move the robot according to user input (only for testing)
