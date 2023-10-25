@@ -12,7 +12,7 @@ import time
 
 
 def main():
-
+    print("0")
     cam = camera.Camera(0, 'arlo', useCaptureThread=True)
     print("1")
     path_res = 0.05
