@@ -5,6 +5,7 @@ sys.path.append(("Self-localization"))
 import camera
 import numpy as np
 import time
+import cv2
 
 def gstreamer_pipeline(capture_width=1280, capture_height=720, framerate=30):
     """Utility function for setting parameters for the gstreamer camera pipeline"""
