@@ -48,10 +48,10 @@ CBLACK = (0, 0, 0)
 
 # Landmarks.
 # The robot knows the position of 2 landmarks. Their coordinates are in the unit centimeters [cm].
-landmarkIDs = [2, 6]
+landmarkIDs = [8, 5]
 landmarks = {
-    2: (0.0, 0.0),  # Coordinates for landmark 1
-    6: (145.0, 0.0)  # Coordinates for landmark 2
+    8: (0.0, 0.0),  # Coordinates for landmark 1
+    5: (145.0, 0.0)  # Cordinates for landmark 2
 }
 landmark_colors = [CRED, CGREEN] # Colors used when drawing the landmarks
 
@@ -219,7 +219,6 @@ try:
                     #print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
 #distance                
             dist_weight_list = []
-            List_dist = []
             for p in particles:
                 x_i, y_i = p.getX(), p.getY()
                 dist_error = 1
@@ -227,17 +226,16 @@ try:
                 for object in detected_objects:
                     lx = landmarks[(object[0])][0]
                     ly = landmarks[object[0]][1]
-                    unique_particle_distance = np.sqrt((lx - x_i) ** 2 + (ly - y_i) ** 2)
-                    dist_error *= N(20, np.abs(object[1] - (unique_particle_distance)))
-                
-                List_dist.append(unique_particle_distance)
+                    unique_particle_distance = np.sqrt((lx - x_i) ** 2 + (ly - y_i) ** 2) #d_i
+                    
+                    dist_error *= N(20, (np.abs(object[1] - (unique_particle_distance)))) #(d_m - d_i)^2
+            
                 #stderror_distance = np.std(List_dist, ddof=1) #/ np.sqrt(np.size(List.dist))
                 
                 #dist_weight = (dist_error,stderror_distance)
                 dist_weight_list.append(dist_error)
 #angle                    
             angle_weight_list = []
-            List_angles = []
             for p in particles:
                 x_i, y_i, theta_i = p.getX(), p.getY(), p.getTheta()
                 angle_error = 1
@@ -250,37 +248,27 @@ try:
                     
                     e_theta = np.array([np.cos(theta_i), np.sin(theta_i)])                    
                     e_l = np.array([(delta_x) / distance, delta_y / distance])
-                    e_hat = np.array([-np.sin(theta_i), np.cos(theta_i)]) 
+                    e_hat = np.array([-np.sin(theta_i), np.cos(theta_i)])
                     phi = np.sign(np.dot(e_l,e_hat))*np.arccos(np.dot(e_l, e_theta))
 
-                    angle_error *= N(0.35, np.abs(object[2] - (phi)))
-            
-                #List_angles.append(phi)
-                #std_error_angles = np.std(List_angles, ddof=1) #/ np.sqrt(np.size(List_angles)) 
+                    angle_error *= N(0.35, np.abs(object[2] - (phi))) #(\phi_m - \phi_i)
+        
                 #angle_weight = (angle_error * 20,std_error_angles)#,std_error_angles
             
                 angle_weight_list.append(angle_error * 20)
             
             # Compute particle weights 
-            # XXX: You do this
-            #print(f"dist_weight_list: {dist_weight_list[0]}")
-            #print(f"angle_weight_list: {angle_weight_list[0]}")
+            
+            #dist_weight_list = np.arange(len(dist_weight_list))
             particle_weight_list = np.multiply(dist_weight_list, angle_weight_list)
+            
             # find max weight
             max_weight = np.max(particle_weight_list)
             
             #print(f"before: {particles[0].getWeight()}")
             for p in range(len(particles)):
-                particles[p].setWeight(max_weight - particle_weight_list[p])
-            #print(f"after: {particles[0].getWeight()}")
-                              
-            # Resampling
-            # sort particles
-            #particles = sorted(particles, key=lambda particle: particle.getWeight())
-
-            # particles = particles[100:]
-
-
+                particles[p].setWeight(particle_weight_list[p])
+            
             sum = np.sum(particle_weight_list)
 
             for p in particles:
@@ -297,20 +285,17 @@ try:
                         #print(f"weight right now: {p.getWeight()}")
                         chosenParticles.append(particle.Particle(p.getX(), p.getY(), p.getTheta(), p.getWeight()))
                         break
-                    
-            # Remove 10 % worst particles
-            """  chosenParticles = sorted(chosenParticles, key=lambda particle: particle.getWeight())
-            chosenParticles = np.flip(chosenParticles)
-            # print out the weights
-            for p in chosenParticles:
-                print(f" weightof p: {p.getWeight()}")
-            chosenParticles = chosenParticles[25:] """
 
+            
+            chosenParticles = sorted(chosenParticles, key=lambda particle: particle.getWeight())
+            # Remove the worst 5%
+            chosenParticles = chosenParticles[int(0.05 * len(chosenParticles)):]
+            
             newParticles = (initialize_particles(num_particles - len(chosenParticles)))
 
             # combine arrrays
             particles = np.concatenate([newParticles, chosenParticles], axis=0)
-            # Draw detected objects
+            # Draw detected objects…
             cam.draw_aruco_objects(colour)
         else:
             # No observation - reset weights to uniform distribution
