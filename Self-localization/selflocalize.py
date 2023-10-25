@@ -311,7 +311,7 @@ def Localize(myCam):
 
                 if (x_covar + y_covar < 25 and theta_covar < 0.025 and startTime + 3 < timer()):
                     # found the robot
-                    est_pose = particle.estimate_pose(chosenParticles[:int(0.3 * len(chosenParticles))])
+                    est_pose = particle.estimate_pose(chosenParticles[:int(0.7 * len(chosenParticles))])
                     draw_world(est_pose, particles, world)
 
                     return est_pose
