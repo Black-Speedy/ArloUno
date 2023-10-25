@@ -314,6 +314,11 @@ def Localize(myCam):
                     est_pose = particle.estimate_pose(chosenParticles[:int(0.7 * len(chosenParticles))])
                     draw_world(est_pose, particles, world)
 
+                    # Show frame
+                    cv2.imshow(WIN_RF1, colour)
+
+                    # Show world
+                    cv2.imshow(WIN_World, world)
                     return est_pose
                 
                 newParticles = (initialize_particles(num_particles - len(chosenParticles)))
