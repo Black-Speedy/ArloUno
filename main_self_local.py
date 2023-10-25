@@ -10,7 +10,7 @@ import time
 
 def main():
 
-    cam = camera.Camera(0, 'arlo', useCaptureThread=True)
+    #cam = camera.Camera(0, 'arlo', useCaptureThread=True)
 
     path_res = 0.05
     map = grid_occ.GridOccupancyMap(low=(-2, 0), high=(2, 4), res=path_res, cam=cam)
