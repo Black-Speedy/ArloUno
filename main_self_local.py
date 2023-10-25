@@ -7,6 +7,7 @@ sys.path.append(("Self-localization"))
 import selflocalize
 print("b")
 import camera
+print("c")
 import time
 
 
