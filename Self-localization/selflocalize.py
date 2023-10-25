@@ -185,7 +185,7 @@ def Localize(myCam):
             # XXX: Make the robot drive
             # XXX: You do this
 
-            particle.add_uncertainty(particles, 0.4, 0.08)
+            particle.add_uncertainty(particles, 0.8, 0.08)
 
             for p in particles:
                 delta_x = np.cos(p.getTheta()) * velocity
