@@ -17,6 +17,8 @@ def main():
 
     # Get start position and robot theta
 
+    pos = Localize()
+
 
     rrt = RRT(
         start=[0, 0],
