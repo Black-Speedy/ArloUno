@@ -1,9 +1,11 @@
+print("a")
 from robot_driving_states import RobotController
 from rrt import *
 import sys
 import os
 sys.path.append(("Self-localization"))
 import selflocalize
+print("b")
 import camera
 import time
 
