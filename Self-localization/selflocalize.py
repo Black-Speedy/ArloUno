@@ -1,6 +1,5 @@
 import cv2
 import particle
-import camera
 import numpy as np
 import time
 from timeit import default_timer as timer
