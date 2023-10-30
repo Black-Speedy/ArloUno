@@ -331,13 +331,13 @@ def Localize(myCam):
                     p.setWeight(1.0/num_particles)
 
         
-            #est_pose = particle.estimate_pose(particles) # The estimate of the robots current pose
+            est_pose = particle.estimate_pose(particles) # The estimate of the robots current pose
 
             #print(f"est post: {est_pose.getX()}, {est_pose.getY()}, {est_pose.getTheta()}")
 
             if showGUI:
                 # Draw map
-                draw_world(est_pose, chosenParticles, world)
+                draw_world(est_pose, particles, world)
         
                 # Show frame
                 cv2.imshow(WIN_RF1, colour)
