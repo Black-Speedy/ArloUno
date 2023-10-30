@@ -280,7 +280,7 @@ def Localize(myCam):
                 for p in particles:
                     p.setWeight(p.getWeight() / sum)
 
-                chosenParticles = []
+                chosenParticles = [] # List of particles to be resampled (randomly chosen according to weights)
                 for i in range(num_particles):
                     r = np.random.random()
                     for p in particles:
@@ -290,17 +290,14 @@ def Localize(myCam):
                             break
 
                 
+                #
                 chosenParticles = sorted(chosenParticles, key=lambda particle: particle.getWeight())
-                #Remove the worst 10% of the particles
-                chosenParticles = chosenParticles[int(0.1 * len(chosenParticles)):]
+                chosenParticles = chosenParticles[int(0.1 * len(chosenParticles)):] 
 
                 x_values = np.array([p.getX() for p in chosenParticles])
                 y_values = np.array([p.getY() for p in chosenParticles])
                 theta_values = np.array([p.getTheta() for p in chosenParticles])
 
-                #x_covar = np.cov(x_values)
-                #y_covar = np.cov(y_values)
-                #theta_covar = np.cov(theta_values)
                 x_covar = np.cov(x_values)
                 y_covar = np.cov(y_values)
                 theta_covar = np.cov(theta_values)
@@ -319,7 +316,7 @@ def Localize(myCam):
                     cv2.imshow(WIN_World, world)
                     return est_pose
                 
-                newParticles = (initialize_particles(num_particles - len(chosenParticles)))
+                newParticles = (initialize_particles(num_particles - len(chosenParticles))) # 1000 - 
 
                 # combine arrrays
                 particles = np.concatenate([newParticles, chosenParticles], axis=0)
