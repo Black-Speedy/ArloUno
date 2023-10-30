@@ -133,7 +133,7 @@ def Localize(myCam):
             cv2.moveWindow(WIN_World, 500, 50)
 
         # Initialize particles
-        num_particles = 2000
+        num_particles = 1500
         particles = initialize_particles(num_particles)
 
         startTime = timer()
