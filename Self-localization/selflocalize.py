@@ -305,7 +305,7 @@ def Localize(myCam):
                 print(f"x_var: {x_covar}, y_var: {y_covar}, theta_var: {theta_covar}")
 
                 #if (x_covar < 5 and y_covar < 5 and theta_covar < 0.15 and startTime + 3 < timer()):
-                if (startTime - 10 < timer()):
+                if (startTime - 20 > timer()):
                     # found the robot
                     est_pose = particle.estimate_pose(chosenParticles)
                     draw_world(est_pose, particles, world)
