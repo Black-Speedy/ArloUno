@@ -119,8 +119,6 @@ def initialize_particles(num_particles):
 
 
 
-
-
 # Main program #
 def Localize(myCam):
     try:
@@ -307,7 +305,7 @@ def Localize(myCam):
                 y_covar = np.cov(y_values)
                 theta_covar = np.cov(theta_values)
 
-                print(f"x_covar: {x_covar}, y_covar: {y_covar}, theta_covar: {theta_covar}")
+                #print(f"x_covar: {x_covar}, y_covar: {y_covar}, theta_covar: {theta_covar}")
 
                 if (x_covar < 5 and y_covar < 5 and theta_covar < 0.015 and startTime + 3 < timer()):
                     # found the robot
