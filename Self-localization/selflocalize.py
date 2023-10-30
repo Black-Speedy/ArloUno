@@ -133,7 +133,7 @@ def Localize(myCam):
             cv2.moveWindow(WIN_World, 500, 50)
 
         # Initialize particles
-        num_particles = 1000
+        num_particles = 2000
         particles = initialize_particles(num_particles)
 
         startTime = timer()
@@ -292,7 +292,7 @@ def Localize(myCam):
                 
                 #
                 chosenParticles = sorted(chosenParticles, key=lambda particle: particle.getWeight())
-                chosenParticles = chosenParticles[int(0.075 * len(chosenParticles)):] 
+                chosenParticles = chosenParticles[int(0.10 * len(chosenParticles)):] 
 
                 x_values = np.array([p.getX() for p in chosenParticles])
                 y_values = np.array([p.getY() for p in chosenParticles])
