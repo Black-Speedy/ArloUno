@@ -133,7 +133,7 @@ def Localize(myCam):
             cv2.moveWindow(WIN_World, 500, 50)
 
         # Initialize particles
-        num_particles = 500
+        num_particles = 1000
         particles = initialize_particles(num_particles)
 
         startTime = timer()
@@ -284,11 +284,8 @@ def Localize(myCam):
                 for i in range(num_particles):
                     r = np.random.random()
                     for p in particles:
-                        #print(f"r: {r}")
-                        #print(p.getWeight())
                         r -= p.getWeight()
                         if r <= 0:
-                            #print(f"weight right now: {p.getWeight()}")
                             chosenParticles.append(particle.Particle(p.getX(), p.getY(), p.getTheta(), p.getWeight()))
                             break
 
@@ -304,13 +301,13 @@ def Localize(myCam):
                 #x_covar = np.cov(x_values)
                 #y_covar = np.cov(y_values)
                 #theta_covar = np.cov(theta_values)
-                x_covar = np.var(x_values)
-                y_covar = np.var(y_values)
-                theta_covar = np.var(theta_values)
+                x_covar = np.cov(x_values)
+                y_covar = np.cov(y_values)
+                theta_covar = np.cov(theta_values)
 
                 print(f"x_var: {x_covar}, y_var: {y_covar}, theta_var: {theta_covar}")
 
-                if (x_covar < 0.0001 and y_covar < 0.0001 and theta_covar < 0.000015 and startTime + 3 < timer()):
+                if (x_covar < 5 and y_covar < 5 and theta_covar < 0.15 and startTime + 3 < timer()):
                     # found the robot
                     est_pose = particle.estimate_pose(chosenParticles[:int(0.7 * len(chosenParticles))])
                     draw_world(est_pose, particles, world)
@@ -334,7 +331,7 @@ def Localize(myCam):
                     p.setWeight(1.0/num_particles)
 
         
-            est_pose = particle.estimate_pose(particles) # The estimate of the robots current pose
+            #est_pose = particle.estimate_pose(particles) # The estimate of the robots current pose
 
             #print(f"est post: {est_pose.getX()}, {est_pose.getY()}, {est_pose.getTheta()}")
 
