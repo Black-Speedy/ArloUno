@@ -329,7 +329,7 @@ def Localize(myCam):
                     p.setWeight(1.0/num_particles)
 
         
-            est_pose = particle.estimate_pose(particles) # The estimate of the robots current pose
+            est_pose = particle.estimate_pose(chosenParticles) # The estimate of the robots current pose
 
             #print(f"est post: {est_pose.getX()}, {est_pose.getY()}, {est_pose.getTheta()}")
 
