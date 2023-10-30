@@ -45,10 +45,10 @@ CBLACK = (0, 0, 0)
 
 # Landmarks.
 # The robot knows the position of 2 landmarks. Their coordinates are in the unit centimeters [cm].
-landmarkIDs = [8, 5]
+landmarkIDs = [11, 2]
 landmarks = {
-    8: (0.0, 0.0),  # Coordinates for landmark 1
-    5: (100.0, 0.0)  # Cordinates for landmark 2
+    11: (0.0, -100.0),  # Coordinates for landmark 1
+    2: (100.0, -100.0)  # Cordinates for landmark 2
 }
 landmark_colors = [CRED, CGREEN] # Colors used when drawing the landmarks
 
@@ -301,13 +301,16 @@ def Localize(myCam):
                 y_values = np.array([p.getY() for p in chosenParticles])
                 theta_values = np.array([p.getTheta() for p in chosenParticles])
 
-                x_covar = np.cov(x_values)
-                y_covar = np.cov(y_values)
-                theta_covar = np.cov(theta_values)
+                #x_covar = np.cov(x_values)
+                #y_covar = np.cov(y_values)
+                #theta_covar = np.cov(theta_values)
+                x_covar = np.var(x_values)
+                y_covar = np.var(y_values)
+                theta_covar = np.var(theta_values)
 
-                #print(f"x_covar: {x_covar}, y_covar: {y_covar}, theta_covar: {theta_covar}")
+                print(f"x_var: {x_covar}, y_var: {y_covar}, theta_var: {theta_covar}")
 
-                if (x_covar < 5 and y_covar < 5 and theta_covar < 0.015 and startTime + 3 < timer()):
+                if (x_covar < 0.0001 and y_covar < 0.0001 and theta_covar < 0.000015 and startTime + 3 < timer()):
                     # found the robot
                     est_pose = particle.estimate_pose(chosenParticles[:int(0.7 * len(chosenParticles))])
                     draw_world(est_pose, particles, world)
@@ -355,4 +358,3 @@ def Localize(myCam):
 
         # Clean-up capture thread
         cam.terminateCaptureThread()
-
