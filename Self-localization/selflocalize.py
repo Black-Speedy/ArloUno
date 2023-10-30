@@ -291,7 +291,7 @@ def Localize(myCam):
 
                 
                 chosenParticles = sorted(chosenParticles, key=lambda particle: particle.getWeight())
-                # Remove the worst 5%
+                #Remove the worst 10% of the particles
                 chosenParticles = chosenParticles[int(0.1 * len(chosenParticles)):]
 
                 x_values = np.array([p.getX() for p in chosenParticles])
@@ -309,7 +309,7 @@ def Localize(myCam):
 
                 if (x_covar < 5 and y_covar < 5 and theta_covar < 0.15 and startTime + 3 < timer()):
                     # found the robot
-                    est_pose = particle.estimate_pose(chosenParticles[:int(0.7 * len(chosenParticles))])
+                    est_pose = particle.estimate_pose(chosenParticles)
                     draw_world(est_pose, particles, world)
 
                     # Show frame
@@ -337,7 +337,7 @@ def Localize(myCam):
 
             if showGUI:
                 # Draw map
-                draw_world(est_pose, particles, world)
+                draw_world(est_pose, chosenParticles, world)
         
                 # Show frame
                 cv2.imshow(WIN_RF1, colour)
