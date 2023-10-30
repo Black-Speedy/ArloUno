@@ -183,7 +183,7 @@ def Localize(myCam):
             # XXX: Make the robot drive
             # XXX: You do this
 
-            particle.add_uncertainty(particles, 0.75, 0.1)
+            particle.add_uncertainty(particles, 0.5, 0.1)
 
             for p in particles:
                 delta_x = np.cos(p.getTheta()) * velocity
@@ -292,7 +292,7 @@ def Localize(myCam):
                 
                 #
                 chosenParticles = sorted(chosenParticles, key=lambda particle: particle.getWeight())
-                #chosenParticles = chosenParticles[int(0.1 * len(chosenParticles)):] 
+                chosenParticles = chosenParticles[int(0.075 * len(chosenParticles)):] 
 
                 x_values = np.array([p.getX() for p in chosenParticles])
                 y_values = np.array([p.getY() for p in chosenParticles])
@@ -302,7 +302,7 @@ def Localize(myCam):
                 y_var = np.var(y_values)
                 theta_var = np.var(theta_values)
 
-                #print(f"x_var: {x_var}, y_var: {y_var}, theta_var: {theta_var}")
+                print(f"x_var: {x_var}, y_var: {y_var}, theta_var: {theta_var}")
 
                 #if (x_covar < 5 and y_covar < 5 and theta_covar < 0.15 and startTime + 3 < timer()):
                 if (startTime - 20 > timer()):
