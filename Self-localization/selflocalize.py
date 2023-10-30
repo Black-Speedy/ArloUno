@@ -292,17 +292,17 @@ def Localize(myCam):
                 
                 #
                 chosenParticles = sorted(chosenParticles, key=lambda particle: particle.getWeight())
-                chosenParticles = chosenParticles[int(0.1 * len(chosenParticles)):] 
+                #chosenParticles = chosenParticles[int(0.1 * len(chosenParticles)):] 
 
                 x_values = np.array([p.getX() for p in chosenParticles])
                 y_values = np.array([p.getY() for p in chosenParticles])
                 theta_values = np.array([p.getTheta() for p in chosenParticles])
 
-                x_covar = np.cov(x_values)
-                y_covar = np.cov(y_values)
-                theta_covar = np.cov(theta_values)
+                x_var = np.var(x_values)
+                y_var = np.var(y_values)
+                theta_var = np.var(theta_values)
 
-                print(f"x_var: {x_covar}, y_var: {y_covar}, theta_var: {theta_covar}")
+                #print(f"x_var: {x_var}, y_var: {y_var}, theta_var: {theta_var}")
 
                 #if (x_covar < 5 and y_covar < 5 and theta_covar < 0.15 and startTime + 3 < timer()):
                 if (startTime - 20 > timer()):
@@ -317,7 +317,7 @@ def Localize(myCam):
                     cv2.imshow(WIN_World, world)
                     return est_pose
                 
-                newParticles = (initialize_particles(num_particles - len(chosenParticles))) # 1000 - 
+                newParticles = (initialize_particles(num_particles - len(chosenParticles)))
 
                 # combine arrrays
                 particles = np.concatenate([newParticles, chosenParticles], axis=0)
