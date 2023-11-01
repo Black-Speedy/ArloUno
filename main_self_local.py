@@ -60,7 +60,7 @@ def main():
                 if ids[i] in landmarkIDs:
                     if ids[i] not in landmarks_found:
                         landmarks_found.append(ids[i])
-                    #print(f"ids: {ids}, dists: {dists}, angles: {angles}")
+                    print(f"ids: {ids}, dists: {dists}, angles: {angles}")
                     landmark_dists[ids[i]] = (dists[i])
 
         if (len(landmarks_found) == 2):
