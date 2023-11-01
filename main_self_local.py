@@ -33,13 +33,14 @@ def main():
     theta_turned = 0.0
 
     while (not foundPos):
-        if r.ds == robot_driving_states.DriveState.TURN:
+        if r.ds == robot_driving_states.DriveState.TURN and r.stopTimer < time.perf_counter():
             continue
 
         ids, dists, angles = cam.detect_aruco_objects(cam.get_next_frame())
 
         for i in range(0, len(ids)):
             if ids[i] in landmarkIDs:
+                print(f"ids: {ids}, dists: {dists}, angles: {angles}")
                 landmark_dists[landmarkIDs.index(ids[i])] = (ids[i], dists[i])
 
         if (landmark_dists[0][1] != -1.0 and landmark_dists[1][1] != -1.0):
