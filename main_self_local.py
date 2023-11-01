@@ -79,6 +79,7 @@ def main():
 
     # Calculate robot's position
     cos_theta = (distance_to_A**2 - distance_to_B **2 + dAB**2) / (2 * dAB * distance_to_A)
+    print(f"cos theta: {cos_theta}")
 
     theta = math.acos(cos_theta)
 
