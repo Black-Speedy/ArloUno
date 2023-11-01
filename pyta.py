@@ -24,3 +24,6 @@ x = xa + distance_to_A * math.cos(theta)
 y = ya + distance_to_A * math.sin(theta)
 
 print("Robot's position is: ", x, y)
+
+
+print(np.rad2deg(np.arctan2(3- 2, 0 - 1)))

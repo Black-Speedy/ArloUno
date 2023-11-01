@@ -30,6 +30,22 @@ landmark_dists = {
     51: -1
 }
 
+
+def get_goal(id, x, y):
+    l_x, l_y = landmarks[id]
+    
+
+    move_vector = np.array([x - l_x, y - l_y])
+
+    # normalize
+    unit_vector = move_vector / np.linalg.norm(move_vector)
+
+    unit_vector = unit_vector * 40
+
+    move_vector = move_vector - unit_vector
+
+    return [move_vector[0] + x, move_vector[1] + y]
+
 def main():
     cam = camera.Camera(0, 'arlo', useCaptureThread=True)
 
@@ -105,27 +121,31 @@ def main():
     print(f"theta turned: {theta_turned}")
     print(f"distance to a: {distance_to_A}, distance to b: {distance_to_B}, theta: {theta}\n robot pose x: {x}, y: {y}")
 
-    exit()
+    # theta need to be adjusted, as we use the angle from the first point when we see the landmark.
+    pos = (x, y, np.arctan2((y - landmarks[landmarks_found[1][1]]), (x - landmarks[landmarks_found[1][0]])))
 
-
-
-
-
-    pos = selflocalize.Localize(cam)
-
-    robot = robot_models.PointMassModel(ctrl_range=[-path_res, path_res])   #
     path_res = 0.05
     map = grid_occ.GridOccupancyMap(low=(-6, -6), high=(6, 6), res=path_res, cam=cam)
-    map.populate()
+    # 360 degree scan
+    theta_turned = 0
+    while theta_turned < 360:
+        if ctime + 0.001 < time.perf_counter():
+            r.update()
+            ctime = time.perf_counter()
+        if r.ds == robot_driving_states.DriveState.TURN:
+            continue
+        
+        map.populate(pos[0], pos[1], pos[2])
+        r.turnDegree(15, "left")
 
-
+    robot = robot_models.PointMassModel(ctrl_range=[-path_res, path_res])   #
     # Get start position and robot theta
 
-    print(f"Robot pose: x: {pos.getX()} y: {pos.getY()} theta: {np.rad2deg(pos.getTheta())}")
+
 
     rrt = RRT(
         start=[pos.getX() / 100, pos.getY() / 100],
-        goal=[0.5, 0],
+        goal=get_goal(landmarks[0], x, y),
         robot_model=robot,
         map=map,
         expand_dis=1.0,
