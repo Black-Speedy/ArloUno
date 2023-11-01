@@ -33,7 +33,7 @@ landmark_dists = {
 def get_goal(id, x, y):
     l_x, l_y = landmarks[id]
 
-    move_vector = np.array([x - l_x, y - l_y])
+    move_vector = np.array([l_x - x, l_y - y])
 
     # normalize
     unit_vector = move_vector / np.linalg.norm(move_vector)
@@ -86,9 +86,9 @@ def main():
         else:
             if r.stopTimer < time.perf_counter():
                 # rotate slightly
-                r.turnDegree(45, "left")
+                r.turnDegree(15, "left")
                 r.ds = robot_driving_states.DriveState.TURN
-                theta_turned += 45
+                theta_turned += 15
     
     # Calculate robot position
     A_id = landmarks_found[0]
