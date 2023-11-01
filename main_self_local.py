@@ -98,8 +98,8 @@ def main():
     elif landmarks_found[1] == landmarkIDs[2]: # We found L1 then L3
         if theta_turned > 180:
             tmp = x
-            x = -y
-            y = tmp
+            x = y
+            y = -tmp
 
     print(f"theta turned: {theta_turned}")
     print(f"distance to a: {distance_to_A}, distance to b: {distance_to_B}, theta: {theta}\n robot pose x: {x}, y: {y}")
