@@ -86,9 +86,9 @@ def main():
         else:
             if r.stopTimer < time.perf_counter():
                 # rotate slightly
-                r.turnDegree(15, "left")
+                r.turnDegree(45, "left")
                 r.ds = robot_driving_states.DriveState.TURN
-                theta_turned += 15
+                theta_turned += 45
     
     # Calculate robot position
     A_id = landmarks_found[0]
