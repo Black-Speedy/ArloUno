@@ -33,7 +33,7 @@ landmark_dists = {
 
 def get_goal(id, x, y):
     l_x, l_y = landmarks[id]
-    
+
 
     move_vector = np.array([x - l_x, y - l_y])
 
@@ -142,7 +142,6 @@ def main():
     # Get start position and robot theta
 
 
-
     rrt = RRT(
         start=[pos.getX() / 100, pos.getY() / 100],
         goal=get_goal(landmarks[0], x, y),
@@ -158,6 +157,8 @@ def main():
     writer = FFMpegWriter(fps=15, metadata=metadata)
     fig = plt.figure()
     path = rrt.planning(animation=show_animation, writer=writer)
+
+    r = RobotController(path, pos[0], pos[1], pos[2], FollowRRT=True)
 
     with writer.saving(fig, "rrt_test.mp4", 100):
 
