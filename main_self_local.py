@@ -38,6 +38,9 @@ def main():
 
         ids, dists, angles = cam.detect_aruco_objects(cam.get_next_frame())
 
+        if ids is None:
+            continue
+        
         for i in range(0, len(ids)):
             if ids[i] in landmarkIDs:
                 print(f"ids: {ids}, dists: {dists}, angles: {angles}")
