@@ -59,8 +59,8 @@ def main():
             theta_turned += 5
     
     # Calculate robot position
-    distance_to_A = landmark_dists[5]  # Distance to Landmark A
-    distance_to_B = landmark_dists[6]  # Distance to Landmark B
+    distance_to_A = landmark_dists[landmarks[5]]  # Distance to Landmark A
+    distance_to_B = landmark_dists[landmarks[6]]  # Distance to Landmark B
     dAB = 300.0  # Distance between Landmark A and B
 
     # Calculate robot's position
