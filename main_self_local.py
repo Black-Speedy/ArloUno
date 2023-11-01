@@ -85,7 +85,6 @@ def main():
     x = distance_to_A * math.cos(theta)
     y = distance_to_A * math.sin(theta)
 
-    print(f"distance to a: {distance_to_A}, distance to b: {distance_to_B}, theta: {theta}\n robot pose x: {x}, y: {y}")
 
     if landmarks_found[1] == 6: # We found L1 then L2
         if theta_turned < 180:
@@ -95,6 +94,8 @@ def main():
         if theta_turned > 180:
             y = -y
 
+    print(f"theta turned: {theta_turned}")
+    print(f"distance to a: {distance_to_A}, distance to b: {distance_to_B}, theta: {theta}\n robot pose x: {x}, y: {y}")
 
     exit()
 
