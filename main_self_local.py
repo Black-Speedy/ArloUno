@@ -33,6 +33,7 @@ def main():
     theta_turned = 0.0
 
     while (not foundPos):
+        print("robot state: ", r.ds)
         if r.ds == robot_driving_states.DriveState.TURN and r.stopTimer < time.perf_counter():
             continue
 
