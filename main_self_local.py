@@ -33,7 +33,6 @@ landmark_dists = {
 def get_goal(id, x, y):
     l_x, l_y = landmarks[id]
 
-
     move_vector = np.array([x - l_x, y - l_y])
 
     # normalize
@@ -42,6 +41,9 @@ def get_goal(id, x, y):
     unit_vector = unit_vector * 40
 
     move_vector = move_vector - unit_vector
+
+    print(f"move vector: {move_vector}")
+    print(f"move + x and y: {move_vector[0] + x}, {move_vector[1] + y}")
 
     return [move_vector[0] + x, move_vector[1] + y]
 
@@ -144,7 +146,7 @@ def main():
 
     rrt = RRT(
         start=[pos[0] / 100, pos[1] / 100],
-        goal=get_goal(landmarks[landmarkIDs[0]], x, y),
+        goal=get_goal(landmarkIDs[0], x, y),
         robot_model=robot,
         map=map,
         expand_dis=1.0,
