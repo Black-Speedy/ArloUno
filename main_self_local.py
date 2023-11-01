@@ -20,7 +20,10 @@ landmarks = {
     5: (0.0, 0.0),  # Coordinates for landmark 1
     6: (300.0, 0.0)  # Cordinates for landmark 2
 }
-landmark_dists = [(5, -1.0), (6, -1.0)]
+landmark_dists = {
+    5: -1,
+    6: -1 
+}
 
 def main():
     cam = camera.Camera(0, 'arlo', useCaptureThread=True)
@@ -60,8 +63,8 @@ def main():
                 theta_turned += 5
     
     # Calculate robot position
-    distance_to_A = landmark_dists[landmarks[5]]  # Distance to Landmark A
-    distance_to_B = landmark_dists[landmarks[6]]  # Distance to Landmark B
+    distance_to_A = landmark_dists[5]  # Distance to Landmark A
+    distance_to_B = landmark_dists[6]  # Distance to Landmark B
     dAB = 300.0  # Distance between Landmark A and B
 
     # Calculate robot's position
