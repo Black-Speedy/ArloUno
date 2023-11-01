@@ -143,9 +143,8 @@ def main():
     robot = robot_models.PointMassModel(ctrl_range=[-path_res, path_res])   #
     # Get start position and robot theta
 
-
     rrt = RRT(
-        start=[pos.getX() / 100, pos.getY() / 100],
+        start=[pos[0] / 100, pos[1] / 100],
         goal=get_goal(landmarks[0], x, y),
         robot_model=robot,
         map=map,
