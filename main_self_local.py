@@ -25,7 +25,7 @@ landmark_dists = [(5, -1.0), (6, -1.0)]
 def main():
     cam = camera.Camera(0, 'arlo', useCaptureThread=True)
 
-    r = RobotController([], 0, 0, 0, False)
+    r = RobotController([], 0, 0, 0, FollowRRT=False)
 
 
     # Find robot position
