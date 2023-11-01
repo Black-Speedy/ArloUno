@@ -5,6 +5,7 @@ import time
 from timeit import default_timer as timer
 import sys
 import random_numbers
+import camera
 
 # Flags
 showGUI = True  # Whether or not to open GUI windows
@@ -45,10 +46,10 @@ CBLACK = (0, 0, 0)
 
 # Landmarks.
 # The robot knows the position of 2 landmarks. Their coordinates are in the unit centimeters [cm].
-landmarkIDs = [11, 2]
+landmarkIDs = [5, 6]
 landmarks = {
-    11: (0.0, -100.0),  # Coordinates for landmark 1
-    2: (100.0, -100.0)  # Cordinates for landmark 2
+    5: (0.0, 0.0),  # Coordinates for landmark 1
+    6: (300.0, 0.0)  # Cordinates for landmark 2
 }
 landmark_colors = [CRED, CGREEN] # Colors used when drawing the landmarks
 
@@ -133,7 +134,7 @@ def Localize(myCam):
             cv2.moveWindow(WIN_World, 500, 50)
 
         # Initialize particles
-        num_particles = 1500
+        num_particles = 1000
         particles = initialize_particles(num_particles)
 
         startTime = timer()
@@ -329,7 +330,7 @@ def Localize(myCam):
                     p.setWeight(1.0/num_particles)
 
         
-            est_pose = particle.estimate_pose(chosenParticles) # The estimate of the robots current pose
+            est_pose = particle.estimate_pose(particles) # The estimate of the robots current pose
 
             #print(f"est post: {est_pose.getX()}, {est_pose.getY()}, {est_pose.getTheta()}")
 
@@ -353,3 +354,9 @@ def Localize(myCam):
 
         # Clean-up capture thread
         cam.terminateCaptureThread()
+
+        
+if (__name__=='__main__'):
+
+    cam = camera.Camera(0, 'arlo', useCaptureThread=True)
+    print(Localize(cam))

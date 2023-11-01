@@ -7,18 +7,81 @@ import selflocalize
 import camera
 import time
 import numpy as np
+import robot_driving_states
+import math
 
+robot_x = 0
+robot_y = 0
+robot_theta = 0
+
+
+landmarkIDs = [5, 6]
+landmarks = {
+    5: (0.0, 0.0),  # Coordinates for landmark 1
+    6: (300.0, 0.0)  # Cordinates for landmark 2
+}
+landmark_dists = [(5, -1.0), (6, -1.0)]
 
 def main():
     cam = camera.Camera(0, 'arlo', useCaptureThread=True)
 
+    r = RobotController(path, 0, 0, 0, False)
+
+
+    # Find robot position
+    foundPos = False
+    theta_turned = 0.0
+
+    while (not foundPos):
+        if r.ds == robot_driving_states.DriveState.TURN:
+            continue
+
+        ids, dists, angles = cam.detect_aruco_objects(cam.get_next_frame())
+
+        for i in range(0, len(ids)):
+            if ids[i] in landmarkIDs:
+                landmark_dists[landmarkIDs.index(ids[i])] = (ids[i], dists[i])
+
+        if (landmark_dists[0][1] != -1.0 and landmark_dists[1][1] != -1.0):
+            foundPos = True
+        else:
+            # rotate slightly
+            r.turnDegree(5, "left")
+            r.ds = robot_driving_states.DriveState.TURN
+            theta_turned += 5
+    
+    # Calculate robot position
+    distance_to_A = landmark_dists[5]  # Distance to Landmark A
+    distance_to_B = landmark_dists[6]  # Distance to Landmark B
+    dAB = 300.0  # Distance between Landmark A and B
+
+    # Calculate robot's position
+    cos_theta = (distance_to_A**2 - distance_to_B **
+                2 + dAB**2) / (2 * dAB * distance_to_A)
+
+    theta = math.acos(cos_theta)
+
+    x = distance_to_A * math.cos(theta)
+    y = distance_to_A * math.sin(theta)
+
+
+    print("Robot's position is: ", x, y)
+
+
+
+
+    exit()
+
+
+
+
+
     pos = selflocalize.Localize(cam)
 
+    robot = robot_models.PointMassModel(ctrl_range=[-path_res, path_res])   #
     path_res = 0.05
     map = grid_occ.GridOccupancyMap(low=(-6, -6), high=(6, 6), res=path_res, cam=cam)
     map.populate()
-
-    robot = robot_models.PointMassModel(ctrl_range=[-path_res, path_res])   #
 
 
     # Get start position and robot theta
@@ -72,7 +135,6 @@ def main():
 
     # Use github to push the image
 
-    r = RobotController(path, x=pos.getX() / 100, y=pos.getY() / 100, theta=pos.getTheta())
 
     maxTime = 60 + time.perf_counter()
 

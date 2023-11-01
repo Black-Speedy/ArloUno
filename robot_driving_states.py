@@ -10,9 +10,10 @@ class DriveState(Enum):
     SEARCH = 3
     EXIT = 4
     SETUP = 5
+    FINDPOS = 6
 
 class RobotController():
-    def __init__(self, path, x = 0, y = 0, theta = np.pi / 2):
+    def __init__(self, path, x = 0, y = 0, theta = np.pi / 2, FollowRRT = True):
         self.r = rb.Robot()
         self.ds = DriveState.SETUP
         self.stopTimer = 0
@@ -23,6 +24,7 @@ class RobotController():
         self.waitTime = 0.0
         self.x = x
         self.y = y
+        self.FollowRRT = FollowRRT
     
     def straight64(self, cm):
         self.r.go_diff(65, 70, 1, 1)
@@ -46,13 +48,17 @@ class RobotController():
 
         if (self.ds == DriveState.STOP):
             if (self.stopTimer < time.perf_counter()):
-                self.ds = DriveState.SEARCH
+                if self.FollowRRT:
+                    self.ds = DriveState.SEARCH
 
         elif (self.ds == DriveState.TURN):
             if (self.stopTurnTimer < time.perf_counter()):
-                self.ds = DriveState.STOP
-                self.stopTimer = time.perf_counter() + 0.3
-                self.r.stop()
+                if self.FollowRRT:
+                    self.ds = DriveState.STOP
+                    self.stopTimer = time.perf_counter() + 0.3
+                    self.r.stop()
+                else:
+                    self.ds = DriveState.STOP
 
         elif (self.ds == DriveState.STRAIGHT):
             if(self.stopTimer < time.perf_counter()):
