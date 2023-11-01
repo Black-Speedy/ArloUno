@@ -52,16 +52,14 @@ class RobotController():
                     self.ds = DriveState.SEARCH
 
         elif (self.ds == DriveState.TURN):
-            print(f"stop turn timer: {self.stopTurnTimer}, current time: {time.perf_counter()}")
             if (self.stopTurnTimer < time.perf_counter()):
                 if self.FollowRRT:
                     self.ds = DriveState.STOP
                     self.stopTimer = time.perf_counter() + 0.3
                     self.r.stop()
                 else:
-                    print("turning done")
                     self.ds = DriveState.STOP
-                    self.stopTimer = time.perf_counter() + 0.3
+                    self.stopTimer = time.perf_counter() + 1
                     self.r.stop()
 
         elif (self.ds == DriveState.STRAIGHT):
