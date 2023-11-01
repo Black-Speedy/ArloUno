@@ -70,7 +70,7 @@ def main():
                 # rotate slightly
                 r.turnDegree(15, "right")
                 r.ds = robot_driving_states.DriveState.TURN
-                theta_turned += 5
+                theta_turned += 15
     
     # Calculate robot position
     distance_to_A = landmark_dists[5] + 22.5  # Distance to Landmark A
