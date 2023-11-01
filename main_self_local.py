@@ -22,6 +22,7 @@ landmarks = {
     2: (200.0, 0.0),
     51: (400.0, 300.0)
 }
+
 landmark_dists = {
     5: -1,
     6: -1,
@@ -73,9 +74,12 @@ def main():
                 theta_turned += 15
     
     # Calculate robot position
-    distance_to_A = landmark_dists[5] + 22.5  # Distance to Landmark A
-    distance_to_B = landmark_dists[2] + 22.5  # Distance to Landmark B
-    dAB = 200.0  # Distance between Landmark A and B
+    A_id = landmarks_found[0]
+    B_id = landmarks_found[1]
+    distance_to_A = landmark_dists[A_id] + 22.5  # Distance to Landmark A
+    distance_to_B = landmark_dists[B_id] + 22.5  # Distance to Landmark B
+    # Distance between Landmark A and B
+    dAB = np.sqrt((landmarks[5][0] - landmarks[B_id][0])**2 + (landmarks[5][1] - landmarks[B_id][1])**2)
 
     # Calculate robot's position
     cos_theta = (distance_to_A**2 - distance_to_B **2 + dAB**2) / (2 * dAB * distance_to_A )
@@ -87,11 +91,11 @@ def main():
     x = distance_to_A * math.sin(theta)
 
 
-    if landmarks_found[1] == 6: # We found L1 then L2
+    if landmarks_found[1] == landmarkIDs[1]: # We found L1 then L2
         if theta_turned < 180:
             x = -x
 
-    elif landmarks_found[1] == 50: # We found L1 then L3
+    elif landmarks_found[1] == landmarkIDs[2]: # We found L1 then L3
         if theta_turned > 180:
             y = -y
 
