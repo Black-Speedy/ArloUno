@@ -51,14 +51,14 @@ def main():
             for i in range(0, len(ids)):
                 if ids[i] in landmarkIDs:
                     print(f"ids: {ids}, dists: {dists}, angles: {angles}")
-                    landmark_dists[landmarkIDs.index(ids[i])] = (ids[i], dists[i])
+                    landmark_dists[ids[i]] = (dists[i])
 
         if (landmark_dists[5] != -1.0 and landmark_dists[6] != -1.0):
             foundPos = True
         else:
             if r.stopTimer < time.perf_counter():
                 # rotate slightly
-                r.turnDegree(5, "left")
+                r.turnDegree(15, "right")
                 r.ds = robot_driving_states.DriveState.TURN
                 theta_turned += 5
     
