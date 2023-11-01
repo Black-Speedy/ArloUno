@@ -78,8 +78,9 @@ def main():
     dAB = 200.0  # Distance between Landmark A and B
 
     # Calculate robot's position
+    print(f"before cos theta: {cos_theta}")
     cos_theta = min((distance_to_A**2 - distance_to_B **2 + dAB**2) / (2 * dAB * distance_to_A), 0.999)
-    print(f"cos theta: {cos_theta}")
+    print(f"after cos theta: {cos_theta}")
 
     theta = math.acos(cos_theta)
 
