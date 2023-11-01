@@ -53,10 +53,11 @@ def main():
         if (landmark_dists[0][1] != -1.0 and landmark_dists[1][1] != -1.0):
             foundPos = True
         else:
-            # rotate slightly
-            r.turnDegree(5, "left")
-            r.ds = robot_driving_states.DriveState.TURN
-            theta_turned += 5
+            if r.stopTimer < time.perf_counter():
+                # rotate slightly
+                r.turnDegree(5, "left")
+                r.ds = robot_driving_states.DriveState.TURN
+                theta_turned += 5
     
     # Calculate robot position
     distance_to_A = landmark_dists[landmarks[5]]  # Distance to Landmark A
