@@ -82,7 +82,7 @@ def main():
     dAB = np.sqrt((landmarks[5][0] - landmarks[B_id][0])**2 + (landmarks[5][1] - landmarks[B_id][1])**2)
 
     # Calculate robot's position
-    cos_theta = (distance_to_A**2 - distance_to_B **2 + dAB**2) / (2 * dAB * distance_to_A )
+    cos_theta = (distance_to_A**2 - distance_to_B **2 + dAB**2) / (2 * dAB * distance_to_A)
     print(f"before cos theta: {cos_theta}")
 
     theta = math.acos(cos_theta)
