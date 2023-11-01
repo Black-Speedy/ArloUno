@@ -6,8 +6,8 @@ xa, ya = 0.0, 0.0  # Landmark A coordinates
 xb, yb = -300.0, 0.0  # Landmark B coordinates
 
 # Robot's movements
-distance_to_A = 150.0  # Distance to Landmark A
-distance_to_B = 260.0  # Distance to Landmark B
+distance_to_A = 126.0  # Distance to Landmark A
+distance_to_B = 221.0  # Distance to Landmark B
 dAB = 300.0  # Distance between Landmark A and B
 angle_C = 90.0  # Angle turned to face Landmark B (degrees)
 
@@ -15,7 +15,7 @@ angle_C = 90.0  # Angle turned to face Landmark B (degrees)
 angle_to_B_rad = math.radians(angle_C)
 
 # Calculate robot's position
-cos_theta = (distance_to_A**2 - distance_to_B**2 + dAB**2) / (2 * dAB * distance_to_A)
+cos_theta = (distance_to_A**2 - distance_to_B**2 + dAB**2) / (2.0 * dAB * distance_to_A)
 
 theta = math.acos(cos_theta)
 
