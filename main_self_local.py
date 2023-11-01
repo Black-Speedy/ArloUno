@@ -137,6 +137,7 @@ def main():
         
         map.populate(pos[0], pos[1], pos[2])
         r.turnDegree(15, "left")
+        r.ds = robot_driving_states.DriveState.TURN
 
     robot = robot_models.PointMassModel(ctrl_range=[-path_res, path_res])   #
     # Get start position and robot theta

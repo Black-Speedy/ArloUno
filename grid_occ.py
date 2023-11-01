@@ -54,6 +54,9 @@ class GridOccupancyMap(object):
         angle_error = 11
         print(f"ids: {ids}, dists: {dists}, angles: {angles}")
 
+        if ids is None:
+            return
+        
         for i in range(0, len(ids)):
             radians = angles[i]
             degrees = np.degrees(radians + theta) + angle_error
