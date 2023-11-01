@@ -42,7 +42,6 @@ def main():
         if r.ds == robot_driving_states.DriveState.TURN:
             continue
         
-        print("!!!!!!!")
         ids, dists, angles = cam.detect_aruco_objects(cam.get_next_frame())
 
         if ids is not None:
