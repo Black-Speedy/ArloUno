@@ -18,11 +18,15 @@ robot_theta = 0
 landmarkIDs = [5, 6]
 landmarks = {
     5: (0.0, 0.0),  # Coordinates for landmark 1
-    6: (300.0, 0.0)  # Cordinates for landmark 2
+    6: (0.0, 300.0),  # Cordinates for landmark 2
+    2: (400.0, 0.0),
+    51: (400.0, 300.0)
 }
 landmark_dists = {
     5: -1,
-    6: -1 
+    6: -1,
+    2: -1,
+    51: -1
 }
 
 def main():
@@ -34,6 +38,8 @@ def main():
     # Find robot position
     foundPos = False
     theta_turned = 0.0
+
+    landmarks_found = []
 
     ctime = time.perf_counter()
         
@@ -49,11 +55,15 @@ def main():
 
         if ids is not None:
             for i in range(0, len(ids)):
+                if ids[i] == 51:
+                    continue
                 if ids[i] in landmarkIDs:
-                    print(f"ids: {ids}, dists: {dists}, angles: {angles}")
+                    if ids[i] not in landmarks_found:
+                        landmarks_found.append(ids[i])
+                    #print(f"ids: {ids}, dists: {dists}, angles: {angles}")
                     landmark_dists[ids[i]] = (dists[i])
 
-        if (landmark_dists[5] != -1.0 and landmark_dists[6] != -1.0):
+        if (len(landmarks_found) == 2):
             foundPos = True
         else:
             if r.stopTimer < time.perf_counter():
@@ -75,9 +85,15 @@ def main():
     x = distance_to_A * math.cos(theta)
     y = distance_to_A * math.sin(theta)
 
-    print(f"distance to a: {distance_to_A}, distance to b: {distance_to_B}, theta: {theta}, x: {x}, y: {y}")
+    print(f"distance to a: {distance_to_A}, distance to b: {distance_to_B}, theta: {theta}\n robot pose x: {x}, y: {y}")
 
+    if landmarks_found[1] == 6: # We found L1 then L2
+        if theta_turned < 180:
+            x = -x
 
+    elif landmarks_found[1] == 50: # We found L1 then L3
+        if theta_turned > 180:
+            y = -y
 
 
     exit()
