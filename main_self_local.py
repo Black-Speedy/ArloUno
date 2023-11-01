@@ -32,7 +32,13 @@ def main():
     foundPos = False
     theta_turned = 0.0
 
+    ctime = time.perf_counter()
+        
     while (not foundPos):
+        if ctime + 0.001 < time.perf_counter():
+            r.update()
+            ctime = time.perf_counter()
+
         if r.ds == robot_driving_states.DriveState.TURN:
             continue
         
