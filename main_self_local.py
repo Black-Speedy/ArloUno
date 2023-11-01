@@ -144,7 +144,7 @@ def main():
 
     rrt = RRT(
         start=[pos[0] / 100, pos[1] / 100],
-        goal=get_goal(landmarks[0], x, y),
+        goal=get_goal(landmarks[landmarkIDs[0]], x, y),
         robot_model=robot,
         map=map,
         expand_dis=1.0,
