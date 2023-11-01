@@ -30,7 +30,6 @@ landmark_dists = {
     51: -1
 }
 
-
 def get_goal(id, x, y):
     l_x, l_y = landmarks[id]
 

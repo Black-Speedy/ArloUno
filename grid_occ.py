@@ -17,6 +17,7 @@ class GridOccupancyMap(object):
         self.map_size = np.array([high[0]-low[0], high[1]-low[1]])
         self.resolution = res
         self.cam = cam
+        self.obs = []
 
         self.n_grids = [int(s//res) for s in self.map_size]
 
@@ -57,7 +58,14 @@ class GridOccupancyMap(object):
         if ids is None:
             return
         
+        # Add new ids into obs
         for i in range(0, len(ids)):
+
+            if ids[i] not in self.obs:
+                self.obs.append(ids[i])
+            else:
+                continue
+
             radians = angles[i]
             degrees = np.degrees(radians + theta) + angle_error
             x = (dists[i] + 0.175) * np.cos(np.radians(degrees))
