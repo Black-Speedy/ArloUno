@@ -38,13 +38,11 @@ def main():
 
         ids, dists, angles = cam.detect_aruco_objects(cam.get_next_frame())
 
-        if ids is None:
-            continue
-        
-        for i in range(0, len(ids)):
-            if ids[i] in landmarkIDs:
-                print(f"ids: {ids}, dists: {dists}, angles: {angles}")
-                landmark_dists[landmarkIDs.index(ids[i])] = (ids[i], dists[i])
+        if ids is not None:
+            for i in range(0, len(ids)):
+                if ids[i] in landmarkIDs:
+                    print(f"ids: {ids}, dists: {dists}, angles: {angles}")
+                    landmark_dists[landmarkIDs.index(ids[i])] = (ids[i], dists[i])
 
         if (landmark_dists[0][1] != -1.0 and landmark_dists[1][1] != -1.0):
             foundPos = True
