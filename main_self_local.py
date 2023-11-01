@@ -15,7 +15,7 @@ robot_y = 0
 robot_theta = 0
 
 
-landmarkIDs = [5, 6]
+landmarkIDs = [5, 6, 2, 51]
 landmarks = {
     5: (0.0, 0.0),  # Coordinates for landmark 1
     6: (0.0, 300.0),  # Cordinates for landmark 2
