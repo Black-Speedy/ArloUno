@@ -34,7 +34,7 @@ def main():
 
     while (not foundPos):
         print("robot state: ", r.ds)
-        if r.ds == robot_driving_states.DriveState.TURN and r.stopTimer < time.perf_counter():
+        if r.ds == robot_driving_states.DriveState.TURN:
             continue
         
         print("!!!!!!!")
