@@ -75,7 +75,7 @@ def main():
     # Calculate robot position
     distance_to_A = landmark_dists[5] + 22.5  # Distance to Landmark A
     distance_to_B = landmark_dists[6] + 22.5  # Distance to Landmark B
-    dAB = 300.0  # Distance between Landmark A and B
+    dAB = 200.0  # Distance between Landmark A and B
 
     # Calculate robot's position
     cos_theta = (distance_to_A**2 - distance_to_B **2 + dAB**2) / (2 * dAB * distance_to_A)
