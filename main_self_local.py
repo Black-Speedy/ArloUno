@@ -19,7 +19,7 @@ landmarkIDs = [5, 6]
 landmarks = {
     5: (0.0, 0.0),  # Coordinates for landmark 1
     6: (0.0, 300.0),  # Cordinates for landmark 2
-    2: (400.0, 0.0),
+    2: (200.0, 0.0),
     51: (400.0, 300.0)
 }
 landmark_dists = {
@@ -82,8 +82,8 @@ def main():
 
     theta = math.acos(cos_theta)
 
-    x = distance_to_A * math.cos(theta)
-    y = distance_to_A * math.sin(theta)
+    y = distance_to_A * math.cos(theta)
+    x = distance_to_A * math.sin(theta)
 
 
     if landmarks_found[1] == 6: # We found L1 then L2

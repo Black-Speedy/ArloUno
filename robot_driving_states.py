@@ -59,7 +59,7 @@ class RobotController():
                     self.r.stop()
                 else:
                     self.ds = DriveState.STOP
-                    self.stopTimer = time.perf_counter() + 1
+                    self.stopTimer = time.perf_counter() + 0.5
                     self.r.stop()
 
         elif (self.ds == DriveState.STRAIGHT):
