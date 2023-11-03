@@ -76,6 +76,7 @@ def main():
     r.ds = robot_driving_states.DriveState.STRAIGHT
     print("Robot state set to straight")
     ctime = time.perf_counter()
+    print(f"ctime: {ctime}")
     while (r.ds == robot_driving_states.DriveState.STRAIGHT):
         if ctime + 0.001 < time.perf_counter():
             r.update()
