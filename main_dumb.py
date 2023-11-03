@@ -135,21 +135,21 @@ def main():
                     else:
                         r.turnDegree(np.rad2deg(angles[i]), "left")
 
-                while (r.ds == robot_driving_states.DriveState.TURN):
-                    if ctime + 0.001 < time.perf_counter():
-                        r.update()
-                        ctime = time.perf_counter()
+                    while (r.ds == robot_driving_states.DriveState.TURN):
+                        if ctime + 0.001 < time.perf_counter():
+                            r.update()
+                            ctime = time.perf_counter()
 
-                # Drive towards it
-                r.straight64(dists[i] - 20)
-                r.ds = robot_driving_states.DriveState.STRAIGHT
+                    # Drive towards it
+                    r.straight64(dists[i] - 20)
+                    r.ds = robot_driving_states.DriveState.STRAIGHT
 
-                while (r.ds == robot_driving_states.DriveState.STRAIGHT):
-                    if ctime + 0.001 < time.perf_counter():
-                        r.update()
-                        ctime = time.perf_counter()
-                    
-                tries = 30
+                    while (r.ds == robot_driving_states.DriveState.STRAIGHT):
+                        if ctime + 0.001 < time.perf_counter():
+                            r.update()
+                            ctime = time.perf_counter()
+                        
+                    tries = 30
         else:
             tries += 1
     print("Could not find L1")
