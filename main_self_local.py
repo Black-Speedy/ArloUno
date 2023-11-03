@@ -138,10 +138,12 @@ def main():
             continue
         
         map.populate(pos[0], pos[1], pos[2])
-        r.turnDegree(10, "left")
-        pos = (pos[0], pos[1], pos[2] + np.deg2rad(10))
-        theta_turned += 10
-        r.ds = robot_driving_states.DriveState.TURN
+
+        if r.stopTimer < time.perf_counter():
+            r.turnDegree(10, "left")
+            pos = (pos[0], pos[1], pos[2] + np.deg2rad(10))
+            theta_turned += 10
+            r.ds = robot_driving_states.DriveState.TURN
     
     r.ds = robot_driving_states.DriveState.STOP
     r.r.stop()
