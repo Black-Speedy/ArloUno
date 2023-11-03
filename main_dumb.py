@@ -70,15 +70,18 @@ def main():
             r.update()
     r.r.stop()
     exit() """
-
+    print("Starting robot")
     r.straight64(100)
+    print("Robot started")
     r.ds = robot_driving_states.DriveState.STRAIGHT
+    print("Robot state set to straight")
     ctime = time.perf_counter()
     while (r.ds == robot_driving_states.DriveState.STRAIGHT):
         if ctime + 0.001 < time.perf_counter():
             r.update()
+            print("Robot updated")
             ctime = time.perf_counter()
-
+    print("Robot stopped")
     r.r.stop()
     exit()
 
