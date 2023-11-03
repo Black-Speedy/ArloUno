@@ -124,31 +124,33 @@ def main():
     # Take a picture and look for L1
     ids, dists, angles = cam.detect_aruco_objects(cam.get_next_frame())
 
-    if ids is not None:
-        for i in range(0, len(ids)):
-            if ids[i] == landmarkIDs[0]:
-                # First rotate towards it
-                if angles[i] > 0:
-                    r.turnDegree(np.rad2deg(-angles[i]), "right")
-                else:
-                    r.turnDegree(np.rad2deg(angles[i]), "left")
+    tries = 0
+    while tries < 20:
+        if ids is not None:
+            for i in range(0, len(ids)):
+                if ids[i] == landmarkIDs[0]:
+                    # First rotate towards it
+                    if angles[i] > 0:
+                        r.turnDegree(np.rad2deg(-angles[i]), "right")
+                    else:
+                        r.turnDegree(np.rad2deg(angles[i]), "left")
 
-            while (r.ds == robot_driving_states.DriveState.TURN):
-                if ctime + 0.001 < time.perf_counter():
-                    r.update()
-                    ctime = time.perf_counter()
+                while (r.ds == robot_driving_states.DriveState.TURN):
+                    if ctime + 0.001 < time.perf_counter():
+                        r.update()
+                        ctime = time.perf_counter()
 
-            # Drive towards it
-            r.straight64(dists[i] - 25)
-            r.ds = robot_driving_states.DriveState.STRAIGHT
+                # Drive towards it
+                r.straight64(dists[i] - 20)
+                r.ds = robot_driving_states.DriveState.STRAIGHT
 
-            while (r.ds == robot_driving_states.DriveState.STRAIGHT):
-                if ctime + 0.001 < time.perf_counter():
-                    r.update()
-                    ctime = time.perf_counter()
-    else:
-        print("Could not find L1")
-        return
+                while (r.ds == robot_driving_states.DriveState.STRAIGHT):
+                    if ctime + 0.001 < time.perf_counter():
+                        r.update()
+                        ctime = time.perf_counter()
+        else:
+            tries += 1
+    print("Could not find L1")
 
 
 
