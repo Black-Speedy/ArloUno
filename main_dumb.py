@@ -149,7 +149,6 @@ def main():
 
                         while (r.ds == robot_driving_states.DriveState.TURN):
                             if ctime + 0.001 < time.perf_counter():
-                                print("turning")
                                 r.update()
                                 ctime = time.perf_counter()
 
@@ -191,7 +190,6 @@ def main():
 
         while (r.ds == robot_driving_states.DriveState.TURN):
                             if ctime + 0.001 < time.perf_counter():
-                                print("turning")
                                 r.update()
                                 ctime = time.perf_counter()
 
