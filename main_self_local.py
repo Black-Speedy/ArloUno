@@ -129,7 +129,8 @@ def main():
     path_res = 0.05
     map = grid_occ.GridOccupancyMap(low=(-6, -6), high=(6, 6), res=path_res, cam=cam)
     # 360 degree scan
-    while theta_turned < 360:
+    theta_turned_start = theta_turned
+    while theta_turned < theta_turned_start + 360:
         if ctime + 0.001 < time.perf_counter():
             r.update()
             ctime = time.perf_counter()
@@ -138,6 +139,7 @@ def main():
         
         map.populate(pos[0], pos[1], pos[2])
         r.turnDegree(10, "left")
+        pos = (pos[0], pos[1], pos[2] + np.deg2rad(10))
         theta_turned += 10
         r.ds = robot_driving_states.DriveState.TURN
     

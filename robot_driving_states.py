@@ -55,7 +55,7 @@ class RobotController():
             if (self.stopTurnTimer < time.perf_counter()):
                 if self.FollowRRT:
                     self.ds = DriveState.STOP
-                    self.stopTimer = time.perf_counter() + 0.3
+                    self.stopTimer = time.perf_counter() + 0.8
                     self.r.stop()
                 else:
                     self.ds = DriveState.STOP
