@@ -37,6 +37,7 @@ def main():
     r = RobotController([], 0, 0, 0, FollowRRT=False)
 
     r.straight64(100)
+    r.ds = robot_driving_states.DriveState.STRAIGHT
     ctime = time.perf_counter()
     while (r.ds == robot_driving_states.DriveState.STRAIGHT):
         if ctime + 0.001 < time.perf_counter():
