@@ -10,9 +10,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FFMpegWriter
 import grid_occ
-import os
+import sys
 # go one down path to find camera
-os.chdir(os.path.dirname(os.path.realpath(__file__)))
+sys.path.append(("Self-localization"))
 import camera
 import robot_models
 
