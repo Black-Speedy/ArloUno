@@ -19,7 +19,7 @@ landmarkIDs = [8, 2, 3, 51]
 landmarks = {
     8: (0.0, 0.0),  # Coordinates for L1
     2: (0.0, 300.0),  # Cordinates for L2
-    3: (160.0, 300.0), # Cordinates for L3
+    3: (163.0, 0.0), # Cordinates for L3
     51: (400.0, 300.0) # Cordinates for L4
 }
 
