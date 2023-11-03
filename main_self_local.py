@@ -160,6 +160,10 @@ def main():
     fig = plt.figure()
     path = rrt.planning(animation=show_animation, writer=writer)
 
+    print("Path:")
+    for i in range(0, len(path)):
+        print(path[i])
+
     r = RobotController(path, pos[0], pos[1], pos[2], FollowRRT=True)
 
     with writer.saving(fig, "rrt_test.mp4", 100):
