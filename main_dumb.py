@@ -93,12 +93,11 @@ def main():
     y = distance_to_A * math.cos(theta)
     x = distance_to_A * math.sin(theta)
     pos_toL2vec = np.abs(np.array([x-r.x, landmarks[landmarks_found[0]][1]-y]))
-    robot_pos = np.array([r.x, r.y])
     print(f"position vector: {pos_vec}")
     L1L2vec = np.array([landmarks[landmarks_found[0]][0], landmarks[landmarks_found[0]][1]])
     
     #Calculate angle between L1 and position vector
-    angle = np.rad2deg(np.arccos(np.dot(pos_vec, L1L2vec) / (np.linalg.norm(pos_vec) * np.linalg.norm(L1L2vec))))
+    angle = np.rad2deg(np.arccos(np.dot(pos_toL2vec, L1L2vec)/(np.linalg.norm(pos_toL2vec)*np.linalg.norm(L1L2vec))))
     print(f"Pos to L1 angle: {angle}")
     
 
