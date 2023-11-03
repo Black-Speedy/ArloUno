@@ -36,7 +36,7 @@ def main():
 
     r = RobotController([], 0, 0, 0, FollowRRT=False)
 
-    r.straight64(100)
+    """ r.straight64(100)
     r.ds = robot_driving_states.DriveState.STRAIGHT
     ctime = time.perf_counter()
     while (r.ds == robot_driving_states.DriveState.STRAIGHT):
@@ -45,7 +45,7 @@ def main():
             ctime = time.perf_counter()
 
     r.r.stop()
-    exit()
+    exit() """
 
     # Find robot position
     foundPos = False
@@ -164,7 +164,7 @@ def main():
                                 ctime = time.perf_counter()
 
                         # Drive towards it
-                        r.straight64(dists[i] - 20)
+                        r.straight64(dists[i] - 30)
                         r.ds = robot_driving_states.DriveState.STRAIGHT
 
                         while (r.ds == robot_driving_states.DriveState.STRAIGHT):
