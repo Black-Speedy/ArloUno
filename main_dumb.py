@@ -30,11 +30,45 @@ landmark_dists = {
     51: -1
 }
 
+def Turn_Robot(r, theta, dir):
+    if dir == "right":
+        r.turnDegree(np.rad2deg(theta), "right")
+    else:
+        r.turnDegree(np.rad2deg(theta), "left")
+
+    r.ds = robot_driving_states.DriveState.TURN
+
+    while (r.ds == robot_driving_states.DriveState.TURN):
+        if ctime + 0.001 < time.perf_counter():
+            r.update()
+            ctime = time.perf_counter()
+
+    r.r.stop()
+
+def Drive_Robot(r, dist):
+    r.straight64(dist)
+    r.ds = robot_driving_states.DriveState.STRAIGHT
+
+    while (r.ds == robot_driving_states.DriveState.STRAIGHT):
+        if ctime + 0.001 < time.perf_counter():
+            r.update()
+            ctime = time.perf_counter()
+
+    r.r.stop()
+
 
 def main():
     cam = camera.Camera(0, 'arlo', useCaptureThread=True)
 
     r = RobotController([], 0, 0, 0, FollowRRT=False)
+
+    for i in range(0, 24):
+        Turn_Robot(r, np.deg2rad(15), "left")
+        while r.stopTimer > time.perf_counter():
+            if ctime + 0.001 < time.perf_counter():
+                r.update()
+
+    exit()
 
     """ r.straight64(100)
     r.ds = robot_driving_states.DriveState.STRAIGHT
