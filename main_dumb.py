@@ -65,9 +65,8 @@ def main():
     for i in range(0, 24):
         Turn_Robot(r, np.deg2rad(15), "left")
         while r.stopTimer > time.perf_counter():
-            if ctime + 0.001 < time.perf_counter():
-                r.update()
-
+            r.update()
+    r.r.stop()
     exit()
 
     """ r.straight64(100)
