@@ -64,8 +64,8 @@ def main():
 
     r = RobotController([], 0, 0, 0, FollowRRT=False)
 
-    for i in range(0, 24):
-        Turn_Robot(r, np.deg2rad(15), "left")
+    for i in range(0, 4):
+        Turn_Robot(r, np.deg2rad(90), "left")
         while r.stopTimer > time.perf_counter():
             r.update()
     r.r.stop()
