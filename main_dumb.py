@@ -92,12 +92,12 @@ def main():
 
     y = distance_to_A * math.cos(theta)
     x = distance_to_A * math.sin(theta)
-    position_vector = np.array([x, y])
-    print(f"position vector: {position_vector}")
-    L1_vector = np.array([landmarks[landmarks_found[0]][0], landmarks[landmarks_found[0]][1]])
+    pos_vec = np.array([x, y])
+    print(f"position vector: {pos_vec}")
+    L1vec = np.array([landmarks[landmarks_found[0]][0], landmarks[landmarks_found[0]][1]])
     
     #Calculate angle between L1 and position vector
-    angle = np.rad2deg(np.arccos(np.dot(position_vector, L1_vector) / (np.linalg.norm(position_vector) * np.linalg.norm(L1_vector))))
+    angle = np.rad2deg(np.arccos(np.dot(pos_vec, L1vec) / (np.linalg.norm(pos_vec) * np.linalg.norm(L1vec))))
     print(f"Pos to L1 angle: {angle}")
     
 
