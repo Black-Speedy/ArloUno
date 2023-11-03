@@ -79,7 +79,6 @@ def main():
     while (r.ds == robot_driving_states.DriveState.STRAIGHT):
         if ctime + 0.001 < time.perf_counter():
             r.update()
-            print("Robot updated")
             ctime = time.perf_counter()
     print("Robot stopped")
     r.r.stop()

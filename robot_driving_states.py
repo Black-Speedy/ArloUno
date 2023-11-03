@@ -31,6 +31,7 @@ class RobotController():
         self.x = self.x + np.cos(self.theta) * cm
         self.y = self.y + np.sin(self.theta) * cm
         self.stopTimer = time.perf_counter() + (cm * 2.24 * 1.25) / 100
+        print(self.stopTimer)
 
     def turnDegree(self, degrees, direction):
         if direction == "left":
