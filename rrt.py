@@ -10,6 +10,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FFMpegWriter
 import grid_occ
+import os
+# go one down path to find camera
+os.chdir(os.path.dirname(os.path.realpath(__file__)))
 import camera
 import robot_models
 
