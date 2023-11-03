@@ -246,12 +246,17 @@ def main():
                 plt.show()
                 writer.grab_frame()
 
-
+    print("plot 0")
     rrt.draw_graph()
+    print("plot 1")
     plt.plot([x for (x, y) in path], [y for (x, y) in path], '-r')
+    print("plot 2")
     plt.grid(True)
+    print("plot 3")
     plt.pause(0.01)  # Need for Mac
+    print("plot 4")
     plt.savefig("map_with_path.png")
+    print("plot 5")
 
 if __name__ == '__main__':
     main()
