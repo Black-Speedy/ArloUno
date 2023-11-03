@@ -150,6 +150,8 @@ def main():
                             ctime = time.perf_counter()
                         
                     tries = 30
+                    r.stop()
+                    
         else:
             tries += 1
     print("Could not find L1")
