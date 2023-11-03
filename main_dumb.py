@@ -179,9 +179,9 @@ def main():
     # locate next landmark
     theta_to_add = 0
     if r.theta > 0:
-        theta_to_add = -r.theta
+        theta_to_add = r.theta
     else:
-        theta_to_add: r.theta
+        theta_to_add: -r.theta
     degrees_to_turn = theta_to_add + np.arctan2(landmarks[landmarkIDs[1]][1] - r.y, landmarks[landmarkIDs[1]][0] - r.x)
     print(f"degrees to turn: {np.rad2deg(degrees_to_turn)}")
 
