@@ -124,6 +124,7 @@ def main():
 
     # theta need to be adjusted, as we use the angle from the first point when we see the landmark.
     pos = (x, y, np.arctan2((y - landmarks[landmarks_found[1]][1]), (x - landmarks[landmarks_found[1]][0])))
+    print(f"robots theta: {pos[2]}, in deg {np.rad2deg(pos[2])}")
 
     path_res = 0.05
     map = grid_occ.GridOccupancyMap(low=(-6, -6), high=(6, 6), res=path_res, cam=cam)
@@ -140,6 +141,9 @@ def main():
         r.turnDegree(10, "left")
         theta_turned += 10
         r.ds = robot_driving_states.DriveState.TURN
+    
+    r.ds = robot_driving_states.DriveState.STOP
+    r.r.stop()
 
     robot = robot_models.PointMassModel(ctrl_range=[-path_res, path_res])   #
     # Get start position and robot theta

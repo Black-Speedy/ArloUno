@@ -246,10 +246,8 @@ def main():
                 plt.show()
                 writer.grab_frame()
 
-    print("Path:")
-    for i in range(0, len(path)):
-        print(path[i])
-        
+   
+
     print("plot 0")
     rrt.draw_graph()
     print("plot 1")
