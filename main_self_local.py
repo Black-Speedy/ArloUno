@@ -123,7 +123,6 @@ def main():
     print(f"distance to a: {distance_to_A}, distance to b: {distance_to_B}, theta: {theta}\n robot pose x: {x}, y: {y}")
 
     # theta need to be adjusted, as we use the angle from the first point when we see the landmark.
-    print(f"landmark[1] y: {landmarks[landmarks_found[1]][1]}, landmark[0] x: {landmarks[landmarks_found[1]][0]}")
     pos = (x, y, np.arctan2((landmarks[landmarks_found[1]][1] - y), (landmarks[landmarks_found[1]][0] - x)))
     print(f"robots theta: {pos[2]}, in deg {np.rad2deg(pos[2])}")
 

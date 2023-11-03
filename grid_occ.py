@@ -39,7 +39,7 @@ class GridOccupancyMap(object):
 
         return self.grid[indices[0], indices[1]]
 
-    def populate(self, x, y, theta):
+    def populate(self, r_x, r_y, theta):
         """
         generate a grid map with some circle shaped obstacles
         """
@@ -68,10 +68,10 @@ class GridOccupancyMap(object):
 
             radians = angles[i]
             degrees = np.degrees(radians + theta) + angle_error
-            
-            x = (dists[i] + 0.175) * np.cos(np.radians(degrees))
 
-            y = (dists[i] + 0.175) * np.sin(np.radians(degrees))
+            x = (dists[i] + 0.175) * np.cos(np.radians(degrees)) + r_x
+
+            y = (dists[i] + 0.175) * np.sin(np.radians(degrees)) + r_y
             print(f"x: {x} y: {y}")
             origins.append([x, y])
             radius.append(0.175 + 0.23 + 0.10)
