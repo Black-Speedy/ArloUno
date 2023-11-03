@@ -66,7 +66,6 @@ class RobotController():
                     self.r.stop()
 
         elif (self.ds == DriveState.STRAIGHT):
-            print("wer are here")
             if(self.stopTimer < time.perf_counter()):
                 self.r.stop()
                 self.ds = DriveState.STOP

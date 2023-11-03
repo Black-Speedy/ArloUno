@@ -213,6 +213,7 @@ def main():
                                 ctime = time.perf_counter()
                             
                         r.r.stop()
+                        print(f"Robot pose: x: {r.x}, y: {r.y}, theta{np.rad2deg(r.theta)}")
                         tries = 30
                         current_goal += 1
                         break
