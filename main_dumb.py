@@ -194,11 +194,11 @@ def main():
                         print(f"ids: {ids}, dists: {dists}, angles: {angles}")
                         if angles[i] > 0:
                             print(f"turning right {np.rad2deg(angles[i])}")
-                            r.turnDegree(np.rad2deg(angles[i]), "right")
+                            r.turnDegree(np.rad2deg(angles[i]), "left")
                             r.ds = robot_driving_states.DriveState.TURN
                         else:
                             print(f"turning left {np.rad2deg(angles[i])}")
-                            r.turnDegree(np.rad2deg(-angles[i]), "left")
+                            r.turnDegree(np.rad2deg(-angles[i]), "right")
                             r.ds = robot_driving_states.DriveState.TURN
 
                         while (r.ds == robot_driving_states.DriveState.TURN):
