@@ -200,8 +200,16 @@ def main():
     degrees_to_turn = theta_to_add + arc
     print(f"degrees to turn: {np.rad2deg(degrees_to_turn)}")
 
+    r.ds=robot_driving_states.DriveState.TURN
+    r.turnDegree(np.rad2deg(degrees_to_turn), "left")
 
+    while (r.ds == robot_driving_states.DriveState.TURN):
+                        if ctime + 0.001 < time.perf_counter():
+                            print("turning")
+                            r.update()
+                            ctime = time.perf_counter()
 
+    r.r.stop()
 
 if __name__ == '__main__':
     main()
