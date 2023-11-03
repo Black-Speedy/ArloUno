@@ -148,6 +148,8 @@ def main():
                     if ctime + 0.001 < time.perf_counter():
                         r.update()
                         ctime = time.perf_counter()
+                    
+                tries = 30
         else:
             tries += 1
     print("Could not find L1")
