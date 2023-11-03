@@ -38,6 +38,7 @@ def Turn_Robot(r, theta, dir):
 
     r.ds = robot_driving_states.DriveState.TURN
 
+    ctime = time.perf_counter()
     while (r.ds == robot_driving_states.DriveState.TURN):
         if ctime + 0.001 < time.perf_counter():
             r.update()
@@ -49,6 +50,7 @@ def Drive_Robot(r, dist):
     r.straight64(dist)
     r.ds = robot_driving_states.DriveState.STRAIGHT
 
+    ctime = time.perf_counter()
     while (r.ds == robot_driving_states.DriveState.STRAIGHT):
         if ctime + 0.001 < time.perf_counter():
             r.update()
