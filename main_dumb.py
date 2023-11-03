@@ -92,7 +92,7 @@ def main():
 
     y = distance_to_A * math.cos(theta)
     x = distance_to_A * math.sin(theta)
-    pos_vec = np.array([x, y])
+    pos_vec = np.abs(np.array([x, y]))
     print(f"position vector: {pos_vec}")
     L1vec = np.array([landmarks[landmarks_found[0]][0], landmarks[landmarks_found[0]][1]])
     
