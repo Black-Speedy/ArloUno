@@ -92,13 +92,25 @@ def main():
 
     y = distance_to_A * math.cos(theta)
     x = distance_to_A * math.sin(theta)
-    pos_toL2vec = np.abs(np.array([x-r.x, landmarks[landmarks_found[0]][1]-y]))
-    print(f"position vector: {pos_toL2vec}")
-    L1L2vec = np.array([landmarks[landmarks_found[0]][0], landmarks[landmarks_found[0]][1]])
     
-    #Calculate angle between L1 and position vector
-    angle = np.rad2deg(np.arccos(np.dot(pos_toL2vec, L1L2vec)/(np.linalg.norm(pos_toL2vec)*np.linalg.norm(L1L2vec))))
+    angle = 0.0  # Default angle value
+
+# Check if the norms are not zero before calculating the angle
+    norm_pos = np.linalg.norm(pos_toL2vec)
+    norm_L1L2 = np.linalg.norm(L1L2vec)
+
+    if norm_pos != 0 and norm_L1L2 != 0:
+        dot_product = np.dot(pos_toL2vec, L1L2vec)
+        
+        if -1 <= dot_product / (norm_pos * norm_L1L2) <= 1:
+            angle = np.rad2deg(np.arccos(dot_product / (norm_pos * norm_L1L2)))
+        else:
+            print("Invalid dot product value (outside the range [-1, 1]).")
+    else:
+        print("One or both vector norms are zero.")
+
     print(f"Pos to L1 angle: {angle}")
+
     
 
     if landmarks_found[1] == landmarkIDs[1]:  # We found L1 then L2
