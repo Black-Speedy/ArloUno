@@ -71,7 +71,7 @@ def main():
     r.r.stop()
     exit() """
 
-    print("Starting robot")
+    """ print("Starting robot")
     print("Robot started")
     print("Robot state set to straight")
     ctime = time.perf_counter()
@@ -85,7 +85,7 @@ def main():
             ctime = time.perf_counter()
     print("Robot stopped")
     r.r.stop()
-    exit()
+    exit() """
 
     # Find robot position
     foundPos = False
