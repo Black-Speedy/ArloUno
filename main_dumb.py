@@ -99,7 +99,7 @@ def main():
     #Calculate angle between L1 and position vector
     nom = np.rad2deg(np.arccos(np.dot(pos_vec, L1vec)))
     de_nom = (np.linalg.norm(pos_vec) * np.linalg.norm(L1vec))
-    angle = nom/denom
+    angle = nom/de_nom
     print(f"Pos to L1 angle: {angle}")
     
 
