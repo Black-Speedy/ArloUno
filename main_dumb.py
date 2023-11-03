@@ -112,6 +112,10 @@ def main():
         (landmarks[landmarks_found[1]][1] - y), (landmarks[landmarks_found[1]][0] - x)))
     print(f"robots theta: {pos[2]}, in deg {np.rad2deg(pos[2])}")
 
+    r.x = pos[0]
+    r.y = pos[1]
+    r.theta = pos[2]
+
     # turn back theta turned:
     r.turnDegree(theta_turned, "right")
     r.ds = robot_driving_states.DriveState.TURN
@@ -154,11 +158,22 @@ def main():
                             ctime = time.perf_counter()
                         
                     tries = 30
-                    r.stop()
+                    r.r.stop()
 
         else:
             tries += 1
             print("Could not find L1 in this pic")
+
+    print(f"robot pose: x: {r.x}, y: {r.y}, theta: {np.rad2deg(r.theta)}")
+
+    # locate next landmark
+    theta_to_add = 0
+    if r.theta > 0:
+        theta_to_add = -r.theta
+    else:
+        theta_to_add: r.theta
+    degrees_to_turn = theta_to_add + np.arctan2(landmarks[landmarkIDs[1]][1] - r.y, landmarks[landmarkIDs[1]][0] - r.x)
+    print(f"degrees to turn: {np.rad2deg(degrees_to_turn)}")
 
 
 
