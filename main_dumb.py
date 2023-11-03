@@ -151,10 +151,10 @@ def main():
                         
                     tries = 30
                     r.stop()
-                    
+
         else:
             tries += 1
-    print("Could not find L1")
+            print("Could not find L1 in this pic")
 
 
 
