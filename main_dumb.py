@@ -222,24 +222,25 @@ def main():
                 tries += 1
                 print("Could not find L1 in this pic")
 
+        if tries == 20:
+            print(f"Could not find L{current_goal + 1}")
+            exit()
+
         print(f"robot pose: x: {r.x}, y: {r.y}, theta: {np.rad2deg(r.theta)}")
 
         # locate next landmark
-        theta_to_add = 0
-        if r.theta > 0:
-            theta_to_add = r.theta
-        else:
-            theta_to_add = -r.theta
-
         arc = np.arctan2(landmarks[landmarkIDs[current_goal]][1] -
                          r.y, landmarks[landmarkIDs[current_goal]][0] - r.x)
         print(f"arc: {np.rad2deg(arc)}")
-        degrees_to_turn = theta_to_add + arc
+        degrees_to_turn = arc - r.theta
         print(f"degrees to turn: {np.rad2deg(degrees_to_turn)}")
 
         r.ds=robot_driving_states.DriveState.TURN
-        r.turnDegree(np.rad2deg(degrees_to_turn), "left")
-
+        if degrees_to_turn > 0:
+            r.turnDegree(np.rad2deg(degrees_to_turn), "left")
+        else:
+            r.turnDegree(np.rad2deg(-degrees_to_turn), "right")
+            
         while (r.ds == robot_driving_states.DriveState.TURN):
                             if ctime + 0.001 < time.perf_counter():
                                 r.update()
