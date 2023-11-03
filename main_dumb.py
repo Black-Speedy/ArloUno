@@ -92,6 +92,14 @@ def main():
 
     y = distance_to_A * math.cos(theta)
     x = distance_to_A * math.sin(theta)
+    position_vector = np.array([x, y])
+    print(f"position vector: {position_vector}")
+    L1_vector = np.array([landmarks[landmarks_found[0]][0], landmarks[landmarks_found[0]][1]])
+    
+    #Calculate angle between L1 and position vector
+    angle = np.rad2deg(np.arccos(np.dot(position_vector, L1_vector) / (np.linalg.norm(position_vector) * np.linalg.norm(L1_vector))))
+    print(f"Pos to L1 angle: {angle}")
+    
 
     if landmarks_found[1] == landmarkIDs[1]:  # We found L1 then L2
         if theta_turned < 180:
