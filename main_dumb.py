@@ -173,8 +173,17 @@ def main():
     if r.theta > 0:
         theta_to_add = r.theta
     else:
+<<<<<<< HEAD
         theta_to_add: -r.theta
     degrees_to_turn = theta_to_add + np.arctan2(landmarks[landmarkIDs[1]][1] - r.y, landmarks[landmarkIDs[1]][0] - r.x)
+=======
+        theta_to_add = -r.theta
+
+    arc = np.arctan2(landmarks[landmarkIDs[1]][1] -
+                     r.y, landmarks[landmarkIDs[1]][0] - r.x)
+    print(f"arc: {np.rad2deg(arc)}")
+    degrees_to_turn = theta_to_add + arc
+>>>>>>> b6f4468bc0054ca6f3d511bb7c7d56f8d4c3d9e5
     print(f"degrees to turn: {np.rad2deg(degrees_to_turn)}")
 
 
