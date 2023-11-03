@@ -128,69 +128,74 @@ def main():
 
     # Take a picture and look for L1
 
-    tries = 0
-    while tries < 20:
-        ids, dists, angles = cam.detect_aruco_objects(cam.get_next_frame())
-        if ids is not None:
-            for i in range(0, len(ids)):
-                if ids[i] == landmarkIDs[0]:
-                    # First rotate towards it
-                    print(f"ids: {ids}, dists: {dists}, angles: {angles}")
-                    if angles[i] > 0:
-                        r.turnDegree(np.rad2deg(-angles[i]), "right")
-                        r.ds = robot_driving_states.DriveState.TURN
-                    else:
-                        r.turnDegree(np.rad2deg(angles[i]), "left")
-                        r.ds = robot_driving_states.DriveState.TURN
 
-                    while (r.ds == robot_driving_states.DriveState.TURN):
-                        if ctime + 0.001 < time.perf_counter():
-                            print("turning")
-                            r.update()
-                            ctime = time.perf_counter()
+    current_goal = 0
 
-                    # Drive towards it
-                    r.straight64(dists[i] - 20)
-                    r.ds = robot_driving_states.DriveState.STRAIGHT
+    while current_goal < 5:
+        tries = 0
+        while tries < 20:
+            ids, dists, angles = cam.detect_aruco_objects(cam.get_next_frame())
+            if ids is not None:
+                for i in range(0, len(ids)):
+                    if ids[i] == landmarkIDs[current_goal]:
+                        # First rotate towards it
+                        print(f"ids: {ids}, dists: {dists}, angles: {angles}")
+                        if angles[i] > 0:
+                            r.turnDegree(np.rad2deg(-angles[i]), "right")
+                            r.ds = robot_driving_states.DriveState.TURN
+                        else:
+                            r.turnDegree(np.rad2deg(angles[i]), "left")
+                            r.ds = robot_driving_states.DriveState.TURN
 
-                    while (r.ds == robot_driving_states.DriveState.STRAIGHT):
-                        if ctime + 0.001 < time.perf_counter():
-                            r.update()
-                            ctime = time.perf_counter()
-                        
-                    r.r.stop()
-                    tries = 30
-                    break
+                        while (r.ds == robot_driving_states.DriveState.TURN):
+                            if ctime + 0.001 < time.perf_counter():
+                                print("turning")
+                                r.update()
+                                ctime = time.perf_counter()
 
+                        # Drive towards it
+                        r.straight64(dists[i] - 20)
+                        r.ds = robot_driving_states.DriveState.STRAIGHT
+
+                        while (r.ds == robot_driving_states.DriveState.STRAIGHT):
+                            if ctime + 0.001 < time.perf_counter():
+                                r.update()
+                                ctime = time.perf_counter()
+                            
+                        r.r.stop()
+                        tries = 30
+                        current_goal += 1
+                        break
+
+            else:
+                tries += 1
+                print("Could not find L1 in this pic")
+
+        print(f"robot pose: x: {r.x}, y: {r.y}, theta: {np.rad2deg(r.theta)}")
+
+        # locate next landmark
+        theta_to_add = 0
+        if r.theta > 0:
+            theta_to_add = r.theta
         else:
-            tries += 1
-            print("Could not find L1 in this pic")
+            theta_to_add = -r.theta
 
-    print(f"robot pose: x: {r.x}, y: {r.y}, theta: {np.rad2deg(r.theta)}")
+        arc = np.arctan2(landmarks[landmarkIDs[current_goal]][1] -
+                         r.y, landmarks[landmarkIDs[current_goal]][0] - r.x)
+        print(f"arc: {np.rad2deg(arc)}")
+        degrees_to_turn = theta_to_add + arc
+        print(f"degrees to turn: {np.rad2deg(degrees_to_turn)}")
 
-    # locate next landmark
-    theta_to_add = 0
-    if r.theta > 0:
-        theta_to_add = r.theta
-    else:
-        theta_to_add = -r.theta
+        r.ds=robot_driving_states.DriveState.TURN
+        r.turnDegree(np.rad2deg(degrees_to_turn), "left")
 
-    arc = np.arctan2(landmarks[landmarkIDs[1]][1] -
-                     r.y, landmarks[landmarkIDs[1]][0] - r.x)
-    print(f"arc: {np.rad2deg(arc)}")
-    degrees_to_turn = theta_to_add + arc
-    print(f"degrees to turn: {np.rad2deg(degrees_to_turn)}")
+        while (r.ds == robot_driving_states.DriveState.TURN):
+                            if ctime + 0.001 < time.perf_counter():
+                                print("turning")
+                                r.update()
+                                ctime = time.perf_counter()
 
-    r.ds=robot_driving_states.DriveState.TURN
-    r.turnDegree(np.rad2deg(degrees_to_turn), "left")
-
-    while (r.ds == robot_driving_states.DriveState.TURN):
-                        if ctime + 0.001 < time.perf_counter():
-                            print("turning")
-                            r.update()
-                            ctime = time.perf_counter()
-
-    r.r.stop()
+        r.r.stop()
 
 if __name__ == '__main__':
     main()
