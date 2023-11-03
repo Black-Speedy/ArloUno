@@ -30,7 +30,7 @@ class RobotController():
         self.r.go_diff(65, 70, 1, 1)
         self.x = self.x + np.cos(self.theta) * cm
         self.y = self.y + np.sin(self.theta) * cm
-        self.stopTimer = time.perf_counter() + (cm * 2.24) / 100
+        self.stopTimer = time.perf_counter() + (cm * 2.74) / 100
 
     def turnDegree(self, degrees, direction):
         if direction == "left":
