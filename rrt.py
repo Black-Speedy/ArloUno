@@ -71,6 +71,7 @@ class RRT:
         self.node_list = [self.start]
 
         for i in range(self.max_iter):
+            print(f"i: {i}")
             rnd_node = self.get_random_node()
             nearest_ind = self.get_nearest_node_index(self.node_list, rnd_node)
             nearest_node = self.node_list[nearest_ind]
@@ -82,6 +83,7 @@ class RRT:
 
             #try to steer towards the goal if we are already close enough
             if self.node_list[-1].calc_distance_to(self.end) <= self.expand_dis:
+                print("reached goal?")
                 final_node = self.steer(self.node_list[-1], self.end,
                                         self.expand_dis)
                 if self.check_collision_free(final_node):
@@ -92,6 +94,7 @@ class RRT:
                 if writer is not None:
                     writer.grab_frame()
 
+        print("reached max iteration")
         return None  # cannot find path
 
     def steer(self, from_node, to_node, extend_length=float("inf")):
