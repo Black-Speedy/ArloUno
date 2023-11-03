@@ -36,6 +36,16 @@ def main():
 
     r = RobotController([], 0, 0, 0, FollowRRT=False)
 
+    r.straight64(100)
+    ctime = time.perf_counter()
+    while (r.ds == robot_driving_states.DriveState.STRAIGHT):
+        if ctime + 0.001 < time.perf_counter():
+            r.update()
+            ctime = time.perf_counter()
+
+    r.r.stop()
+    exit()
+
     # Find robot position
     foundPos = False
     theta_turned = 0.0
