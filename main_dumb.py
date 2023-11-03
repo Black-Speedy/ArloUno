@@ -167,8 +167,9 @@ def main():
                             r.update()
                             ctime = time.perf_counter()
                         
-                    tries = 30
                     r.r.stop()
+                    tries = 30
+                    break
 
         else:
             tries += 1
