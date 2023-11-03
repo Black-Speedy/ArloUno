@@ -93,25 +93,6 @@ def main():
     y = distance_to_A * math.cos(theta)
     x = distance_to_A * math.sin(theta)
     
-    angle = 0.0  # Default angle value
-
-# Check if the norms are not zero before calculating the angle
-    norm_pos = np.linalg.norm(pos_toL2vec)
-    norm_L1L2 = np.linalg.norm(L1L2vec)
-
-    if norm_pos != 0 and norm_L1L2 != 0:
-        dot_product = np.dot(pos_toL2vec, L1L2vec)
-        
-        if -1 <= dot_product / (norm_pos * norm_L1L2) <= 1:
-            angle = np.rad2deg(np.arccos(dot_product / (norm_pos * norm_L1L2)))
-        else:
-            print("Invalid dot product value (outside the range [-1, 1]).")
-    else:
-        print("One or both vector norms are zero.")
-
-    print(f"Pos to L1 angle: {angle}")
-
-    
 
     if landmarks_found[1] == landmarkIDs[1]:  # We found L1 then L2
         if theta_turned < 180:
@@ -193,11 +174,7 @@ def main():
         theta_to_add = r.theta
     else:
         theta_to_add: -r.theta
-
-    arc = np.arctan2(landmarks[landmarkIDs[1]][1] -
-                     r.y, landmarks[landmarkIDs[1]][0] - r.x)
-    print(f"arc: {arc}")
-    degrees_to_turn = theta_to_add + arc
+    degrees_to_turn = theta_to_add + np.arctan2(landmarks[landmarkIDs[1]][1] - r.y, landmarks[landmarkIDs[1]][0] - r.x)
     print(f"degrees to turn: {np.rad2deg(degrees_to_turn)}")
 
 
