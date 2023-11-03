@@ -114,6 +114,12 @@ def main():
 
     # turn back theta turned:
     r.turnDegree(theta_turned, "right")
+    r.ds = robot_driving_states.DriveState.TURN
+
+    while (r.ds == robot_driving_states.DriveState.TURN):
+        if ctime + 0.001 < time.perf_counter():
+            r.update()
+            ctime = time.perf_counter()
 
     # Take a picture and look for L1
     ids, dists, angles = cam.detect_aruco_objects(cam.get_next_frame())
