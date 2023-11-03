@@ -132,15 +132,14 @@ def main():
                     # First rotate towards it
                     print(f"ids: {ids}, dists: {dists}, angles: {angles}")
                     if angles[i] > 0:
-                        print("turning right")
                         r.turnDegree(np.rad2deg(-angles[i]), "right")
+                        r.ds = robot_driving_states.DriveState.TURN
                     else:
-                        print("turning left")
                         r.turnDegree(np.rad2deg(angles[i]), "left")
+                        r.ds = robot_driving_states.DriveState.TURN
 
                     while (r.ds == robot_driving_states.DriveState.TURN):
                         if ctime + 0.001 < time.perf_counter():
-                            print("spent time turning")
                             r.update()
                             ctime = time.perf_counter()
 
@@ -150,7 +149,6 @@ def main():
 
                     while (r.ds == robot_driving_states.DriveState.STRAIGHT):
                         if ctime + 0.001 < time.perf_counter():
-                            print("spent time driving")
                             r.update()
                             ctime = time.perf_counter()
                         
