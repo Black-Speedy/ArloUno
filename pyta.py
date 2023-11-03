@@ -25,5 +25,8 @@ y = ya + distance_to_A * math.sin(theta)
 
 print("Robot's position is: ", x, y)
 
-
-print(np.rad2deg(np.arctan2(3- 2, 0 - 1)))
+x1 = 146
+y1 = 111
+x2 = 0
+y2 = 300.0
+print(np.rad2deg(np.arctan2(y2 - y1, x2 - x1)))
