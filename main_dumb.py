@@ -64,12 +64,12 @@ def main():
 
     r = RobotController([], 0, 0, 0, FollowRRT=False)
 
-    for i in range(0, 4):
+    """ for i in range(0, 4):
         Turn_Robot(r, np.deg2rad(90), "left")
         while r.stopTimer > time.perf_counter():
             r.update()
     r.r.stop()
-    exit()
+    exit() """
 
     """ r.straight64(100)
     r.ds = robot_driving_states.DriveState.STRAIGHT
