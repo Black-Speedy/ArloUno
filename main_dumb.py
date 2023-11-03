@@ -97,10 +97,8 @@ def main():
     L1vec = np.array([landmarks[landmarks_found[0]][0], landmarks[landmarks_found[0]][1]])
     
     #Calculate angle between L1 and position vector
-    nom = np.rad2deg(np.arccos(np.dot(pos_vec, L1vec)
-    print(f"nom: {nom}")
-    de_nom = (np.linalg.norm(pos_vec) * np.linalg.norm(L1vec))))
-    print(f"denom: {denom}")
+    nom = np.rad2deg(np.arccos(np.dot(pos_vec, L1vec)))
+    de_nom = (np.linalg.norm(pos_vec) * np.linalg.norm(L1vec))
     angle = nom/denom
     print(f"Pos to L1 angle: {angle}")
     
