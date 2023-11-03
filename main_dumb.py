@@ -122,10 +122,10 @@ def main():
             ctime = time.perf_counter()
 
     # Take a picture and look for L1
-    ids, dists, angles = cam.detect_aruco_objects(cam.get_next_frame())
 
     tries = 0
     while tries < 20:
+        ids, dists, angles = cam.detect_aruco_objects(cam.get_next_frame())
         if ids is not None:
             for i in range(0, len(ids)):
                 if ids[i] == landmarkIDs[0]:
