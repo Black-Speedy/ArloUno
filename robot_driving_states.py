@@ -30,18 +30,18 @@ class RobotController():
         self.r.go_diff(65, 70, 1, 1)
         self.x = self.x + np.cos(self.theta) * cm
         self.y = self.y + np.sin(self.theta) * cm
-        self.stopTimer = time.perf_counter() + (cm * 2.24 * 1.25) / 100
+        self.stopTimer = time.perf_counter() + (cm * 2.24) / 100
         print(self.stopTimer)
 
     def turnDegree(self, degrees, direction):
         if direction == "left":
             self.r.go_diff(30, 30, 0, 1)
             self.theta += np.deg2rad(degrees)
-            self.stopTurnTimer = time.perf_counter() + (degrees / 90) * 1.95 * 2 #1.95
+            self.stopTurnTimer = time.perf_counter() + (degrees / 90) * 1.95 #1.95
         else:
             self.r.go_diff(30, 30, 1, 0)
             self.theta -= np.deg2rad(degrees)
-            self.stopTurnTimer = time.perf_counter() + (degrees / 90) * 1.75 * 2 #1.95
+            self.stopTurnTimer = time.perf_counter() + (degrees / 90) * 1.75 #1.95
 
     def update(self):
         if (self.ds == DriveState.SETUP):
