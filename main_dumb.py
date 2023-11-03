@@ -98,7 +98,13 @@ def main():
     L1L2vec = np.array([landmarks[landmarks_found[0]][0], landmarks[landmarks_found[0]][1]])
     
     #Calculate angle between L1 and position vector
+<<<<<<< HEAD
     angle = np.rad2deg(np.arccos(np.dot(pos_vec, L1L2vec) / (np.linalg.norm(pos_vec) * np.linalg.norm(L1L2vec))))
+=======
+    nom = np.rad2deg(np.arccos(np.dot(pos_vec, L1vec)))
+    de_nom = (np.linalg.norm(pos_vec) * np.linalg.norm(L1vec))
+    angle = nom/de_nom
+>>>>>>> 748075a787923946417b63c17ae8291e75d8b857
     print(f"Pos to L1 angle: {angle}")
     
 
@@ -166,8 +172,9 @@ def main():
                             r.update()
                             ctime = time.perf_counter()
                         
-                    tries = 30
                     r.r.stop()
+                    tries = 30
+                    break
 
         else:
             tries += 1
@@ -178,9 +185,9 @@ def main():
     # locate next landmark
     theta_to_add = 0
     if r.theta > 0:
-        theta_to_add = -r.theta
+        theta_to_add = r.theta
     else:
-        theta_to_add: r.theta
+        theta_to_add: -r.theta
     degrees_to_turn = theta_to_add + np.arctan2(landmarks[landmarkIDs[1]][1] - r.y, landmarks[landmarkIDs[1]][0] - r.x)
     print(f"degrees to turn: {np.rad2deg(degrees_to_turn)}")
 
