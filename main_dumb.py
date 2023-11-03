@@ -71,7 +71,7 @@ def main():
     r.r.stop()
     exit() """
 
-    """ r.straight64(100)
+    r.straight64(100)
     r.ds = robot_driving_states.DriveState.STRAIGHT
     ctime = time.perf_counter()
     while (r.ds == robot_driving_states.DriveState.STRAIGHT):
@@ -80,7 +80,7 @@ def main():
             ctime = time.perf_counter()
 
     r.r.stop()
-    exit() """
+    exit()
 
     # Find robot position
     foundPos = False
