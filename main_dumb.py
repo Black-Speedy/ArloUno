@@ -130,7 +130,7 @@ def main():
                 r.stopTimer = time.perf_counter() + 0.8                
 
         theta_turned = 0.0
-        landmarks_found = []
+        landmarks_found = [-1, -1, -1, -1]
 
         ctime = time.perf_counter()
 
@@ -150,11 +150,18 @@ def main():
                         continue
                     if ids[i] in landmarkIDs:
                         if ids[i] not in landmarks_found:
-                            landmarks_found.append(ids[i])
+                            # landmarks_found.append(ids[i])
+                            landmarks_found[ids[i]-1] = ids[i]
+                            if ids[i] == 1:
+                                theta_turned = 0.0
                         print(f"ids: {ids}, dists: {dists}, angles: {angles}")
                         landmark_dists[ids[i]] = (dists[i])
 
-            if (len(landmarks_found) == 2):
+            found = 0
+            for i in range(0, len(landmarks_found)):
+                if landmarks_found[i] != -1:
+                    found += 1
+            if (found == 2):
                 foundPos = True
                 break
             else:
@@ -169,7 +176,12 @@ def main():
 
     # Calculate robot position
     A_id = landmarks_found[0]
-    B_id = landmarks_found[1]
+
+    B_id = -1
+    if  landmarks_found[1] != -1:
+        B_id = landmarks_found[1]
+    else:
+        B_id = landmarks_found[2]
     distance_to_A = landmark_dists[A_id] + 22.5  # Distance to Landmark A
     distance_to_B = landmark_dists[B_id] + 22.5  # Distance to Landmark B
     # Distance between Landmark A and B
@@ -187,12 +199,17 @@ def main():
     y = distance_to_A * math.cos(theta)
     x = distance_to_A * math.sin(theta)
     
+    found_id = -1
+    for i in range(1, len(landmarks_found)):
+        if landmarks_found[i] != -1:
+            found_id = landmarks_found[i]
+            break
 
-    if landmarks_found[1] == landmarkIDs[1]:  # We found L1 then L2
+    if found_id == 2:  # We found L1 then L2
         if theta_turned < 180:
             x = -x
 
-    elif landmarks_found[1] == landmarkIDs[2]:  # We found L1 then L3
+    elif found_id == 3:  # We found L1 then L3
         if theta_turned > 180:
             tmp = x
             x = y
@@ -204,7 +221,7 @@ def main():
 
     # theta need to be adjusted, as we use the angle from the first point when we see the landmark.
     pos = (x, y, np.arctan2(
-        (landmarks[landmarks_found[1]][1] - y), (landmarks[landmarks_found[1]][0] - x)))
+        (landmarks[landmarks_found[found_id]][1] - y), (landmarks[landmarks_found[found_id]][0] - x)))
     print(f"robots theta: {pos[2]}, in deg {np.rad2deg(pos[2])}")
 
     r.x = pos[0]
