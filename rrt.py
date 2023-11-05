@@ -72,10 +72,14 @@ class RRT:
         animation: flag for animation on or off
         """
 
+        self.draw_graph()
+        plt.grid(True)
+        plt.savefig("map_with_path.png")
+    
+
         self.node_list = [self.start]
 
         for i in range(self.max_iter):
-            print(f"i: {i}")
             rnd_node = self.get_random_node()
             nearest_ind = self.get_nearest_node_index(self.node_list, rnd_node)
             nearest_node = self.node_list[nearest_ind]
@@ -247,18 +251,11 @@ def main():
                 writer.grab_frame()
 
    
-
-    print("plot 0")
     rrt.draw_graph()
-    print("plot 1")
     plt.plot([x for (x, y) in path], [y for (x, y) in path], '-r')
-    print("plot 2")
     plt.grid(True)
-    print("plot 3")
     plt.pause(0.01)  # Need for Mac
-    print("plot 4")
     plt.savefig("map_with_path.png")
-    print("plot 5")
     exit()
 
 if __name__ == '__main__':
