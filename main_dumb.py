@@ -156,6 +156,31 @@ def main():
             if (found >= 2):
                 theta_turned = theta_before_reset
                 foundPos = True
+
+                #############################################3
+                A_id = landmarks_found[0]
+
+                B_id = -1
+                if  landmarks_found[1] != -1:
+                    B_id = landmarks_found[1]
+                else:
+                    B_id = landmarks_found[2]
+
+                distance_to_A = landmark_dists[A_id] + 22.5  # Distance to Landmark A
+                distance_to_B = landmark_dists[B_id] + 22.5  # Distance to Landmark B
+                # Distance between Landmark A and B
+                dAB = np.sqrt((landmarks[A_id][0] - landmarks[B_id][0])
+                            ** 2 + (landmarks[A_id][1] - landmarks[B_id][1])**2)
+                dAB = dAB - 26
+
+                # Calculate robot's position
+                cos_theta = (distance_to_A**2 - distance_to_B **
+                            2 + dAB**2) / (2 * dAB * distance_to_A)
+                #print(f"before cos theta: {cos_theta}")
+                if cos_theta > 1 or cos_theta < -1:
+                    foundPos = False
+                #############################################3
+
                 break
             else:
                 if r.stopTimer < time.perf_counter():
