@@ -109,7 +109,7 @@ def main():
 
     while not foundPos:
         print(f"theta turnd: {theta_turned}")
-        if theta_turned >= 360:
+        if theta_turned >= 1:
             leftBlock, rightBlock, frontBlock = r.get_obstacle_distances()
 
             if frontBlock < 130:
