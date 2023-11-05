@@ -260,6 +260,8 @@ def main():
                     times_seen[ids[i] - 1] += 1
 
                 for i in range(0, len(ids)):
+                    if ids[i] > 4:
+                        continue
                     dists[i] = dists_sum[ids[i]-1] / times_seen[ids[i]-1]
                     angles[i] = angles_sum[ids[i]-1] / times_seen[ids[i]-1]
                 
