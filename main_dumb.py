@@ -15,19 +15,19 @@ robot_y = 0
 robot_theta = 0
 
 
-landmarkIDs = [8, 2, 3, 51]
+landmarkIDs = [1, 2, 3, 4]
 landmarks = {
-    8: (0.0, 0.0),  # Coordinates for L1
+    1: (0.0, 0.0),  # Coordinates for L1
     2: (0.0, 300.0),  # Cordinates for L2
-    3: (163.0, 0.0), # Cordinates for L3
-    51: (400.0, 300.0) # Cordinates for L4
+    3: (400.0, 0.0), # Cordinates for L3
+    4: (400.0, 300.0) # Cordinates for L4
 }
 
 landmark_dists = {
-    8: -1,
+    1: -1,
     2: -1,
     3: -1,
-    51: -1
+    4: -1
 }
 
 def Turn_Robot(r, theta, dir):
