@@ -120,7 +120,6 @@ class RobotController():
 
         elif (self.ds == DriveState.EXIT):
             print("EXIT!")
-            exit()
         
         """ if (self.theta > 360 or self.theta < 0):
             print(f"regulating theta from {self.theta} to {self.theta % 360}")
