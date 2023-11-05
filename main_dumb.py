@@ -75,9 +75,9 @@ def Turn_To_Landmark(r, landmarkID):
 
         r.ds=robot_driving_states.DriveState.TURN
         if degrees_to_turn > 0:
-            r.turnDegree(np.rad2deg(degrees_to_turn), "left")
+            r.turnDegree(np.rad2deg(degrees_to_turn) - 15, "left")
         else:
-            r.turnDegree(np.rad2deg(-degrees_to_turn), "right")
+            r.turnDegree(np.rad2deg(-degrees_to_turn) + 15, "right")
             
         ctime = time.perf_counter()
         while (r.ds == robot_driving_states.DriveState.TURN):
@@ -267,9 +267,7 @@ def main():
             r.update()
             ctime = time.perf_counter()
 
-    # Take a picture and look for L1
-
-
+    # Take picture and measure landmarks
     current_goal = 0
     turnTries = 0
     while current_goal < 5:
@@ -296,6 +294,7 @@ def main():
                     dists[i] = dists_sum[ids[i]-1] / times_seen[ids[i]-1]
                     angles[i] = angles_sum[ids[i]-1] / times_seen[ids[i]-1]
                 
+                # Check if we see the current goal
                 for i in range(0, len(ids)):
                     if ids[i] == landmarkIDs[current_goal]:
                         # First rotate towards it
