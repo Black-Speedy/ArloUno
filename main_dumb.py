@@ -192,6 +192,7 @@ def main():
                     if ids[i] == landmarkIDs[current_goal]:
                         # First rotate towards it
                         print(f"ids: {ids}, dists: {dists}, angles: {angles}")
+
                         if angles[i] > 0:
                             r.turnDegree(np.rad2deg(angles[i]), "left")
                             r.ds = robot_driving_states.DriveState.TURN
@@ -205,7 +206,7 @@ def main():
                                 ctime = time.perf_counter()
 
                         # Drive towards it
-                        r.straight64(dists[i] - 30)
+                        r.straight64(dists[i] - 20)
                         r.ds = robot_driving_states.DriveState.STRAIGHT
 
                         while (r.ds == robot_driving_states.DriveState.STRAIGHT):
@@ -238,6 +239,17 @@ def main():
                          r.y, landmarks[landmarkIDs[current_goal]][0] - r.x)
         print(f"arc: {np.rad2deg(arc)}")
         degrees_to_turn = arc - r.theta
+
+        if degrees_to_turn > 2*np.pi:
+            print(f"Degrees too large!!! {np.rad2deg(degrees_to_turn)}")
+            degrees_to_turn = degrees_to_turn % (np.pi * 2)
+
+        if np.rad2deg(degrees_to_turn) > 180:
+            degrees_to_turn = 2* np.pi - degrees_to_turn
+        elif np.rad2deg(degrees_to_turn) < -180:
+            degrees_to_turn = 2 * np.pi + degrees_to_turn
+
+
         print(f"degrees to turn: {np.rad2deg(degrees_to_turn)}")
 
         r.ds=robot_driving_states.DriveState.TURN
