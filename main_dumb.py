@@ -286,7 +286,7 @@ def main():
                                 ctime = time.perf_counter()
 
                         # Drive towards it
-                        r.straight64(dists[i] - 13)
+                        r.straight64(dists[i] - 8)
                         r.ds = robot_driving_states.DriveState.STRAIGHT
 
                         while (r.ds == robot_driving_states.DriveState.STRAIGHT):
