@@ -249,12 +249,26 @@ def main():
                 continue
             else:
                 # Drive 1 meter diagonally to the left, and try again
-                Turn_Robot(r, np.deg2rad(45), "left")
-                r.stopTimer = time.perf_counter() + 0.8
-                Drive_Robot(r, 100)
-                r.stopTimer = time.perf_counter() + 0.8
-                # degrees to turn
-                Turn_To_Landmark(r, current_goal)
+                leftBlock, rightBlock, frontBlock = r.get_obstacle_distances()
+
+                if leftBlock < 130:
+                    if rightBlock < 130:
+                        # drive 40 cm
+                        Drive_Robot(r, 40)
+                    # Turn right
+                    Turn_Robot(r, np.deg2rad(45), "right")
+                    r.stopTimer = time.perf_counter() + 0.8
+                    Drive_Robot(r, 100)
+                    r.stopTimer = time.perf_counter() + 0.8
+                    # degrees to turn
+                    Turn_To_Landmark(r, current_goal)
+                else:
+                    Turn_Robot(r, np.deg2rad(45), "left")
+                    r.stopTimer = time.perf_counter() + 0.8
+                    Drive_Robot(r, 100)
+                    r.stopTimer = time.perf_counter() + 0.8
+                    # degrees to turn
+                    Turn_To_Landmark(r, current_goal)
 
                 turnTries = 0
 

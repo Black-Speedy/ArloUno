@@ -41,6 +41,12 @@ class RobotController():
             self.r.go_diff(30, 30, 1, 0)
             self.theta -= np.deg2rad(degrees)
             self.stopTurnTimer = time.perf_counter() + (degrees / 90) * 1.75 #1.95
+    
+    def get_obstacle_distances(self):
+        left = self.r.read_left_ping_sensor()
+        right = self.r.read_right_ping_sensor()
+        front = self.r.read_front_ping_sensor()
+        return left, right, front
 
     def update(self):
         if (self.ds == DriveState.SETUP):
