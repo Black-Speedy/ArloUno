@@ -15,7 +15,7 @@ robot_y = 0
 robot_theta = 0
 
 
-landmarkIDs = [1, 2, 3, 4]
+landmarkIDs = [1, 2, 3, 4, 1]
 landmarks = {
     1: (0.0, 0.0),  # Coordinates for L1
     2: (0.0, 300.0),  # Cordinates for L2
@@ -111,8 +111,9 @@ def main():
         print(f"theta turnd: {theta_turned}")
         if theta_turned >= 1:
             leftBlock, rightBlock, frontBlock = r.get_obstacle_distances()
-
+            print("1")
             if frontBlock < 130:
+                print("2")
                 Drive_Robot(r, 100)
                 r.stopTimer = time.perf_counter() + 0.8
             elif leftBlock < 130:
