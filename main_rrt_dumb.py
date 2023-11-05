@@ -339,7 +339,7 @@ def main():
                 tries += 1
             else:
                 tries += 1
-        if tries == 20:
+        if tries == 6:
             Turn_Robot(r, np.deg2rad(15), "left")
 
             if turnTries < 24: 
