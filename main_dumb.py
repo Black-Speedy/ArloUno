@@ -139,11 +139,11 @@ def main():
                         continue
                     if ids[i] in landmarkIDs:
                         if ids[i] not in landmarks_found:
-                            # landmarks_found.append(ids[i])
+                            last_landmark_found = ids[i]
+
                             landmarks_found[ids[i]-1] = ids[i]
                             theta_before_reset = theta_turned
                             theta_turned = 0.0
-                            last_landmark_found = ids[i]
                         print(f"ids: {ids}, dists: {dists}, angles: {angles}")
                         landmark_dists[ids[i]] = (dists[i])
 
@@ -249,6 +249,20 @@ def main():
         while tries < 6:
             ids, dists, angles = cam.detect_aruco_objects(cam.get_next_frame())
             if ids is not None:
+                dists_sum = np.zeros(4)
+                angles_sum = np.zeros(4)
+                times_seen = np.zeros(4)
+                for i in range(0, len(ids)):
+                    if ids[i] > 4:
+                        continue
+                    dists_sum[ids[i] - 1] += dists[i]
+                    angles_sum[ids[i] - 1] += angles[i]
+                    times_seen[ids[i] - 1] += 1
+
+                for i in range(0, len(ids)):
+                    dists[i] = dists_sum[i] / times_seen[i]
+                    angles[i] = angles_sum[i] / times_seen[i]
+                
                 for i in range(0, len(ids)):
                     if ids[i] == landmarkIDs[current_goal]:
                         # First rotate towards it
