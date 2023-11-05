@@ -227,6 +227,7 @@ def main():
             Turn_Robot(r, np.deg2rad(15), "left")
 
             if turnTries < 24: 
+                print(f"turn tries used: {turnTries}")
                 turnTries += 1
                 continue
             else:
