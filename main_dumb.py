@@ -58,6 +58,40 @@ def Drive_Robot(r, dist):
 
     r.r.stop()
 
+def Turn_To_Landmark(r, landmarkID):
+        # locate next landmark
+        arc = np.arctan2(landmarks[landmarkIDs[landmarkID]][1] -
+                         r.y, landmarks[landmarkIDs[landmarkID]][0] - r.x)
+        print(f"arc: {np.rad2deg(arc)}")
+        degrees_to_turn = arc - r.theta
+
+        print(f"degrees to turn, before : {np.rad2deg(degrees_to_turn)}")
+
+        if np.abs(degrees_to_turn) > 2*np.pi:
+            print(f"Degrees too large!!! {np.rad2deg(degrees_to_turn)}")
+            degrees_to_turn = degrees_to_turn % (np.pi * 2)
+
+        if np.rad2deg(degrees_to_turn) > 180:
+            print(" case 1")
+            degrees_to_turn = degrees_to_turn - 2* np.pi
+        elif np.rad2deg(degrees_to_turn) < -180:
+            print(" case 2")
+            degrees_to_turn = 2 * np.pi + degrees_to_turn
+
+
+        print(f"degrees to turn, after: {np.rad2deg(degrees_to_turn)}")
+
+        r.ds=robot_driving_states.DriveState.TURN
+        if degrees_to_turn > 0:
+            r.turnDegree(np.rad2deg(degrees_to_turn), "left")
+        else:
+            r.turnDegree(np.rad2deg(-degrees_to_turn), "right")
+            
+        ctime = time.perf_counter()
+        while (r.ds == robot_driving_states.DriveState.TURN):
+                            if ctime + 0.001 < time.perf_counter():
+                                r.update()
+                                ctime = time.perf_counter()
 
 def main():
     cam = camera.Camera(0, 'arlo', useCaptureThread=True)
@@ -209,42 +243,21 @@ def main():
                 turnTries += 1
                 continue
             else:
-                print(f"Could not find L{current_goal + 1}")
+                # Drive 1 meter diagonally to the left, and try again
+                Turn_Robot(r, np.deg2rad(45), "left")
+                r.stopTimer = time.perf_counter() + 0.8
+                Drive_Robot(r, 100)
+                r.stopTimer = time.perf_counter() + 0.8
+                # degrees to turn
+                Turn_To_Landmark(r, current_goal)
+
+                turnTries = 0
+
 
         print(f"robot pose: x: {r.x}, y: {r.y}, theta: {np.rad2deg(r.theta)}")
 
-        # locate next landmark
-        arc = np.arctan2(landmarks[landmarkIDs[current_goal]][1] -
-                         r.y, landmarks[landmarkIDs[current_goal]][0] - r.x)
-        print(f"arc: {np.rad2deg(arc)}")
-        degrees_to_turn = arc - r.theta
+        Turn_To_Landmark(r, current_goal)
 
-        print(f"degrees to turn, before : {np.rad2deg(degrees_to_turn)}")
-
-        if np.abs(degrees_to_turn) > 2*np.pi:
-            print(f"Degrees too large!!! {np.rad2deg(degrees_to_turn)}")
-            degrees_to_turn = degrees_to_turn % (np.pi * 2)
-
-        if np.rad2deg(degrees_to_turn) > 180:
-            print(" case 1")
-            degrees_to_turn = degrees_to_turn - 2* np.pi
-        elif np.rad2deg(degrees_to_turn) < -180:
-            print(" case 2")
-            degrees_to_turn = 2 * np.pi + degrees_to_turn
-
-
-        print(f"degrees to turn, after: {np.rad2deg(degrees_to_turn)}")
-
-        r.ds=robot_driving_states.DriveState.TURN
-        if degrees_to_turn > 0:
-            r.turnDegree(np.rad2deg(degrees_to_turn), "left")
-        else:
-            r.turnDegree(np.rad2deg(-degrees_to_turn), "right")
-            
-        while (r.ds == robot_driving_states.DriveState.TURN):
-                            if ctime + 0.001 < time.perf_counter():
-                                r.update()
-                                ctime = time.perf_counter()
         print(f"Our current goal: {current_goal}")
         r.r.stop()
 
