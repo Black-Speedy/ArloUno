@@ -131,7 +131,7 @@ def main():
         else:
             if r.stopTimer < time.perf_counter():
                 # rotate slightly
-                r.turnDegree(15, "right")
+                r.turnDegree(15, "left")
                 r.ds = robot_driving_states.DriveState.TURN
                 theta_turned += 15
 
@@ -182,9 +182,9 @@ def main():
     # turn back theta turned:
     if theta_turned > 180:
         theta_turned = 360 - theta_turned
-        r.turnDegree(theta_turned, "right")
-    else:
         r.turnDegree(theta_turned, "left")
+    else:
+        r.turnDegree(theta_turned, "right")
         
     r.ds = robot_driving_states.DriveState.TURN
 
