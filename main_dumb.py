@@ -99,41 +99,70 @@ def main():
     r = RobotController([], 0, 0, 0, FollowRRT=False)
 
     # Find robot position
+
+    
+
     foundPos = False
+
+    search_tries = 0
     theta_turned = 0.0
 
-    landmarks_found = []
+    while not foundPos:
 
-    ctime = time.perf_counter()
+        if theta_turned >= 360:
+            leftBlock, rightBlock, frontBlock = r.get_obstacle_distances()
 
-    while (not foundPos):
-        if ctime + 0.001 < time.perf_counter():
-            r.update()
-            ctime = time.perf_counter()
+            if frontBlock < 130:
+                Drive_Robot(r, 100)
+                r.stopTimer = time.perf_counter() + 0.8
+            elif leftBlock < 130:
+                Turn_Robot(r, np.deg2rad(45), "left")
+                r.stopTimer = time.perf_counter() + 0.8
+                Drive_Robot(r, 100)
+                r.stopTimer = time.perf_counter() + 0.8
+            elif rightBlock < 130:
+                # Turn right
+                Turn_Robot(r, np.deg2rad(45), "right")
+                r.stopTimer = time.perf_counter() + 0.8
+                Drive_Robot(r, 100)
+                r.stopTimer = time.perf_counter() + 0.8                
 
-        if r.ds == robot_driving_states.DriveState.TURN:
-            continue
+        theta_turned = 0.0
+        landmarks_found = []
 
-        ids, dists, angles = cam.detect_aruco_objects(cam.get_next_frame())
+        ctime = time.perf_counter()
 
-        if ids is not None:
-            for i in range(0, len(ids)):
-                if ids[i] == landmarkIDs[3]:
-                    continue
-                if ids[i] in landmarkIDs:
-                    if ids[i] not in landmarks_found:
-                        landmarks_found.append(ids[i])
-                    print(f"ids: {ids}, dists: {dists}, angles: {angles}")
-                    landmark_dists[ids[i]] = (dists[i])
+        while (theta_turned < 360 or not foundPos):
+            if ctime + 0.001 < time.perf_counter():
+                r.update()
+                ctime = time.perf_counter()
 
-        if (len(landmarks_found) == 2):
-            foundPos = True
-        else:
-            if r.stopTimer < time.perf_counter():
-                # rotate slightly
-                r.turnDegree(15, "left")
-                r.ds = robot_driving_states.DriveState.TURN
-                theta_turned += 15
+            if r.ds == robot_driving_states.DriveState.TURN:
+                continue
+
+            ids, dists, angles = cam.detect_aruco_objects(cam.get_next_frame())
+
+            if ids is not None:
+                for i in range(0, len(ids)):
+                    if ids[i] == landmarkIDs[3]:
+                        continue
+                    if ids[i] in landmarkIDs:
+                        if ids[i] not in landmarks_found:
+                            landmarks_found.append(ids[i])
+                        print(f"ids: {ids}, dists: {dists}, angles: {angles}")
+                        landmark_dists[ids[i]] = (dists[i])
+
+            if (len(landmarks_found) == 2):
+                foundPos = True
+            else:
+                if r.stopTimer < time.perf_counter():
+                    # rotate slightly
+                    r.turnDegree(15, "left")
+                    r.ds = robot_driving_states.DriveState.TURN
+                    theta_turned += 15
+                    
+
+            
 
     # Calculate robot position
     A_id = landmarks_found[0]
