@@ -263,7 +263,7 @@ def main():
     while current_goal < 5:
         tries = 0
         print("1")
-        while tries < 20:
+        while tries < 6:
             ids, dists, angles = cam.detect_aruco_objects(cam.get_next_frame())
             if ids is not None:
                 for i in range(0, len(ids)):
