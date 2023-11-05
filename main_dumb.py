@@ -141,7 +141,7 @@ def main():
                         if ids[i] not in landmarks_found:
                             last_landmark_found = ids[i]
 
-                            landmarks_found[ids[i]-1] = ids[i]
+                            landmarks_found[landmarkIDs[ids[i]]-1] = ids[i]
                             theta_before_reset = theta_turned
                             theta_turned = 0.0
                         print(f"ids: {ids}, dists: {dists}, angles: {angles}")
@@ -282,17 +282,17 @@ def main():
                 angles_sum = np.zeros(4)
                 times_seen = np.zeros(4)
                 for i in range(0, len(ids)):
-                    if ids[i] > 4:
+                    if landmarkIDs[ids[i]] > 4:
                         continue
-                    dists_sum[ids[i] - 1] += dists[i]
-                    angles_sum[ids[i] - 1] += angles[i]
-                    times_seen[ids[i] - 1] += 1
+                    dists_sum[landmarkIDs[ids[i]] - 1] += dists[i]
+                    angles_sum[landmarkIDs[ids[i]] - 1] += angles[i]
+                    times_seen[landmarkIDs[ids[i]] - 1] += 1
 
                 for i in range(0, len(ids)):
-                    if ids[i] > 4:
+                    if landmarkIDs[ids[i]] > 4:
                         continue
-                    dists[i] = dists_sum[ids[i]-1] / times_seen[ids[i]-1]
-                    angles[i] = angles_sum[ids[i]-1] / times_seen[ids[i]-1]
+                    dists[i] = dists_sum[landmarkIDs[ids[i]]-1] / times_seen[landmarkIDs[ids[i]]-1]
+                    angles[i] = angles_sum[landmarkIDs[ids[i]]-1] / times_seen[landmarkIDs[ids[i]]-1]
                 
                 # Check if we see the current goal
                 for i in range(0, len(ids)):
