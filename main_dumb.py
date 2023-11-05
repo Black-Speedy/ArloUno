@@ -319,7 +319,7 @@ def main():
 
         Turn_To_Landmark(r, current_goal)
 
-        print(f"Our current goal: {current_goal}")
+        print(f"Our current goal: L{landmarkIDs[current_goal]}")
         r.r.stop()
 
 if __name__ == '__main__':
