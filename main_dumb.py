@@ -221,7 +221,7 @@ def main():
                         tries = 30
                         current_goal += 1
                         break
-
+                tries += 1
             else:
                 tries += 1
         if tries == 20:
@@ -269,4 +269,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-    
