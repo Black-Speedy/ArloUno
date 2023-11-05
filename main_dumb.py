@@ -182,9 +182,10 @@ def main():
 
     current_goal = 0
     turnTries = 0
-
+    print("0")
     while current_goal < 5:
         tries = 0
+        print("1")
         while tries < 20:
             ids, dists, angles = cam.detect_aruco_objects(cam.get_next_frame())
             if ids is not None:
@@ -208,6 +209,7 @@ def main():
                         # Drive towards it
                         r.straight64(dists[i] - 20)
                         r.ds = robot_driving_states.DriveState.STRAIGHT
+                        print("2")
 
                         while (r.ds == robot_driving_states.DriveState.STRAIGHT):
                             if ctime + 0.001 < time.perf_counter():
@@ -222,7 +224,6 @@ def main():
 
             else:
                 tries += 1
-
         if tries == 20:
             Turn_Robot(r, np.deg2rad(15), "left")
 
@@ -263,8 +264,9 @@ def main():
                             if ctime + 0.001 < time.perf_counter():
                                 r.update()
                                 ctime = time.perf_counter()
-
+        print(f"Our current goal: {current_goal}")
         r.r.stop()
 
 if __name__ == '__main__':
     main()
+    
