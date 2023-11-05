@@ -160,6 +160,7 @@ def main():
             found = 0
             for i in range(0, len(landmarks_found)):
                 if landmarks_found[i] != -1:
+                    print(f"founds: {landmarks_found[i]}")
                     found += 1
             if (found == 2):
                 foundPos = True
