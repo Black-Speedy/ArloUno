@@ -132,7 +132,7 @@ def main():
 
         ctime = time.perf_counter()
 
-        while (theta_turned < 360 or not foundPos):
+        while (theta_turned < 360):
             if ctime + 0.001 < time.perf_counter():
                 r.update()
                 ctime = time.perf_counter()
@@ -154,6 +154,7 @@ def main():
 
             if (len(landmarks_found) == 2):
                 foundPos = True
+                break
             else:
                 if r.stopTimer < time.perf_counter():
                     # rotate slightly
