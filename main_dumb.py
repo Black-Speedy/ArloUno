@@ -219,17 +219,21 @@ def main():
         print(f"arc: {np.rad2deg(arc)}")
         degrees_to_turn = arc - r.theta
 
+        print(f"degrees to turn, before : {np.rad2deg(degrees_to_turn)}")
+
         if np.abs(degrees_to_turn) > 2*np.pi:
             print(f"Degrees too large!!! {np.rad2deg(degrees_to_turn)}")
             degrees_to_turn = degrees_to_turn % (np.pi * 2)
 
         if np.rad2deg(degrees_to_turn) > 180:
+            print(" case 1")
             degrees_to_turn = 2* np.pi - degrees_to_turn
         elif np.rad2deg(degrees_to_turn) < -180:
+            print(" case 2")
             degrees_to_turn = (-degrees_to_turn) - (2 * np.pi) 
 
 
-        print(f"degrees to turn: {np.rad2deg(degrees_to_turn)}")
+        print(f"degrees to turn, after: {np.rad2deg(degrees_to_turn)}")
 
         r.ds=robot_driving_states.DriveState.TURN
         if degrees_to_turn > 0:
