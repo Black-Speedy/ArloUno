@@ -113,16 +113,16 @@ def main():
             leftBlock, rightBlock, frontBlock = r.get_obstacle_distances()
             print(f"left: {leftBlock}, right: {rightBlock}, front: {frontBlock}")
             print("1")
-            if frontBlock < 1300:
+            if frontBlock > 1300:
                 print("2")
                 Drive_Robot(r, 100)
                 r.stopTimer = time.perf_counter() + 0.8
-            elif leftBlock < 1100:
+            elif leftBlock > 1100:
                 Turn_Robot(r, np.deg2rad(45), "left")
                 r.stopTimer = time.perf_counter() + 0.8
                 Drive_Robot(r, 100)
                 r.stopTimer = time.perf_counter() + 0.8
-            elif rightBlock < 1100:
+            elif rightBlock > 1100:
                 # Turn right
                 Turn_Robot(r, np.deg2rad(45), "right")
                 r.stopTimer = time.perf_counter() + 0.8
