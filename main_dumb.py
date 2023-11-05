@@ -130,7 +130,7 @@ def main():
                 r.stopTimer = time.perf_counter() + 0.8                
 
         theta_turned = 0.0
-        landmarks_found = [-1, -1, -1, -1]
+        landmarks_found = [-1, -1, -1]
 
         ctime = time.perf_counter()
 
@@ -222,7 +222,7 @@ def main():
 
     # theta need to be adjusted, as we use the angle from the first point when we see the landmark.
     pos = (x, y, np.arctan2(
-        (landmarks[landmarks_found[found_id]][1] - y), (landmarks[landmarks_found[found_id]][0] - x)))
+        (landmarks[landmarks_found[found_id-1]][1] - y), (landmarks[landmarks_found[found_id-1]][0] - x)))
     print(f"robots theta: {pos[2]}, in deg {np.rad2deg(pos[2])}")
 
     r.x = pos[0]
