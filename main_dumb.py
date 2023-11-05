@@ -227,7 +227,7 @@ def main():
 
         if np.rad2deg(degrees_to_turn) > 180:
             print(" case 1")
-            degrees_to_turn = 2* np.pi - degrees_to_turn
+            degrees_to_turn = degrees_to_turn - 2* np.pi
         elif np.rad2deg(degrees_to_turn) < -180:
             print(" case 2")
             degrees_to_turn = (-degrees_to_turn) - (2 * np.pi) 
