@@ -15,16 +15,16 @@ robot_y = 0
 robot_theta = 0
 
 
-landmarkIDs = [7, 2, 3, 4, 7]
+landmarkIDs = [1, 2, 3, 4, 1]
 landmarks = {
-    7: (0.0, 0.0),  # Coordinates for L1
+    1: (0.0, 0.0),  # Coordinates for L1
     2: (0.0, 300.0),  # Cordinates for L2
     3: (400.0, 0.0), # Cordinates for L3
     4: (400.0, 300.0) # Cordinates for L4
 }
 
 landmark_dists = {
-    7: -1,
+    1: -1,
     2: -1,
     3: -1,
     4: -1
