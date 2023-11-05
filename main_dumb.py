@@ -178,6 +178,7 @@ def main():
     # Distance between Landmark A and B
     dAB = np.sqrt((landmarks[A_id][0] - landmarks[B_id][0])
                   ** 2 + (landmarks[A_id][1] - landmarks[B_id][1])**2)
+    dAB = dAB - 26
 
     # Calculate robot's position
     cos_theta = (distance_to_A**2 - distance_to_B **
