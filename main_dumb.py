@@ -131,8 +131,6 @@ def main():
 
             ids, dists, angles = cam.detect_aruco_objects(cam.get_next_frame())
 
-            first_find = False
-
             theta_before_reset = 0
 
             if ids is not None:
@@ -269,7 +267,7 @@ def main():
                                 ctime = time.perf_counter()
 
                         # Drive towards it
-                        r.straight64(dists[i] - 20)
+                        r.straight64(dists[i] - 13)
                         r.ds = robot_driving_states.DriveState.STRAIGHT
 
                         while (r.ds == robot_driving_states.DriveState.STRAIGHT):
