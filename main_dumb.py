@@ -219,14 +219,14 @@ def main():
         print(f"arc: {np.rad2deg(arc)}")
         degrees_to_turn = arc - r.theta
 
-        if degrees_to_turn > 2*np.pi:
+        if np.abs(degrees_to_turn) > 2*np.pi:
             print(f"Degrees too large!!! {np.rad2deg(degrees_to_turn)}")
             degrees_to_turn = degrees_to_turn % (np.pi * 2)
 
         if np.rad2deg(degrees_to_turn) > 180:
             degrees_to_turn = 2* np.pi - degrees_to_turn
         elif np.rad2deg(degrees_to_turn) < -180:
-            degrees_to_turn = 2 * np.pi + degrees_to_turn
+            degrees_to_turn = (-degrees_to_turn) - (2 * np.pi) 
 
 
         print(f"degrees to turn: {np.rad2deg(degrees_to_turn)}")
