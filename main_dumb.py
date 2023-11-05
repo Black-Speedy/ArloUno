@@ -111,6 +111,7 @@ def main():
         print(f"theta turnd: {theta_turned}")
         if theta_turned >= 1:
             leftBlock, rightBlock, frontBlock = r.get_obstacle_distances()
+            print(f"left: {leftBlock}, right: {rightBlock}, front: {frontBlock}")
             print("1")
             if frontBlock < 130:
                 print("2")
