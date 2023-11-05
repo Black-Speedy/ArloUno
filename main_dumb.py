@@ -62,24 +62,16 @@ def Turn_To_Landmark(r, landmarkID):
         # locate next landmark
         arc = np.arctan2(landmarks[landmarkIDs[landmarkID]][1] -
                          r.y, landmarks[landmarkIDs[landmarkID]][0] - r.x)
-        print(f"arc: {np.rad2deg(arc)}")
         degrees_to_turn = arc - r.theta
-
-        print(f"degrees to turn, before : {np.rad2deg(degrees_to_turn)}")
 
         if np.abs(degrees_to_turn) > 2*np.pi:
             print(f"Degrees too large!!! {np.rad2deg(degrees_to_turn)}")
             degrees_to_turn = degrees_to_turn % (np.pi * 2)
 
         if np.rad2deg(degrees_to_turn) > 180:
-            print(" case 1")
             degrees_to_turn = degrees_to_turn - 2* np.pi
         elif np.rad2deg(degrees_to_turn) < -180:
-            print(" case 2")
             degrees_to_turn = 2 * np.pi + degrees_to_turn
-
-
-        print(f"degrees to turn, after: {np.rad2deg(degrees_to_turn)}")
 
         r.ds=robot_driving_states.DriveState.TURN
         if degrees_to_turn > 0:
@@ -106,13 +98,10 @@ def main():
     last_landmark_found = -1
 
     while not foundPos:
-        print(f"theta turnd: {theta_turned}")
         if theta_turned >= 1:
             leftBlock, rightBlock, frontBlock = r.get_obstacle_distances()
             print(f"left: {leftBlock}, right: {rightBlock}, front: {frontBlock}")
-            print("1")
             if frontBlock > 1300:
-                print("2")
                 Drive_Robot(r, 100)
                 r.stopTimer = time.perf_counter() + 0.8
             elif leftBlock > 1100:
@@ -163,7 +152,6 @@ def main():
             found = 0
             for i in range(0, len(landmarks_found)):
                 if landmarks_found[i] != -1:
-                    print(f"founds: {landmarks_found[i]}")
                     found += 1
                 elif i == 0:
                     break
@@ -192,12 +180,11 @@ def main():
     # Distance between Landmark A and B
     dAB = np.sqrt((landmarks[A_id][0] - landmarks[B_id][0])
                   ** 2 + (landmarks[A_id][1] - landmarks[B_id][1])**2)
-    print(dAB)
 
     # Calculate robot's position
     cos_theta = (distance_to_A**2 - distance_to_B **
                  2 + dAB**2) / (2 * dAB * distance_to_A)
-    print(f"before cos theta: {cos_theta}")
+    #print(f"before cos theta: {cos_theta}")
 
     theta = math.acos(cos_theta)
 
@@ -259,10 +246,8 @@ def main():
 
     current_goal = 0
     turnTries = 0
-    print("0")
     while current_goal < 5:
         tries = 0
-        print("1")
         while tries < 6:
             ids, dists, angles = cam.detect_aruco_objects(cam.get_next_frame())
             if ids is not None:
@@ -286,7 +271,6 @@ def main():
                         # Drive towards it
                         r.straight64(dists[i] - 20)
                         r.ds = robot_driving_states.DriveState.STRAIGHT
-                        print("2")
 
                         while (r.ds == robot_driving_states.DriveState.STRAIGHT):
                             if ctime + 0.001 < time.perf_counter():
@@ -305,7 +289,6 @@ def main():
             Turn_Robot(r, np.deg2rad(15), "left")
 
             if turnTries < 24: 
-                print(f"turn tries used: {turnTries}")
                 turnTries += 1
                 continue
             else:
