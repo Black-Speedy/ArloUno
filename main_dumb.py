@@ -99,12 +99,8 @@ def main():
     r = RobotController([], 0, 0, 0, FollowRRT=False)
 
     # Find robot position
-
-    
-
     foundPos = False
 
-    search_tries = 0
     theta_turned = 0.0
 
     while not foundPos:
@@ -144,6 +140,8 @@ def main():
 
             ids, dists, angles = cam.detect_aruco_objects(cam.get_next_frame())
 
+            first_find = False
+
             if ids is not None:
                 for i in range(0, len(ids)):
                     if ids[i] == landmarkIDs[3]:
@@ -162,7 +160,9 @@ def main():
                 if landmarks_found[i] != -1:
                     print(f"founds: {landmarks_found[i]}")
                     found += 1
-            if (found == 2):
+                elif i == 0:
+                    break
+            if (found >= 2):
                 foundPos = True
                 break
             else:
@@ -172,9 +172,6 @@ def main():
                     r.ds = robot_driving_states.DriveState.TURN
                     theta_turned += 15
                     
-
-            
-
     # Calculate robot position
     A_id = landmarks_found[0]
 
