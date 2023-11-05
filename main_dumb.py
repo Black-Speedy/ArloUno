@@ -248,6 +248,8 @@ def main():
         tries = 0
         while tries < 6:
             ids, dists, angles = cam.detect_aruco_objects(cam.get_next_frame())
+            if tries == 0:
+                continue
             if ids is not None:
                 dists_sum = np.zeros(4)
                 angles_sum = np.zeros(4)
