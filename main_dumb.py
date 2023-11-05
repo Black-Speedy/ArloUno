@@ -64,29 +64,6 @@ def main():
 
     r = RobotController([], 0, 0, 0, FollowRRT=False)
 
-    """ for i in range(0, 4):
-        Turn_Robot(r, np.deg2rad(90), "left")
-        while r.stopTimer > time.perf_counter():
-            r.update()
-    r.r.stop()
-    exit() """
-
-    """ print("Starting robot")
-    print("Robot started")
-    print("Robot state set to straight")
-    ctime = time.perf_counter()
-    r.ds = robot_driving_states.DriveState.STRAIGHT
-    print(f"ctime: {ctime}")
-    r.straight64(100)
-    while (r.ds == robot_driving_states.DriveState.STRAIGHT):
-        if ctime + 0.001 < time.perf_counter():
-            print(f"robot state: {r.ds}")
-            r.update()
-            ctime = time.perf_counter()
-    print("Robot stopped")
-    r.r.stop()
-    exit() """
-
     # Find robot position
     foundPos = False
     theta_turned = 0.0
@@ -107,7 +84,7 @@ def main():
 
         if ids is not None:
             for i in range(0, len(ids)):
-                if ids[i] == 51:
+                if ids[i] == landmarkIDs[3]:
                     continue
                 if ids[i] in landmarkIDs:
                     if ids[i] not in landmarks_found:
