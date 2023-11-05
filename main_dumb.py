@@ -103,6 +103,8 @@ def main():
 
     theta_turned = 0.0
 
+    last_landmark_found = -1
+
     while not foundPos:
         print(f"theta turnd: {theta_turned}")
         if theta_turned >= 1:
@@ -142,6 +144,8 @@ def main():
 
             first_find = False
 
+            theta_before_reset = 0
+
             if ids is not None:
                 for i in range(0, len(ids)):
                     if ids[i] == landmarkIDs[3]:
@@ -150,8 +154,9 @@ def main():
                         if ids[i] not in landmarks_found:
                             # landmarks_found.append(ids[i])
                             landmarks_found[ids[i]-1] = ids[i]
-                            if ids[i] == 1:
-                                theta_turned = 0.0
+                            theta_before_reset = theta_turned
+                            theta_turned = 0.0
+                            last_landmark_found = ids[i]
                         print(f"ids: {ids}, dists: {dists}, angles: {angles}")
                         landmark_dists[ids[i]] = (dists[i])
 
@@ -163,6 +168,7 @@ def main():
                 elif i == 0:
                     break
             if (found >= 2):
+                theta_turned = theta_before_reset
                 foundPos = True
                 break
             else:
@@ -180,6 +186,7 @@ def main():
         B_id = landmarks_found[1]
     else:
         B_id = landmarks_found[2]
+
     distance_to_A = landmark_dists[A_id] + 22.5  # Distance to Landmark A
     distance_to_B = landmark_dists[B_id] + 22.5  # Distance to Landmark B
     # Distance between Landmark A and B
@@ -203,6 +210,9 @@ def main():
             found_id = landmarks_found[i]
             break
 
+    if last_landmark_found == 1:
+        theta_turned = np.pi * 2 - theta_turned 
+
     if found_id == 2:  # We found L1 then L2
         if theta_turned < 180:
             x = -x
@@ -219,7 +229,11 @@ def main():
 
     # theta need to be adjusted, as we use the angle from the first point when we see the landmark.
     pos = (x, y, np.arctan2(
-        (landmarks[landmarks_found[found_id-1]][1] - y), (landmarks[landmarks_found[found_id-1]][0] - x)))
+        (landmarks[landmarks_found[last_landmark_found-1]][1] - y),
+        (landmarks[landmarks_found[last_landmark_found-1]][0] - x)))
+    
+
+    
     print(f"robots theta: {pos[2]}, in deg {np.rad2deg(pos[2])}")
 
     r.x = pos[0]
